@@ -37,6 +37,8 @@
     "./src/app/home/home.ts",
     "./src/app/home/services/title.spec.ts",
     "./src/app/home/services/title.ts",
+    "./src/app/navbar/navbar.spec.ts",
+    "./src/app/navbar/navbar.ts",
     "./src/custom-typings.d.ts",
     "./src/main.ts",
     "./src/polyfills.ts",

@@ -17,7 +17,7 @@ var metadata = {
     title: 'Freedom Mortgage',
     baseUrl: '/',
     host: 'localhost',
-    port: 3000,
+    port: 9000,
     ENV: ENV
 };
 /*
@@ -69,7 +69,7 @@ module.exports = {
 
             // if you add a loader include the resolve file extension above
 
-            { test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] },
+            { test: /.scss$/, loaders: ['raw-loader','sass-loader'] },
 
             { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
 

@@ -1,0 +1,15 @@
+.navbar {
+  height: 60px;
+  .navbar-brand {
+    height: 100%;
+    padding: 0px;
+    img {
+      height: 56px;
+    }
+  }
+  .nav {
+    li.active {
+      background-color: red;
+    }
+  }
+}
