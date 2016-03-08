@@ -1,6 +1,8 @@
 /*
  * Providers provided by Angular
  */
+import 'jquery';
+import 'bootstrap-loader';
 import * as ngCore from 'angular2/core';
 import * as browser from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';

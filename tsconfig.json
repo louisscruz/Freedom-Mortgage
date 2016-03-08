@@ -20,5 +20,27 @@
   ],
   "compileOnSave": false,
   "buildOnSave": false,
-  "atom": { "rewriteTsconfig": false }
+  "atom": {
+    "rewriteTsconfig": false
+  },
+  "files": [
+    "./src/app/about/about.spec.ts",
+    "./src/app/about/about.ts",
+    "./src/app/app.e2e.ts",
+    "./src/app/app.spec.ts",
+    "./src/app/app.ts",
+    "./src/app/directives/router-active.ts",
+    "./src/app/home/directives/x-large.spec.ts",
+    "./src/app/home/directives/x-large.ts",
+    "./src/app/home/home.e2e.ts",
+    "./src/app/home/home.spec.ts",
+    "./src/app/home/home.ts",
+    "./src/app/home/services/title.spec.ts",
+    "./src/app/home/services/title.ts",
+    "./src/custom-typings.d.ts",
+    "./src/main.ts",
+    "./src/polyfills.ts",
+    "src/custom-typings.d.ts",
+    "typings/browser.d.ts"
+  ]
 }
