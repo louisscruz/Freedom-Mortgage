@@ -29,6 +29,7 @@
     "./src/app/app.e2e.ts",
     "./src/app/app.spec.ts",
     "./src/app/app.ts",
+    "./src/app/contact/contact.ts",
     "./src/app/directives/router-active.ts",
     "./src/app/home/directives/x-large.spec.ts",
     "./src/app/home/directives/x-large.ts",

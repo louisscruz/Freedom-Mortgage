@@ -28,12 +28,7 @@ import {Home} from './home/home';
       <router-outlet></router-outlet>
     </main>
 
-    <footer>
-      WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a>
-      <div>
-        <img [src]="angularclassLogo" width="10%">
-      </div>
-    </footer>
+    <footer></footer>
   `
 })
 @RouteConfig([
@@ -41,6 +36,7 @@ import {Home} from './home/home';
   { path: '/home', component: Home, name: 'Home' },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   { path: '/about', loader: () => require('es6-promise!./about/about')('About'), name: 'About' },
+  { path: '/contact', loader: () => require('es6-promise!./contact/contact')('Contact'), name: 'Contact'},
   { path: '/**', redirectTo: ['Index'] }
 ])
 export class App {
