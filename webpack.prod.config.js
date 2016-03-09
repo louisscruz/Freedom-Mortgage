@@ -16,6 +16,7 @@ var CompressionPlugin = require('compression-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var WebpackMd5Hash    = require('webpack-md5-hash');
+const autoprefixer = require('autoprefixer');
 var ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 var HOST = process.env.HOST || 'localhost';
 var PORT = process.env.PORT || 8080;
@@ -103,6 +104,10 @@ module.exports = {
         loader: 'raw-loader',
         exclude: [ helpers.root('node_modules') ]
       },
+      { test: /.scss$/, loaders: ['raw-loader','sass-loader'] },
+      { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
+      // Bootstrap 4
+      { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
 
       // support for .html as raw text
       {
@@ -121,7 +126,12 @@ module.exports = {
 
   },
 
+  postcss: [ autoprefixer ],
+
   plugins: [
+    /*new webpack.ProvidePlugin({
+      "window.Tether": "tether"
+    }),*/
     new WebpackMd5Hash(),
     new DedupePlugin(),
     new OccurenceOrderPlugin(true),
@@ -163,7 +173,34 @@ module.exports = {
       // mangle: { screw_ie8 : true },//prod
       mangle: {
         screw_ie8 : true,
-        except: ['RouterLink', 'NgFor', 'NgModel'] // needed for uglify RouterLink problem
+        except: [
+          'RouterActive',
+          'RouterLink',
+          'RouterOutlet',
+          'NgFor',
+          'NgIf',
+          'NgClass',
+          'NgSwitch',
+          'NgStyle',
+          'NgSwitchDefault',
+          'NgModel',
+          'NgControl',
+          'NgFormControl',
+          'NgForm',
+          'AsyncPipe',
+          'DatePipe',
+          'JsonPipe',
+          'NumberPipe',
+          'DecimalPipe',
+          'PercentPipe',
+          'CurrencyPipe',
+          'LowerCasePipe',
+          'UpperCasePipe',
+          'SlicePipe',
+          'ReplacePipe',
+          'I18nPluralPipe',
+          'I18nSelectPipe'
+        ] // needed for uglify RouterLink problem
       },// prod
       compress : { screw_ie8 : true },//prod
       comments: false//prod

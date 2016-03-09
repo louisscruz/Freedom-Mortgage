@@ -18,7 +18,7 @@ import {Home} from './home/home';
   providers: [ ...FORM_PROVIDERS ],
   directives: [ ...ROUTER_DIRECTIVES, RouterActive, Navbar ],
   pipes: [],
-  styles: [],
+  styles: [require('./app.scss')],
   template: `
     <header>
       <navbar></navbar>
@@ -36,7 +36,12 @@ import {Home} from './home/home';
   { path: '/home', component: Home, name: 'Home' },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   { path: '/about', loader: () => require('es6-promise!./about/about')('About'), name: 'About' },
-  { path: '/contact', loader: () => require('es6-promise!./contact/contact')('Contact'), name: 'Contact'},
+  {
+    path: '/contact',
+    loader: () => require('es6-promise!./contact/contact')('Contact'),
+    name: 'Contact'
+  },
+  { path: '/apply', loader: () => require('es6-promise!./apply/apply')('Apply'), name: 'Apply'},
   { path: '/**', redirectTo: ['Index'] }
 ])
 export class App {

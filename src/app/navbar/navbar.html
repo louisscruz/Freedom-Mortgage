@@ -1,7 +1,8 @@
-<div class="container">
-  <nav class="navbar col-xs-12">
+<div class="navigation container">
+  <nav class="navbar">
+    <div class="col-xs-12">
     <a class="navbar-brand"><img [src]="freedomMortgageLogo"></a>
-    <div class="">
+    <div class="hidden-sm-down">
       <ul class="nav navbar-nav">
         <li class="nav-item" router-active>
           <a [routerLink]=" ['Home'] " class="nav-link">Home</a>
@@ -14,5 +15,37 @@
         </li>
       </ul>
     </div>
+    <div class="pull-xs-right hidden-md-up">
+      <button class="btn btn-primary navbar-toggler" type="button" (click)="toggleCollapse()" [class.collapsed]="isCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+    </div>
+    <div class="pull-xs-right hidden-sm-down">
+      <ul class="nav navbar-nav hidden-sm-down">
+        <li class="nav-item">
+          <div class="hidden-md-down">
+            <button class="btn btn-success" [routerLink]=" ['Apply'] "><i class="fa fa-pencil"></i> Apply</button>
+          </div>
+          <div class="hidden-lg-up">
+            <button class="btn btn-success" [routerLink]=" ['Apply'] "><i class="fa fa-pencil"></i></button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
   </nav>
+</div>
+<div class="fs-menu hidden-md-up" [class.collapsed]="!isCollapsed">
+  <div>
+    <div>
+      <ul class="hidden-md-up">
+        <li class="nav-item" (click)="toggleCollapse()">
+          <a class="nav-link" [routerLink]=" ['Home'] "><i class="fa fa-home fa-fw"></i> Home</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

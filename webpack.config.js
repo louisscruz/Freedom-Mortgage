@@ -14,10 +14,10 @@ var ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const autoprefixer = require('autoprefixer');
 
 var metadata = {
-    title: 'Freedom Mortgage',
+    title: 'Angular2 Webpack Starter',
     baseUrl: '/',
     host: 'localhost',
-    port: 9000,
+    port: 3000,
     ENV: ENV
 };
 /*
@@ -95,13 +95,13 @@ module.exports = {
                 'NODE_ENV': JSON.stringify(metadata.ENV)
             }
         }),
-        // jQuery, Tether
+
         new ProvidePlugin({
-            jQuery: 'jquery',
-            $: 'jquery',
-            jquery: 'jquery',
-            "Tether": 'tether',
-            "window.Tether": "tether"
+          jQuery: 'jquery',
+          $: 'jquery',
+          jquery: 'jquery',
+          "Tether": 'tether',
+          "window.Tether": "tether"
         })
     ],
 
