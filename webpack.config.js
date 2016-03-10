@@ -14,7 +14,7 @@ var ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const autoprefixer = require('autoprefixer');
 
 var metadata = {
-    title: 'Angular2 Webpack Starter',
+    title: 'Freedom Mortgage',
     baseUrl: '/',
     host: 'localhost',
     port: 3000,
@@ -69,12 +69,16 @@ module.exports = {
 
             // if you add a loader include the resolve file extension above
 
-            { test: /.scss$/, loaders: ['raw-loader','sass-loader'] },
+            { test: /.scss$/, exclude: /node_modules/, loaders: ['raw-loader','sass-loader'] },
 
             { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
 
             // Bootstrap 4
-            { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' }
+            { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
+
+            // Load font awesome
+            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
         ]
     },
 

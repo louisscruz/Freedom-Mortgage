@@ -18,6 +18,7 @@ export class Apply {
   private firstName: AbstractControl;
   private middleName: AbstractControl;
   private noMiddleName: boolean = false;
+  private middleNameCache: string;
   private lastName: AbstractControl;
   constructor(private _fb: FormBuilder) {
     /*function middleNameRequired(control: Control): { [s: string]: boolean } {
@@ -26,17 +27,17 @@ export class Apply {
         return { middleNameRequired: true }
       }
     }*/
-    function middleNameRequired(middleName: string, noMiddleName: boolean) {
+    /*function middleNameRequired(middleName: string, noMiddleName: boolean) {
       return (group: ControlGroup): {[key: string]: any} => {
         let noMiddleName = this.noMiddleName;
         if (!noMiddleName && !middleName) {
           return {missingMiddleName: true}
         }
       }
-    }
+    }*/
     this.applyForm = _fb.group({
       'firstName': ['', Validators.compose([
-        middleNameRequired
+        Validators.required
       ])],
       'middleName': ['', Validators.compose([
         Validators.required
@@ -48,6 +49,15 @@ export class Apply {
     this.firstName = this.applyForm.controls['firstName'];
     this.middleName = this.applyForm.controls['middleName'];
     this.lastName = this.applyForm.controls['lastName'];
+  }
+
+  toggleMiddleNameValue():void {
+    if (!this.noMiddleName) {
+      this.middleNameCache = this.applyForm.controls['middleName'].value;
+      (this.applyForm.controls['middleName'] as Control).updateValue('');
+    } else {
+      (this.applyForm.controls['middleName'] as Control).updateValue(this.middleNameCache);
+    }
   }
 
   ngOnInit() {}

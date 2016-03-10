@@ -10,15 +10,15 @@
             <div *ngIf="firstName.hasError('required')" class="text-help">First name is required</div>
           </div>
         </fieldset>
-        <fieldset class="form-group col-xs-12 col-sm-6 col-md-3" [class.has-success]="middleName.valid && middleName.touched" [class.has-danger]="!middleName.valid && middleName.touched">
+        <fieldset class="form-group col-xs-12 col-sm-6 col-md-3" [class.has-success]="(noMiddleName || middleName.valid) && middleName.touched" [class.has-danger]="(!noMiddleName && !middleName.valid) && middleName.touched">
           <label for="middleName" class="form-control-label">Middle Name</label>
-          <input type="text" id="middleNameInput" placeholder="Middle Name" [ngFormControl]="applyForm.controls['middleName']" class="form-control" [class.form-control-success]="middleName.valid" [class.form-control-danger]="!middleName.valid" [disabled]="noMiddleName">
+          <input type="text" id="middleNameInput" placeholder="Middle Name" [ngFormControl]="applyForm.controls['middleName']" class="form-control" [class.form-control-success]="middleName.valid || noMiddleName" [class.form-control-danger]="!middleName.valid" [disabled]="noMiddleName">
           <label class="checkbox-inline">
-            <input type="checkbox" id="middleNameCheckbox" [(ngModel)]="noMiddleName">
+            <input type="checkbox" id="middleNameCheckbox" [(ngModel)]="noMiddleName" (click)="toggleMiddleNameValue()">
             <p class="text-muted text-help">Check here if you do not have a middle name.</p>
           </label>
-          <div *ngIf="middleName.touched">
-            <div *ngIf="middleName.hasError('middleNameRequired')" class="text-help">Middle name is required</div>
+          <div *ngIf="middleName.touched && !noMiddleName">
+            <div *ngIf="middleName.hasError('required')" class="text-help">Middle name is required</div>
           </div>
         </fieldset>
         <fieldset class="form-group col-xs-12 col-sm-12 col-md-5" [class.has-success]="lastName.valid && lastName.touched" [class.has-danger]="!lastName.valid && lastName.touched">
