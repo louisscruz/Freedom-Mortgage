@@ -1,5 +1,5 @@
 $primary: blue;
-$secondary: red;
+$secondary: blue;
 
 $animation-duration: 0.25s;
 .navbar {
@@ -116,6 +116,7 @@ $animation-duration: 0.25s;
       ul {
         list-style: none;
         max-height: 100vh;
+        padding-left: 0rem;
         li {
           display: block;
           transition: all 0.1s ease-in-out;

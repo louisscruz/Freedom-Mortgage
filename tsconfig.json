@@ -32,6 +32,8 @@
     "./src/app/apply/apply.ts",
     "./src/app/contact/contact.ts",
     "./src/app/directives/router-active.ts",
+    "./src/app/footer-content/footer-content.spec.ts",
+    "./src/app/footer-content/footer-content.ts",
     "./src/app/home/directives/x-large.spec.ts",
     "./src/app/home/directives/x-large.ts",
     "./src/app/home/home.e2e.ts",

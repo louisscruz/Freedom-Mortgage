@@ -9,6 +9,7 @@ import {FORM_PROVIDERS} from 'angular2/common';
 import {RouterActive} from './directives/router-active';
 import {Navbar} from './navbar/navbar';
 import {Home} from './home/home';
+import {FooterContent} from './footer-content/footer-content';
 
 /*
  * App Component
@@ -17,7 +18,7 @@ import {Home} from './home/home';
 @Component({
   selector: 'app',
   providers: [ ...FORM_PROVIDERS ],
-  directives: [ ...ROUTER_DIRECTIVES, RouterActive, Navbar ],
+  directives: [ ...ROUTER_DIRECTIVES, RouterActive, Navbar, FooterContent ],
   pipes: [],
   styles: [require('./app.scss')],
   template: `
@@ -29,7 +30,9 @@ import {Home} from './home/home';
       <router-outlet></router-outlet>
     </main>
 
-    <footer></footer>
+    <footer>
+      <footer-content></footer-content>
+    </footer>
   `
 })
 @RouteConfig([
@@ -48,10 +51,7 @@ import {Home} from './home/home';
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   name = 'Freedom Mortgage';
-  url = 'https://twitter.com/AngularClass';
-  constructor() {
-
-  }
+  constructor() {}
 }
 
 /*
