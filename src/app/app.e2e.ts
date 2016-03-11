@@ -28,7 +28,7 @@ describe('App', () => {
 
   it('should have <footer>', () => {
     let subject = element(by.css('app footer')).getText();
-    let result  = 'WebPack Angular 2 Starter by @AngularClass';
+    let result  = 'Freedom Mortgage';
     expect(subject).toEqual(result);
   });
 

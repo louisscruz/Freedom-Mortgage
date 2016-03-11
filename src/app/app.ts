@@ -49,8 +49,6 @@ import {FooterContent} from './footer-content/footer-content';
   { path: '/**', redirectTo: ['Index'] }
 ])
 export class App {
-  angularclassLogo = 'assets/img/angularclass-avatar.png';
-  name = 'Freedom Mortgage';
   constructor() {}
 }
 

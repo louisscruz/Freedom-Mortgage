@@ -7,11 +7,16 @@ import {
 } from 'angular2/testing';
 
 // Load the implementations that should be tested
-import {App} from './app';
+import {Apply} from './apply';
 
-describe('App', () => {
+describe('Apply', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEachProviders(() => [
-    App
+    Apply
   ]);
+
+  it('should default noMiddleName to false', inject([ Apply ], (apply) => {
+    expect(apply.noMiddleName).toEqual(false);
+  }));
+
 });

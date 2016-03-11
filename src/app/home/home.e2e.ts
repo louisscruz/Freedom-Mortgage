@@ -8,18 +8,9 @@ describe('App', () => {
     browser.get('/#/home');
   });
 
-
   it('should have a title', () => {
     let subject = browser.getTitle();
     let result  = 'Freedom Mortgage';
     expect(subject).toEqual(result);
   });
-
-  it('should have `your content here` x-large', () => {
-    let subject = element(by.css('[x-large]')).getText();
-    let result  = 'Your Content Here';
-    expect(subject).toEqual(result);
-  });
-
-
 });
