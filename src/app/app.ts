@@ -1,12 +1,9 @@
 /*
  * Angular 2 decorators and services
  */
-require('font-awesome-sass-loader');
 import {Component} from 'angular2/core';
-import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {FORM_PROVIDERS} from 'angular2/common';
+import {RouteConfig, Router} from 'angular2/router';
 
-import {RouterActive} from './directives/router-active';
 import {Navbar} from './navbar/navbar';
 import {Home} from './home/home';
 import {FooterContent} from './footer-content/footer-content';
@@ -17,8 +14,8 @@ import {FooterContent} from './footer-content/footer-content';
  */
 @Component({
   selector: 'app',
-  providers: [ ...FORM_PROVIDERS ],
-  directives: [ ...ROUTER_DIRECTIVES, RouterActive, Navbar, FooterContent ],
+  providers: [],
+  directives: [],
   pipes: [],
   styles: [require('./app.scss')],
   template: `
@@ -36,17 +33,22 @@ import {FooterContent} from './footer-content/footer-content';
   `
 })
 @RouteConfig([
-  { path: '/', component: Home, name: 'Index' },
+  { path: '/', component: Home, name: 'Index', useAsDefault: true },
   { path: '/home', component: Home, name: 'Home' },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  { path: '/about', loader: () => require('es6-promise!./about/about')('About'), name: 'About' },
   {
+    path: '/about',
+    name: 'About',
+    loader: () => require('es6-promise!./about/about')('About')
+  }, {
     path: '/contact',
-    loader: () => require('es6-promise!./contact/contact')('Contact'),
-    name: 'Contact'
-  },
-  { path: '/apply', loader: () => require('es6-promise!./apply/apply')('Apply'), name: 'Apply'},
-  { path: '/**', redirectTo: ['Index'] }
+    name: 'Contact',
+    loader: () => require('es6-promise!./contact/contact')('Contact')
+  }, {
+    path: '/apply',
+    name: 'Apply',
+    loader: () => require('es6-promise!./apply/apply')('Apply')
+  }
 ])
 export class App {
   constructor() {}

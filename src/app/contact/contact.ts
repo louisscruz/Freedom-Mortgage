@@ -18,17 +18,17 @@ export class Contact {
   private email: AbstractControl;
   private body: AbstractControl;
   constructor(private _fb: FormBuilder) {
-    function emailValidator(control: Control): { [s: string]: boolean } {
+    /*function emailValidator(control: Control): { [s: string]: boolean } {
       if (!control.value.match(/.+@.+\..+/i) && control.value) {
         return {invalidEmail: true};
       }
-    }
+    }*/
     this.contactForm = _fb.group({
       'name': ['', Validators.compose([
         Validators.required
       ])],
       'email': ['', Validators.compose([
-        Validators.required, emailValidator
+        Validators.required//, emailValidator
       ])],
       'body': ['', Validators.compose([
         Validators.required

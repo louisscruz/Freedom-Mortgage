@@ -7,26 +7,16 @@ import {
   Attribute,
   ElementRef,
   Renderer,
-  Optional
+  Optional,
+  Input
 } from 'angular2/core';
 import {Instruction, RouterLink} from 'angular2/router';
 
-/**
- * RouterActive dynamically finds the first element with routerLink and toggles the active class
- *
- * ## Use
- *
- * ```
- * <li router-active="active"><a [routerLink]=" ['/Home'] ">Home</a></li>
- * <li [routerActive]=" activeStringValue "><a [routerLink]=" ['/Home'] ">Home</a></li>
- * ```
- */
 @Directive({
-  selector: '[router-active], [routerActive]',
-  inputs: ['routerActive']
+  selector: '[router-active], [routerActive]'
 })
 export class RouterActive {
-  routerActive: string = null;
+  @Input() routerActive: string = null;
   routerActiveAttr: string = 'active';
 
   constructor(

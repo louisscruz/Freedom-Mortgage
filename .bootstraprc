@@ -1,4 +1,3 @@
----
 # Output debugging info
 # loglevel: debug
 
@@ -101,15 +100,16 @@ styles:
   utilities-responsive: true
 
 ### Bootstrap scripts
-scripts:
-  alert: true
-  button: true
-  carousel: true
-  collapse: true
-  dropdown: true
-  modal: true
-  popover: true
-  scrollspy: true
-  tab: true
-  tooltip: false
-  util: true
+#scripts:
+  #alert: true
+  #button: true
+  #carousel: true
+  #collapse: true
+  #dropdown: true
+  #modal: true
+  #popover: true
+  #scrollspy: true
+  #tab: true
+  #tooltip: false
+  #util: true
+scripts: false

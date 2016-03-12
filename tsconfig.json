@@ -18,6 +18,12 @@
     "src/custom-typings.d.ts",
     "typings/browser.d.ts"
   ],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "resolveGlobs": true,
+    "forkChecker": true,
+    "cacheDirectory": "node_modules/.awesome-typescript-loader-cache"
+  },
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": {
@@ -35,8 +41,6 @@
     "./src/app/directives/router-active.ts",
     "./src/app/footer-content/footer-content.spec.ts",
     "./src/app/footer-content/footer-content.ts",
-    "./src/app/home/directives/x-large.spec.ts",
-    "./src/app/home/directives/x-large.ts",
     "./src/app/home/home.e2e.ts",
     "./src/app/home/home.spec.ts",
     "./src/app/home/home.ts",
@@ -47,6 +51,7 @@
     "./src/custom-typings.d.ts",
     "./src/main.ts",
     "./src/polyfills.ts",
+    "./src/vendor.ts",
     "src/custom-typings.d.ts",
     "typings/browser.d.ts"
   ]

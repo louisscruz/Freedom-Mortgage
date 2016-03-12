@@ -34,22 +34,21 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'ts-loader',
+        loader: 'awesome-typescript-loader',
         query: {
           "compilerOptions": {
             "removeComments": true,
           }
         },
-        exclude: [ /\.e2e\.ts$/, helpers.root('node_modules') ]
+        exclude: [ /\.e2e\.ts$/ ]
       },
-      { test: /\.json$/, loader: 'json-loader', exclude: [ helpers.root('src/index.html'), helpers.root('node_modules') ] },
-      { test: /\.html$/, loader: 'raw-loader', exclude: [ helpers.root('src/index.html'), helpers.root('node_modules') ] },
-      { test: /\.css$/,  loader: 'raw-loader', exclude: [ helpers.root('src/index.html'), helpers.root('node_modules') ] },
+      { test: /\.json$/, loader: 'json-loader', exclude: [ helpers.root('src/index.html') ] },
+      { test: /\.html$/, loader: 'raw-loader', exclude: [ helpers.root('src/index.html') ] },
+      { test: /\.css$/,  loader: 'raw-loader', exclude: [ helpers.root('src/index.html') ] },
       { test: /.scss$/, exclude: /node_modules/, loaders: ['raw-loader','sass-loader'] },
       { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
-
     ],
     postLoaders: [
       // instrument only testing sources with Istanbul
@@ -65,12 +64,10 @@ module.exports = {
     ]
   },
   plugins: [
+    // Environment helpers
     new DefinePlugin({
-      // Environment helpers
-      'process.env': {
-        'ENV': JSON.stringify(ENV),
-        'NODE_ENV': JSON.stringify(ENV)
-      }
+      'ENV': JSON.stringify(ENV),
+      'HMR': false
     })
   ],
   node: {

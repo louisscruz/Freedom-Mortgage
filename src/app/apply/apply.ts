@@ -9,7 +9,7 @@ import {CORE_DIRECTIVES,
 
 @Component({
   selector: 'apply',
-  directives: [FORM_DIRECTIVES],
+  directives: [],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
 })
@@ -51,7 +51,7 @@ export class Apply {
     this.lastName = this.applyForm.controls['lastName'];
   }
 
-  toggleMiddleNameValue():void {
+  toggleMiddleNameValue(): void {
     if (!this.noMiddleName) {
       this.middleNameCache = this.applyForm.controls['middleName'].value;
       (this.applyForm.controls['middleName'] as Control).updateValue('');
