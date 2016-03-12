@@ -12,10 +12,15 @@ import {RouterActive} from '../directives/router-active';
 export class Navbar {
   private freedomMortgageLogo: string = 'assets/img/freedom-mortgage-logo.svg';
   private isCollapsed: boolean = true;
+  private infoDropdown: boolean = true;
   constructor() {}
 
   toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  toggleInfoDropdown() {
+    this.infoDropdown = !this.infoDropdown;
   }
 
   ngOnInit() {
