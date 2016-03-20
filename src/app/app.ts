@@ -6,6 +6,7 @@ import {RouteConfig, Router} from 'angular2/router';
 
 import {Navbar} from './navbar/navbar';
 import {Home} from './home/home';
+import {Apply} from './apply/apply';
 import {FooterContent} from './footer-content/footer-content';
 
 /*
@@ -47,7 +48,7 @@ import {FooterContent} from './footer-content/footer-content';
   }, {
     path: '/apply',
     name: 'Apply',
-    loader: () => require('es6-promise!./apply/apply')('Apply')
+    component: Apply
   }
 ])
 export class App {

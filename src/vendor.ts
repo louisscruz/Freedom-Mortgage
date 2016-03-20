@@ -14,6 +14,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
 // bootstrap-loader
+import 'jquery';
 import 'bootstrap-loader';
 require('font-awesome-sass-loader');
 

@@ -20,6 +20,18 @@ export class Apply {
   private noMiddleName: boolean = false;
   private middleNameCache: string;
   private lastName: AbstractControl;
+  private borrowerDob: AbstractControl;
+  private borrowerSsn: AbstractControl;
+  private maritalStatus: AbstractControl;
+  private coborrower: boolean = false;
+  private coborrowerFirstName: AbstractControl;
+  private coborrowerMiddleName: AbstractControl;
+  private coborrowerLastName: AbstractControl;
+
+  private loanAmount: number = 250000;
+
+  private dec1: AbstractControl;
+  private dec1b: AbstractControl;
   constructor(private _fb: FormBuilder) {
     /*function middleNameRequired(control: Control): { [s: string]: boolean } {
       console.log(this.noMiddleName);
@@ -35,6 +47,7 @@ export class Apply {
         }
       }
     }*/
+    //function conditionalRequired(field: string)
     this.applyForm = _fb.group({
       'firstName': ['', Validators.compose([
         Validators.required
@@ -44,11 +57,48 @@ export class Apply {
       ])],
       'lastName': ['', Validators.compose([
         Validators.required
+      ])],
+      'borrowerDob': ['', Validators.compose([
+        Validators.required
+      ])],
+      'borrowerSsn': ['', Validators.compose([
+        Validators.required
+      ])],
+      'maritalStatus': ['', Validators.compose([
+        Validators.required
+      ])],
+      'coborrowerFirstName': ['', Validators.compose([
+        Validators.required
+      ])],
+      'coborrowerMiddleName': ['', Validators.compose([
+        Validators.required
+      ])],
+      'coborrowerLastName': ['', Validators.compose([
+        Validators.required
+      ])],
+      'loanAmount': ['', Validators.compose([
+        Validators.required
+      ])],
+      'dec1': ['', Validators.compose([
+        Validators.required
+      ])],
+      'dec1b': ['', Validators.compose([
+        Validators.required
       ])]
     });
     this.firstName = this.applyForm.controls['firstName'];
     this.middleName = this.applyForm.controls['middleName'];
     this.lastName = this.applyForm.controls['lastName'];
+    this.borrowerDob = this.applyForm.controls['borrowerDob'];
+    this.borrowerSsn = this.applyForm.controls['borrowerSsn'];
+    this.maritalStatus = this.applyForm.controls['maritalStatus'];
+    this.coborrowerFirstName = this.applyForm.controls['coborrowerFirstName'];
+    this.coborrowerMiddleName = this.applyForm.controls['coborrowerMiddleName'];
+    this.coborrowerLastName = this.applyForm.controls['coborrowerLastName'];
+    //this.loanAmount = this.applyForm.controls['loanAmount'];
+
+    this.dec1 = this.applyForm.controls['dec1'];
+    this.dec1b = this.applyForm.controls['dec1b'];
   }
 
   toggleMiddleNameValue(): void {
@@ -58,6 +108,24 @@ export class Apply {
     } else {
       (this.applyForm.controls['middleName'] as Control).updateValue(this.middleNameCache);
     }
+  }
+
+  setMaritalStatus(value: string): void {
+    (<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
+    if (value === 'married') {
+      this.setCoborrower(true);
+    } else {
+      this.setCoborrower(false);
+    }
+  }
+
+  setCoborrower(value: boolean): void {
+    this.coborrower = value;
+  }
+
+  setField(field: string, value: any): void {
+    (<Control>this.applyForm.controls[field]).updateValue(value);
+    console.log(this.applyForm)
   }
 
   ngOnInit() {}

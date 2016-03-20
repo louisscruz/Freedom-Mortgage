@@ -75,14 +75,14 @@ styles:
   nav: true
   navbar: true
   card: true
-  breadcrumb: true
+  breadcrumb: false
   pagination: true
   pager: true
-  labels: true
+  labels: false
   jumbotron: true
   alert: true
-  progress: true
-  media: true
+  progress: false
+  media: false
   list-group: true
   responsive-embed: true
   close: true
@@ -100,16 +100,16 @@ styles:
   utilities-responsive: true
 
 ### Bootstrap scripts
-#scripts:
-  #alert: true
-  #button: true
-  #carousel: true
-  #collapse: true
-  #dropdown: true
-  #modal: true
-  #popover: true
-  #scrollspy: true
-  #tab: true
-  #tooltip: false
-  #util: true
-scripts: false
+scripts:
+  alert: false
+  button: false
+  carousel: false
+  collapse: false
+  dropdown: true
+  modal: false
+  popover: false
+  scrollspy: false
+  tab: false
+  tooltip: false
+  util: false
+#scripts: false

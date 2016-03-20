@@ -97,9 +97,9 @@ module.exports = {
       'HMR': HMR
     }),
     new ProvidePlugin({
-      //jQuery: 'jquery',
-      //$: 'jquery',
-      //jquery: 'jquery',
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery',
       "Tether": 'tether',
       "window.Tether": "tether"
     })

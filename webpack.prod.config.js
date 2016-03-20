@@ -222,16 +222,16 @@ module.exports = {
           'MaxLengthValidator',
           'PatternValidator',
           'AsyncPipe',
-          'DatePipe',
-          'JsonPipe',
-          'NumberPipe',
+          //'DatePipe',
+          //'JsonPipe',
+          //'NumberPipe',
           'DecimalPipe',
           'PercentPipe',
           'CurrencyPipe',
-          'LowerCasePipe',
-          'UpperCasePipe',
-          'SlicePipe',
-          'ReplacePipe',
+          //'LowerCasePipe',
+          //'UpperCasePipe',
+          //'SlicePipe',
+          //'ReplacePipe',
           'I18nPluralPipe',
           'I18nSelectPipe'
         ] // needed for uglify RouterLink problem
@@ -248,8 +248,8 @@ module.exports = {
     }),
     new ProvidePlugin({
       //jQuery: 'jquery',
-      //$: 'jquery',
-      //jquery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery',
       "Tether": 'tether',
       "window.Tether": "tether"
     })
