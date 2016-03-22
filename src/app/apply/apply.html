@@ -14,14 +14,14 @@
                 <div *ngIf="firstName.hasError('required')" class="text-help">First name is required</div>
               </div>
             </fieldset>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="noMiddleName || (middleName.valid && middleName.touched)" [class.has-danger]="(!noMiddleName && !middleName.valid) && middleName.touched">
+            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="noMiddleName.value || (middleName.valid && middleName.touched)" [class.has-danger]="(!noMiddleName.value && !middleName.valid) && middleName.touched">
               <label for="middleName" class="form-control-label">Middle Name</label>
-              <input type="text" id="middleNameInput" placeholder="Middle Name" [ngFormControl]="applyForm.controls['middleName']" class="form-control" [class.form-control-success]="middleName.valid || noMiddleName" [class.form-control-danger]="!middleName.valid" [disabled]="noMiddleName">
+              <input type="text" id="middleNameInput" placeholder="Middle Name" [ngFormControl]="applyForm.controls['middleName']" class="form-control" [class.form-control-success]="middleName.valid || noMiddleName.value" [class.form-control-danger]="!middleName.valid" [disabled]="noMiddleName.value">
               <label class="checkbox-inline">
-                <input type="checkbox" id="middleNameCheckbox" [(ngModel)]="noMiddleName" (click)="toggleMiddleNameValue('middleName')">
+                <input type="checkbox" id="middleNameCheckbox" [(ngModel)]="noMiddleName.value" (click)="toggleMiddleNameValue()">
                 <p class="text-muted text-help">Check here if no middle name.</p>
               </label>
-              <div *ngIf="middleName.touched && !noMiddleName">
+              <div *ngIf="middleName.touched && !noMiddleName.value">
                 <div *ngIf="middleName.hasError('required')" class="text-help">Middle name is required</div>
               </div>
             </fieldset>
@@ -72,6 +72,9 @@
               </div>
             </fieldset>
             <div class="col-xs-12 col-md-8">
+              <div class="card card-block" *ngIf="!applyForm.controls['maritalStatus'].value">
+                test
+              </div>
               <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married'">
                 Select <i>Married</i> if currently married or in a registered domestic partnership.
               </div>
@@ -85,49 +88,51 @@
             <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
               <div class="radio">
                 <label>
-                  <input type="radio" name="coborrowerRadio1" (click)="setCoborrower(true)" [checked]="coborrower">
+                  <input type="radio" name="coborrowerRadio1" (click)="setCondition(coborrower, true)" [checked]="coborrower.value">
                   Yes
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="coborrowerRadio2" (click)="setCoborrower(false)" [checked]="!coborrower">
+                  <input type="radio" name="coborrowerRadio2" (click)="setCondition(coborrower, false)" [checked]="!coborrower.value">
                   No
                 </label>
               </div>
             </fieldset>
             <div class="col-xs-12 col-md-8">
-              <div class="card card-block" *ngIf="coborrower">
+              <div class="card card-block card-info" *ngIf="coborrower.value">
                 We highly recommend that, if you are currently married, you choose to apply with your spouse. Your spouse's credit history could be very beneficial.
               </div>
-              <div class="card card-block" *ngIf="!coborrower">
+              <div class="card card-block card-inverse card-warning" *ngIf="!coborrower.value">
+                <blockquote class="card-blockquote">
                 While you may apply without your spouse, you could potentially benefit from your spouse's credit history.
+              </blockquote>
               </div>
             </div>
           </div>
-          <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married' && coborrower">
+          <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married' && coborrower.value">
             <h5 class="text-xs-center">Co-borrower info</h5>
             <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.has-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
               <label for="coborrowerFirstName" class="form-control-label">First Name</label>
-              <input type="text" id="coborrowerFirstNameInput" placeholder="First Name" [ngFormControl]="applyForm.controls['coborrowerFirstName']" class="form-control" [class.form-control-success]="coborrowerFirstName.valid" [class.form-control-danger]="!coborrowerFirstName.valid">
+              <input type="text" id="coborrowerFirstNameInput" placeholder="First Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerFirstName']" [class.form-control-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.form-control-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
               <div *ngIf="coborrowerFirstName.touched">
                 <div *ngIf="coborrowerFirstName.hasError('required')" class="text-help">First name is required</div>
               </div>
             </fieldset>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="noCoborrowerMiddleName || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.has-danger]="(!noCoborrowerMiddleName && !coborrowerMiddleName.valid) && coborrowerMiddleName.touched">
+            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.has-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched">
               <label for="coborrowerMiddleName" class="form-control-label">Middle Name</label>
-              <input type="text" id="coborrowerMiddleNameInput" placeholder="Middle Name" [ngFormControl]="applyForm.controls['coborrowerMiddleName']" class="form-control" [class.form-control-success]="coborrowerMiddleName.valid || noCoborrowerMiddleName" [class.form-control-danger]="!coborrowerMiddleName.valid" [disabled]="noCoborrowerMiddleName">
+              <input type="text" id="coborrowerMiddleNameInput" placeholder="Middle Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerMiddleName']" [class.form-control-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.form-control-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched" [disabled]="!coborrowerMiddleNameExists.value">
               <label class="checkbox-inline">
-                <input type="checkbox" id="coborrowerMiddleNameCheckbox" [(ngModel)]="noCoborrowerMiddleName" (click)="toggleMiddleNameValue('coborrowerMiddleName')">
+                <input type="checkbox" id="coborrowerMiddleNameCheckbox" [checked]="!coborrowerMiddleNameExists.value" (click)="toggleCoborrowerMiddleName()">
                 <p class="text-muted text-help">Check here if no middle name.</p>
               </label>
-              <div *ngIf="coborrowerMiddleName.touched && !noCoborrowerMiddleName">
+              <div *ngIf="coborrowerMiddleName.touched">
                 <div *ngIf="coborrowerMiddleName.hasError('required')" class="text-help">Middle name is required</div>
               </div>
             </fieldset>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerLastName.valid && coborrowerLastName.touched" [class.has-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
+            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerLastName.touched && coborrowerLastName.touched" [class.has-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
               <label for="coborrowerLastName" class="form-control-label">Last Name</label>
-              <input type="text" id="coborrowerLastNameInput" placeholder="Last Name" [ngFormControl]="applyForm.controls['coborrowerLastName']" class="form-control" [class.form-control-success]="coborrowerLastName.valid" [class.form-control-danger]="!coborrowerLastName.valid">
+              <input type="text" id="coborrowerLastNameInput" placeholder="Last Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerLastName']" [class.form-control-success]="coborrowerLastName.valid && coborrowerLastName.touched" [class.form-control-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
               <div *ngIf="coborrowerLastName.touched">
                 <div *ngIf="coborrowerLastName.hasError('required')" class="text-help">Last name is required</div>
               </div>
@@ -151,11 +156,13 @@
             </fieldset>
           </div>
         </div>
+
         <h2 class="text-xs-center">III. Employment</h2>
         <div class="card card-block">
           <div class="row">
           </div>
         </div>
+
         <h2 class="text-xs-center">IV. Declarations</h2>
         <div class="card card-block">
           <div class="row card card-block">
@@ -170,8 +177,8 @@
                 </label>
               </fieldset>
             </div>
-            <div class="form-group col-xs-12" *ngIf="coborrower">
-              <label>Your Coborrower?</label>
+            <div class="form-group col-xs-12" *ngIf="coborrower.value">
+              <label>Against {{coborrowerFirstName.value}}?</label>
               <fieldset for="dec1b" class="text-xs-center">
                 <label class="radio-inline">
                   <input type="radio" name="dec1b" id="dec1b-1" value="option1" (click)="setField('dec1b', true)" [checked]="applyForm.controls['dec1b'].value === true"> Yes

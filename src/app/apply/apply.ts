@@ -17,37 +17,46 @@ export class Apply {
   private applyForm: ControlGroup;
   private firstName: AbstractControl;
   private middleName: AbstractControl;
-  private noMiddleName: boolean = false;
   private middleNameCache: string;
   private lastName: AbstractControl;
   private borrowerDob: AbstractControl;
   private borrowerSsn: AbstractControl;
   private maritalStatus: AbstractControl;
-  private coborrower: boolean = false;
   private coborrowerFirstName: AbstractControl;
   private coborrowerMiddleName: AbstractControl;
+  private coborrowerMiddleNameCache: string;
   private coborrowerLastName: AbstractControl;
 
   private loanAmount: number = 250000;
 
   private dec1: AbstractControl;
   private dec1b: AbstractControl;
+
+  private noMiddleName: any = {
+    value: false
+  }
+
+  private coborrower: any = {
+    value: false
+  }
+
+  private coborrowerMiddleNameExists: any = {
+    value: true
+  }
   constructor(private _fb: FormBuilder) {
-    /*function middleNameRequired(control: Control): { [s: string]: boolean } {
-      console.log(this.noMiddleName);
-      if (!control.value && this.noMiddleName) {
-        return { middleNameRequired: true }
-      }
-    }*/
-    /*function middleNameRequired(middleName: string, noMiddleName: boolean) {
-      return (group: ControlGroup): {[key: string]: any} => {
-        let noMiddleName = this.noMiddleName;
-        if (!noMiddleName && !middleName) {
-          return {missingMiddleName: true}
+    function conditionalRequired(...conditions: any[]) {
+      return (control: Control): { [s: string]: boolean } => {
+        for (let i = 0; i < conditions.length; i++) {
+          if (conditions[i].value === false) {
+            return null;
+          }
+        }
+        if (!control.value) {
+          return { required: true }
         }
       }
-    }*/
-    //function conditionalRequired(field: string)
+    }
+
     this.applyForm = _fb.group({
       'firstName': ['', Validators.compose([
         Validators.required
@@ -68,13 +77,13 @@ export class Apply {
         Validators.required
       ])],
       'coborrowerFirstName': ['', Validators.compose([
-        Validators.required
+        conditionalRequired(this.coborrower)
       ])],
       'coborrowerMiddleName': ['', Validators.compose([
-        Validators.required
+        conditionalRequired(this.coborrower, this.coborrowerMiddleNameExists)
       ])],
       'coborrowerLastName': ['', Validators.compose([
-        Validators.required
+        conditionalRequired(this.coborrower)
       ])],
       'loanAmount': ['', Validators.compose([
         Validators.required
@@ -83,7 +92,7 @@ export class Apply {
         Validators.required
       ])],
       'dec1b': ['', Validators.compose([
-        Validators.required
+        conditionalRequired(this.coborrower)
       ])]
     });
     this.firstName = this.applyForm.controls['firstName'];
@@ -102,7 +111,7 @@ export class Apply {
   }
 
   toggleMiddleNameValue(): void {
-    if (!this.noMiddleName) {
+    if (!this.noMiddleName.value === true) {
       this.middleNameCache = this.applyForm.controls['middleName'].value;
       (this.applyForm.controls['middleName'] as Control).updateValue('');
     } else {
@@ -110,22 +119,34 @@ export class Apply {
     }
   }
 
-  setMaritalStatus(value: string): void {
-    (<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
-    if (value === 'married') {
-      this.setCoborrower(true);
+  toggleCoborrowerMiddleName(): void {
+    if (this.coborrowerMiddleNameExists.value === true) {
+      this.setCondition(this.coborrowerMiddleNameExists, false);
+      this.coborrowerMiddleNameCache = this.applyForm.controls['coborrowerMiddleName'].value;
+      (this.applyForm.controls['coborrowerMiddleName'] as Control).updateValue('');
     } else {
-      this.setCoborrower(false);
+      this.setCondition(this.coborrowerMiddleNameExists, true);
+      (this.applyForm.controls['coborrowerMiddleName'] as Control).updateValue(this.coborrowerMiddleNameCache);
     }
   }
 
-  setCoborrower(value: boolean): void {
-    this.coborrower = value;
+  setMaritalStatus(value: string): void {
+    setTimeout(() => {
+      (<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
+      if (value === 'married') {
+        this.setCondition(this.coborrower, true);
+      } else {
+        this.setCondition(this.coborrower, false);
+      }
+    }, 0);
+  }
+
+  setCondition(condition: any, value: boolean): void {
+    condition.value = value;
   }
 
   setField(field: string, value: any): void {
     (<Control>this.applyForm.controls[field]).updateValue(value);
-    console.log(this.applyForm)
   }
 
   ngOnInit() {}
