@@ -22,6 +22,7 @@ export class Apply {
   private borrowerDob: AbstractControl;
   private borrowerSsn: AbstractControl;
   private maritalStatus: AbstractControl;
+  private includeCoborrower: AbstractControl;
   private coborrowerFirstName: AbstractControl;
   private coborrowerMiddleName: AbstractControl;
   private coborrowerMiddleNameCache: string;
@@ -44,17 +45,26 @@ export class Apply {
     value: true
   };
   constructor(private _fb: FormBuilder) {
-    function conditionalRequired(...conditions: any[]) {
-      return (control: Control): { [s: string]: boolean } => {
-        for (let i = 0; i < conditions.length; i++) {
-          if (conditions[i].value === false) {
+    function conditionalRequired(...conditions: any[]): any {
+      //alert('running')
+      //setTimeout(() => {
+        let necessary = false;
+        return (control: Control): { [s: string]: boolean } => {
+          //console.log('currently running for the following conditions')
+          //console.log(conditions);
+          //alert(conditions[0].value)
+          for (var i = 0; i < conditions.length; i++) {
+            if (conditions[i].value === false) {
+              necessary = true;
+            }
+          }
+          if (necessary && (control.value === '' || control.value === null)) {
+            return { required: true };
+          } else {
             return null;
           }
-        }
-        if (!control.value) {
-          return { required: true };
-        }
-      };
+        };
+      //}, 0);
     }
 
     this.applyForm = _fb.group({
@@ -74,6 +84,9 @@ export class Apply {
         Validators.required
       ])],
       'maritalStatus': ['', Validators.compose([
+        Validators.required
+      ])],
+      'includeCoborrower': ['', Validators.compose([
         Validators.required
       ])],
       'coborrowerFirstName': ['', Validators.compose([
@@ -132,14 +145,33 @@ export class Apply {
   }
 
   setMaritalStatus(value: string): void {
-    setTimeout(() => {
-      (<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
+    //setTimeout(() => {
+      //(<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
       if (value === 'married') {
-        this.setCondition(this.coborrower, true);
+        //this.setCondition(this.coborrower, true);
+        this.coborrower.value = true;
       } else {
-        this.setCondition(this.coborrower, false);
+        //this.setCondition(this.coborrower, false);
+        this.coborrower.value = false;
       }
-    }, 0);
+      (<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
+
+    //}, 0);
+  }
+
+  setCoborrowerTrue(value: boolean) {
+    if (value === false) {
+      this.coborrower = true;
+      (<Control>this.applyForm.controls['includeCoborrower']).updateValue(true);
+
+    }
+  }
+
+  setCoborrowerFalse(value: boolean) {
+    if (value === true) {
+      this.coborrower = false;
+      (<Control>this.applyForm.controls['includeCoborrower']).updateValue(false);
+    }
   }
 
   setCondition(condition: any, value: boolean): void {

@@ -53,20 +53,23 @@
             <label for="maritalStatus" class="form-control-label col-xs-12">Marital Status</label>
             <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
               <div class="radio">
-                <label>
+                <label class="c-input c-radio">
                   <input type="radio" name="exampleRadios" id="maritalStatusRadio1" value="married" (click)="setMaritalStatus('married')" [checked]="maritalStatus === 'married'">
+                  <span class="c-indicator"></span>
                   Married
                 </label>
               </div>
               <div class="radio">
-                <label>
+                <label class="c-input c-radio">
                   <input type="radio" name="exampleRadios" id="maritalStatusRadio2" value="unmarried" (click)="setMaritalStatus('unmarried')" [checked]="maritalStatus === 'unmarried'">
+                  <span class="c-indicator"></span>
                   Unmarried
                 </label>
               </div>
               <div class="radio">
-                <label>
+                <label class="c-input c-radio">
                   <input type="radio" name="exampleRadios" id="maritalStatusRadio3" value="separated" (click)="setMaritalStatus('separated')" [checked]="maritalStatus === 'separated'">
+                  <span class="c-indicator"></span>
                   Separated
                 </label>
               </div>
@@ -87,14 +90,16 @@
             <label for="filingMethod" class="form-control-label col-xs-12">Apply with spouse?</label>
             <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
               <div class="radio">
-                <label>
-                  <input type="radio" name="coborrowerRadio1" (click)="setCondition(coborrower, true)" [checked]="coborrower.value">
+                <label class="c-input c-radio">
+                  <input type="radio" name="coborrowerRadio1" (click)="setCoborrowerTrue(coborrower.value)" [checked]="coborrower.value">
+                  <span class="c-indicator"></span>
                   Yes
                 </label>
               </div>
               <div class="radio">
-                <label>
-                  <input type="radio" name="coborrowerRadio2" (click)="setCondition(coborrower, false)" [checked]="!coborrower.value">
+                <label class="c-input c-radio">
+                  <input type="radio" name="coborrowerRadio2" (click)="setCoborrowerFalse(coborrower.value)" [checked]="!coborrower.value">
+                  <span class="c-indicator"></span>
                   No
                 </label>
               </div>
@@ -169,22 +174,30 @@
             <div class="form-group col-xs-12">
               <label>1. Are there any outstanding judgements against you?</label>
               <fieldset for="dec1" class="text-xs-center">
-                <label class="radio-inline">
-                  <input type="radio" name="dec1" id="dec1-1" value="option1" (click)="setField('dec1', true)" [checked]="applyForm.controls['dec1'].value === true"> Yes
+                <label class="radio-inline c-input c-radio">
+                  <input type="radio" name="dec1" id="dec1-1" value="option1" (click)="setField('dec1', true)" [checked]="applyForm.controls['dec1'].value === true">
+                  <span class="c-indicator"></span>
+                  Yes
                 </label>
-                <label class="radio-inline">
-                  <input type="radio" name="dec1" id="dec1-2" value="option2" (click)="setField('dec1', false)" [checked]="applyForm.controls['dec1'].value === false"> No
+                <label class="radio-inline c-input c-radio">
+                  <input type="radio" name="dec1" id="dec1-2" value="option2" (click)="setField('dec1', false)" [checked]="applyForm.controls['dec1'].value === false">
+                  <span class="c-indicator"></span>
+                  No
                 </label>
               </fieldset>
             </div>
             <div class="form-group col-xs-12" *ngIf="coborrower.value">
               <label>Against {{coborrowerFirstName.value}}?</label>
               <fieldset for="dec1b" class="text-xs-center">
-                <label class="radio-inline">
-                  <input type="radio" name="dec1b" id="dec1b-1" value="option1" (click)="setField('dec1b', true)" [checked]="applyForm.controls['dec1b'].value === true"> Yes
+                <label class="radio-inline c-input c-radio">
+                  <input type="radio" name="dec1b" id="dec1b-1" value="option1" (click)="setField('dec1b', true)" [checked]="applyForm.controls['dec1b'].value === true">
+                  <span class="c-indicator"></span>
+                  Yes
                 </label>
-                <label class="radio-inline">
-                  <input type="radio" name="dec1b" id="dec1b-2" value="option2" (click)="setField('dec1b', false)" [checked]="applyForm.controls['dec1b'].value === false"> No
+                <label class="radio-inline c-input c-radio">
+                  <input type="radio" name="dec1b" id="dec1b-2" value="option2" (click)="setField('dec1b', false)" [checked]="applyForm.controls['dec1b'].value === false">
+                  <span class="c-indicator"></span>
+                  No
                 </label>
               </fieldset>
             </div>
