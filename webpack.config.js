@@ -74,7 +74,7 @@ module.exports = {
 
       // Bootstrap 4
       { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
-      { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
+      { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports' },
 
       // Load font awesome
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },

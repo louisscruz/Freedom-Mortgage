@@ -125,7 +125,7 @@ module.exports = {
         loader: 'url?limit=10000'
       }, {
         test: /bootstrap\/dist\/js\/umd\//,
-        loader: 'imports?jQuery=jquery'
+        loader: 'imports'
       },
 
       // Load font awesome
@@ -257,7 +257,7 @@ module.exports = {
   // Other module loader config
   tslint: {
     emitErrors: true,
-    failOnHint: true,
+    failOnHint: false,
     resourcePath: 'src',
   },
 

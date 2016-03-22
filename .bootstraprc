@@ -100,16 +100,16 @@ styles:
   utilities-responsive: true
 
 ### Bootstrap scripts
-scripts:
-  alert: false
-  button: false
-  carousel: false
-  collapse: false
-  dropdown: true
-  modal: false
-  popover: false
-  scrollspy: false
-  tab: false
-  tooltip: false
-  util: false
-#scripts: false
+#scripts:
+  #alert: false
+  #button: false
+  #carousel: false
+  #collapse: false
+  #dropdown: true
+  #modal: false
+  #popover: false
+  #scrollspy: false
+  #tab: false
+  #tooltip: false
+  #util: false
+scripts: false

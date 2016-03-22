@@ -34,15 +34,15 @@ export class Apply {
 
   private noMiddleName: any = {
     value: false
-  }
+  };
 
   private coborrower: any = {
     value: false
-  }
+  };
 
   private coborrowerMiddleNameExists: any = {
     value: true
-  }
+  };
   constructor(private _fb: FormBuilder) {
     function conditionalRequired(...conditions: any[]) {
       return (control: Control): { [s: string]: boolean } => {
@@ -52,9 +52,9 @@ export class Apply {
           }
         }
         if (!control.value) {
-          return { required: true }
+          return { required: true };
         }
-      }
+      };
     }
 
     this.applyForm = _fb.group({
@@ -126,7 +126,8 @@ export class Apply {
       (this.applyForm.controls['coborrowerMiddleName'] as Control).updateValue('');
     } else {
       this.setCondition(this.coborrowerMiddleNameExists, true);
-      (this.applyForm.controls['coborrowerMiddleName'] as Control).updateValue(this.coborrowerMiddleNameCache);
+      (this.applyForm.controls['coborrowerMiddleName'] as Control)
+      .updateValue(this.coborrowerMiddleNameCache);
     }
   }
 
