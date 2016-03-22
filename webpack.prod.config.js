@@ -248,8 +248,8 @@ module.exports = {
     }),
     new ProvidePlugin({
       //jQuery: 'jquery',
-      $: 'jquery',
-      jquery: 'jquery',
+      //$: 'jquery',
+      //jquery: 'jquery',
       "Tether": 'tether',
       "window.Tether": "tether"
     })
