@@ -18,7 +18,7 @@ import {Title} from './services/title';
   // We need to tell Angular's compiler which custom pipes are in our template.
   pipes: [ ],
   // Our list of styles in our component. We may add more to compose many styles together
-  styles: [ require('./home.css') ],
+  styles: [ require('./home.scss') ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   template: require('./home.html')
 })

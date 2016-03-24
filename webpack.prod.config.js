@@ -17,6 +17,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var WebpackMd5Hash    = require('webpack-md5-hash');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+var autoprefixer = require('autoprefixer');
 var ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 var HOST = process.env.HOST || 'localhost';
 var PORT = process.env.PORT || 8080;
@@ -56,6 +57,8 @@ module.exports = {
   resolve: {
     extensions: ['', '.ts', '.js']
   },
+
+  poscss: [autoprefixer],
 
   module: {
     preLoaders: [

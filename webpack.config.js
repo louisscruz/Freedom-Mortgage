@@ -7,6 +7,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ProvidePlugin = require('webpack/lib/ProvidePlugin');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+var autoprefixer = require('autoprefixer');
 
 var ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 var HMR = helpers.hasProcessFlag('hot');
@@ -50,6 +51,8 @@ module.exports = {
     chunkFilename: '[id].chunk.js'
   },
 
+  postcss: [autoprefixer],
+
   module: {
     preLoaders: [
       // { test: /\.ts$/, loader: 'tslint-loader', exclude: [ helpers.root('node_modules') ] },
@@ -64,7 +67,8 @@ module.exports = {
       { test: /\.json$/,  loader: 'json-loader' },
 
       // Support for CSS as raw text
-      { test: /\.css$/,   loader: 'raw-loader' },
+      { test: /\.css$/, loader: 'raw-loader' },
+      //{ test: /\.css$/,   loader: 'to-string!css-loader!postcss-loader!'},
 
       // support for .html as raw text
       { test: /\.html$/,  loader: 'raw-loader', exclude: [ helpers.root('src/index.html') ] },
@@ -72,9 +76,12 @@ module.exports = {
       // Support SCSS
       { test: /.scss$/, exclude: /node_modules/, loaders: ['raw-loader','sass-loader'] },
 
+      //{ test: /\.scss$/, exclude: /node_modules/, loader: 'to-string!css-loader!sass-loader!'},
+
       // Bootstrap 4
       { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
       { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports' },
+      //{ test:}
 
       // Load font awesome
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },

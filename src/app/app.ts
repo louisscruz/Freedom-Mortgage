@@ -1,7 +1,7 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component} from 'angular2/core';
+import {Component, ViewEncapsulation} from 'angular2/core';
 import {RouteConfig, Router} from 'angular2/router';
 
 import {Navbar} from './navbar/navbar';
@@ -19,6 +19,7 @@ import {FooterContent} from './footer-content/footer-content';
   directives: [],
   pipes: [],
   styles: [require('./app.scss')],
+  encapsulation: ViewEncapsulation.None,
   template: `
     <header>
       <navbar></navbar>

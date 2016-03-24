@@ -10,7 +10,7 @@ import {RouterActive} from '../directives/router-active';
   template: require('./navbar.html')
 })
 export class Navbar {
-  private freedomMortgageLogo: string = 'assets/img/freedom-mortgage-logo.svg';
+  private freedomMortgageLogo: string = 'assets/img/freedom_mortgage.svg';
   private isCollapsed: boolean = true;
   private infoDropdown: boolean = true;
   constructor() {}
