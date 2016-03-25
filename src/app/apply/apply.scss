@@ -3,7 +3,7 @@
     margin-bottom: 0rem;
   }
   .card {
-    background-color: lighten(gray, 40);
+    //background-color: lighten(gray, 40);
   }
 }
 .input-group-addon {
@@ -93,7 +93,4 @@ input[type=range]:focus::-ms-fill-lower {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: rgba(2, 101, 185, 0.4);
-}
-span.c-indicator {
-  background-color: white;
 }

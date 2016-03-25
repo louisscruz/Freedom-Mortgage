@@ -1,3 +1,4 @@
+// Colors
 $gray-dark:                 #373a3c !default;
 $gray:                      #55595c !default;
 $gray-light:                #818a91 !default;
@@ -10,6 +11,51 @@ $brand-info:                #5bc0de !default;
 $brand-warning:             #f0ad4e !default;
 $brand-danger:              #d9534f !default;
 
+// Settings
+
+$border-radius:          .25rem !default;
+$border-radius-lg:       .3rem !default;
+$border-radius-sm:       .2rem !default;
+
+// Cards
+$card-spacer-x:            1.25rem !default;
+$card-spacer-y:            .75rem !default;
+$card-border-width:        1px !default;
+$card-border-radius:       $border-radius !default;
+//$card-border-color:        #e5e5e5 !default;
+$card-border-color:        desaturate($brand-success, 70) !default;
+$card-border-radius-inner: $card-border-radius !default;
+$card-cap-bg:              #f5f5f5 !default;
+$card-bg:                   lighten(desaturate($brand-success, 20), 45) !default;
+
+$card-link-hover-color:    #fff !default;
+
 .jumbotron-primary {
   background-color: $brand-primary;
+}
+
+.card-light-border-success {
+  border: 2px solid $brand-success;
+}
+
+// Forms
+
+.c-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  font-size: 65%;
+  line-height: 1rem;
+  color: #eee;
+  text-align: center;
+  user-select: none;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+  border: 1px solid desaturate($brand-success, 70);
+  //@include box-shadow(inset 0 .125rem .125rem rgba(0,0,0,.1));
 }
