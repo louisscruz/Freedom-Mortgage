@@ -32,6 +32,8 @@ export class Apply {
 
   private dec1: AbstractControl;
   private coborrowerDec1: AbstractControl;
+  private dec2: AbstractControl;
+  private coborrowerDec2: AbstractControl;
 
   private noMiddleName: any = {
     value: false
@@ -94,6 +96,12 @@ export class Apply {
       ])],
       'coborrowerDec1': ['', Validators.compose([
         conditionalRequired(this.coborrower)
+      ])],
+      'dec2': ['', Validators.compose([
+        Validators.required
+      ])],
+      'coborrowerDec2': ['', Validators.compose([
+        conditionalRequired(this.coborrower)
       ])]
     });
     this.firstName = this.applyForm.controls['firstName'];
@@ -109,6 +117,8 @@ export class Apply {
 
     this.dec1 = this.applyForm.controls['dec1'];
     this.coborrowerDec1 = this.applyForm.controls['coborrowerDec1'];
+    this.dec2 = this.applyForm.controls['dec2'];
+    this.coborrowerDec2 = this.applyForm.controls['coborrowerDec2'];
   }
 
   toggleMiddleNameValue(): void {

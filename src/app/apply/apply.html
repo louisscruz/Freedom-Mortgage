@@ -4,7 +4,7 @@
     <div class="row">
       <form class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" [ngFormModel]="applyForm" (submit)="submit()">
         <h2 class="text-xs-center">I. General Info</h2>
-        <div class="card card-block card-light-border-success">
+        <div class="card card-block">
           <h5 class="text-xs-center">Borrower Info</h5>
           <div class="row">
             <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="firstName.valid && firstName.touched" [class.has-danger]="!firstName.valid && firstName.touched">
@@ -76,13 +76,13 @@
               </div>
             </fieldset>
             <div class="col-xs-12 col-md-8">
-              <!--div class="card card-block card-light-border-success" *ngIf="!applyForm.controls['maritalStatus'].value">
+              <!--div class="card card-block" *ngIf="!applyForm.controls['maritalStatus'].value">
                 test
               </div-->
-              <div class="card card-block card-light-border-success" *ngIf="applyForm.controls['maritalStatus'].value === 'married'">
+              <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married'">
                 Select <i>Married</i> if currently married or in a registered domestic partnership.
               </div>
-              <div class="card card-block card-light-border-success" *ngIf="applyForm.controls['maritalStatus'].value === 'unmarried'">
+              <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'unmarried'">
                 Select <i>Unmarried</i> if single, divorced, or widowed.
               </div>
             </div>
@@ -106,17 +106,17 @@
               </div>
             </fieldset>
             <div class="col-xs-12 col-md-8">
-              <div class="card card-block card-light-border-success card-info" *ngIf="coborrower.value">
+              <div class="card card-block card-info" *ngIf="coborrower.value">
                 We highly recommend that, if you are currently married, you choose to apply with your spouse. Your spouse's credit history could be very beneficial.
               </div>
-              <div class="card card-block card-light-border-success card-inverse card-warning" *ngIf="!coborrower.value">
-                <blockquote class="card-block card-light-border-successquote">
+              <div class="card card-block card-inverse card-warning" *ngIf="!coborrower.value">
+                <blockquote class="card-blockquote">
                 While you may apply without your spouse, you could potentially benefit from your spouse's credit history.
               </blockquote>
               </div>
             </div>
           </div>
-          <div class="card card-block card-light-border-success" *ngIf="applyForm.controls['maritalStatus'].value === 'married' && coborrower.value">
+          <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married' && coborrower.value">
             <h5 class="text-xs-center">Co-borrower info</h5>
             <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.has-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
               <label for="coborrowerFirstName" class="form-control-label">First Name</label>
@@ -148,7 +148,7 @@
         </div>
 
         <h2 class="text-xs-center">II. Loan</h2>
-        <div class="card card-block card-light-border-success">
+        <div class="card card-block">
           <div class="row">
             <label for="loanAmount" class="form-control-label">Loan Amount</label>
             <fieldgroup class="form-group col-xs-12">
@@ -165,14 +165,14 @@
         </div>
 
         <h2 class="text-xs-center">III. Employment</h2>
-        <div class="card card-block card-light-border-success">
+        <div class="card card-block">
           <div class="row">
           </div>
         </div>
 
         <h2 class="text-xs-center">IV. Declarations</h2>
-        <div class="card card-block card-light-border-success">
-          <div class="row card card-block card-light-border-success">
+        <div class="card card-block">
+          <div class="row card card-block">
             <div class="form-group col-xs-12">
               <label>1. Are there any outstanding judgements against you?</label>
               <fieldset for="dec1" class="text-xs-center">
@@ -205,9 +205,39 @@
               </fieldset>
             </div>
           </div>
-        </div>
-        <div class="card card-block card-light-border-success">
-          <div class="row card card-b">
+
+          <div class="row card card-block">
+            <div class="form-group col-xs-12">
+              <label>2. Have you been declared bankrup in within the past 7 years?</label>
+              <fieldset for="dec2" class="text-xs-center">
+                <label class="radio-inline c-input c-radio">
+                  <input type="radio" name="dec2" id="dec2-1" value="option1" (click)="setField('dec2', true)" [checked]="applyForm.controls['dec2'].value === true">
+                  <span class="c-indicator"></span>
+                  Yes
+                </label>
+                <label class="radio-inline c-input c-radio">
+                  <input type="radio" name="dec2" id="dec2-2" value="option2" (click)="setField('dec2', false)" [checked]="applyForm.controls['dec2'].value === false">
+                  <span class="c-indicator"></span>
+                  No
+                </label>
+              </fieldset>
+            </div>
+            <div class="form-group col-xs-12" *ngIf="coborrower.value">
+              <label *ngIf="coborrowerFirstName.value">Has {{coborrowerFirstName.value}}?</label>
+              <label *ngIf="!coborrowerFirstName.value">Has your coborrower?</label>
+              <fieldset for="dec2b" class="text-xs-center">
+                <label class="radio-inline c-input c-radio">
+                  <input type="radio" name="dec2b" id="dec2b-1" value="option1" (click)="setField('coborrowerDec2', true)" [checked]="applyForm.controls['coborrowerDec2'].value === true">
+                  <span class="c-indicator"></span>
+                  Yes
+                </label>
+                <label class="radio-inline c-input c-radio">
+                  <input type="radio" name="dec2b" id="dec2b-2" value="option2" (click)="setField('coborrowerDec2', false)" [checked]="applyForm.controls['coborrowerDec2'].value === false">
+                  <span class="c-indicator"></span>
+                  No
+                </label>
+              </fieldset>
+            </div>
           </div>
         </div>
 
