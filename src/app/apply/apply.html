@@ -91,14 +91,14 @@
             <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
               <div class="radio">
                 <label class="c-input c-radio">
-                  <input type="radio" name="coborrowerRadio1" (click)="setCoborrowerTrue(coborrower.value)" [checked]="coborrower.value">
+                  <input type="radio" name="coborrowerRadio1" (click)="setCoborrower(true)" [checked]="coborrower.value">
                   <span class="c-indicator"></span>
                   Yes
                 </label>
               </div>
               <div class="radio">
                 <label class="c-input c-radio">
-                  <input type="radio" name="coborrowerRadio2" (click)="setCoborrowerFalse(coborrower.value)" [checked]="!coborrower.value">
+                  <input type="radio" name="coborrowerRadio2" (click)="setCoborrower(false)" [checked]="!coborrower.value">
                   <span class="c-indicator"></span>
                   No
                 </label>
@@ -190,12 +190,12 @@
               <label>Against {{coborrowerFirstName.value}}?</label>
               <fieldset for="dec1b" class="text-xs-center">
                 <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec1b" id="dec1b-1" value="option1" (click)="setField('dec1b', true)" [checked]="applyForm.controls['dec1b'].value === true">
+                  <input type="radio" name="dec1b" id="dec1b-1" value="option1" (click)="setField('coborrowerDec1', true)" [checked]="applyForm.controls['coborrowerDec1'].value === true">
                   <span class="c-indicator"></span>
                   Yes
                 </label>
                 <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec1b" id="dec1b-2" value="option2" (click)="setField('dec1b', false)" [checked]="applyForm.controls['dec1b'].value === false">
+                  <input type="radio" name="dec1b" id="dec1b-2" value="option2" (click)="setField('coborrowerDec1', false)" [checked]="applyForm.controls['coborrowerDec1'].value === false">
                   <span class="c-indicator"></span>
                   No
                 </label>

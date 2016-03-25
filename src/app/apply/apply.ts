@@ -31,7 +31,7 @@ export class Apply {
   private loanAmount: number = 250000;
 
   private dec1: AbstractControl;
-  private dec1b: AbstractControl;
+  private coborrowerDec1: AbstractControl;
 
   private noMiddleName: any = {
     value: false
@@ -46,25 +46,16 @@ export class Apply {
   };
   constructor(private _fb: FormBuilder) {
     function conditionalRequired(...conditions: any[]): any {
-      //alert('running')
-      //setTimeout(() => {
-        let necessary = false;
-        return (control: Control): { [s: string]: boolean } => {
-          //console.log('currently running for the following conditions')
-          //console.log(conditions);
-          //alert(conditions[0].value)
-          for (var i = 0; i < conditions.length; i++) {
-            if (conditions[i].value === false) {
-              necessary = true;
-            }
+      return (control: Control): { [s: string]: boolean } => {
+        for (var i = 0; i < conditions.length; i++) {
+          if (conditions[i].value === false) {
+            return;
           }
-          if (necessary && (control.value === '' || control.value === null)) {
-            return { required: true };
-          } else {
-            return null;
-          }
-        };
-      //}, 0);
+        }
+        if (control.value === '' || control.value === null) {
+          return { required: true };
+        }
+      };
     }
 
     this.applyForm = _fb.group({
@@ -86,9 +77,6 @@ export class Apply {
       'maritalStatus': ['', Validators.compose([
         Validators.required
       ])],
-      'includeCoborrower': ['', Validators.compose([
-        Validators.required
-      ])],
       'coborrowerFirstName': ['', Validators.compose([
         conditionalRequired(this.coborrower)
       ])],
@@ -104,7 +92,7 @@ export class Apply {
       'dec1': ['', Validators.compose([
         Validators.required
       ])],
-      'dec1b': ['', Validators.compose([
+      'coborrowerDec1': ['', Validators.compose([
         conditionalRequired(this.coborrower)
       ])]
     });
@@ -120,7 +108,7 @@ export class Apply {
     //this.loanAmount = this.applyForm.controls['loanAmount'];
 
     this.dec1 = this.applyForm.controls['dec1'];
-    this.dec1b = this.applyForm.controls['dec1b'];
+    this.coborrowerDec1 = this.applyForm.controls['coborrowerDec1'];
   }
 
   toggleMiddleNameValue(): void {
@@ -145,32 +133,22 @@ export class Apply {
   }
 
   setMaritalStatus(value: string): void {
-    //setTimeout(() => {
-      //(<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
-      if (value === 'married') {
-        //this.setCondition(this.coborrower, true);
-        this.coborrower.value = true;
-      } else {
-        //this.setCondition(this.coborrower, false);
-        this.coborrower.value = false;
-      }
-      (<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
-
-    //}, 0);
-  }
-
-  setCoborrowerTrue(value: boolean) {
-    if (value === false) {
-      this.coborrower = true;
-      (<Control>this.applyForm.controls['includeCoborrower']).updateValue(true);
-
+    (<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
+    if (value === 'married') {
+      this.setCoborrower(true);
+    } else {
+      this.setCoborrower(false);
     }
   }
 
-  setCoborrowerFalse(value: boolean) {
-    if (value === true) {
-      this.coborrower = false;
-      (<Control>this.applyForm.controls['includeCoborrower']).updateValue(false);
+  setCoborrower(value: boolean) {
+    if (value !== this.coborrower.value) {
+      this.coborrower.value = !this.coborrower.value;
+      for (var key in this.applyForm.controls) {
+        if (key.slice(0, 10) === 'coborrower') {
+          (this.applyForm.controls[key] as Control).updateValueAndValidity();
+        }
+      }
     }
   }
 
