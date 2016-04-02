@@ -1,252 +1,320 @@
-<div class="container">
-  <div class="apply">
-    <h1 class="text-xs-center">Apply</h1>
-    <div class="row">
-      <form class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" [ngFormModel]="applyForm" (submit)="submit()">
-        <h2 class="text-xs-center">I. General Info</h2>
-        <div class="card card-block">
-          <h5 class="text-xs-center">Borrower Info</h5>
+<div class="apply">
+  <form class="" [ngFormModel]="applyForm" (submit)="submit()">
+    <section class="one inverse">
+      <div class="child">
+        <div class="container">
           <div class="row">
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="firstName.valid && firstName.touched" [class.has-danger]="!firstName.valid && firstName.touched">
-              <label for="firstName" class="form-control-label">First Name</label>
-              <input type="text" id="firstNameInput" placeholder="First Name" [ngFormControl]="applyForm.controls['firstName']" class="form-control" [class.form-control-success]="firstName.valid" [class.form-control-danger]="!firstName.valid">
-              <div *ngIf="firstName.touched">
-                <div *ngIf="firstName.hasError('required')" class="text-help">First name is required</div>
+            <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+              <h1 class="display-4 text-xs-center">Apply</h1>
+              <p class="lead text-xs-center">All fields are required.</p>
+              <h2 class="text-xs-center"><i class="fa fa-info fa-fw"></i></h2>
+              <h2 class="text-xs-center">I. General Info</h2>
+              <div class="card card-block">
+                <h5 class="text-xs-center">Borrower Info</h5>
+                <div class="row">
+                  <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="firstName.valid && firstName.touched" [class.has-danger]="!firstName.valid && firstName.touched">
+                    <label for="firstName" class="form-control-label">First Name</label>
+                    <input type="text" id="firstNameInput" placeholder="First Name" [ngFormControl]="applyForm.controls['firstName']" class="form-control" [class.form-control-success]="firstName.valid" [class.form-control-danger]="!firstName.valid">
+                    <div *ngIf="firstName.touched">
+                      <div *ngIf="firstName.hasError('required')" class="text-help">First name is required</div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="noMiddleName.value || (middleName.valid && middleName.touched)" [class.has-danger]="(!noMiddleName.value && !middleName.valid) && middleName.touched">
+                    <label for="middleName" class="form-control-label">Middle Name</label>
+                    <input type="text" id="middleNameInput" placeholder="Middle Name" [ngFormControl]="applyForm.controls['middleName']" class="form-control" [class.form-control-success]="middleName.valid || noMiddleName.value" [class.form-control-danger]="!middleName.valid" [disabled]="noMiddleName.value">
+                    <label class="c-input c-checkbox">
+                      <input type="checkbox" id="middleNameCheckbox" [(ngModel)]="noMiddleName.value" (click)="toggleMiddleNameValue()">
+                      <span class="c-indicator"></span>
+                      Check here if no middle name.
+                    </label>
+                    <div *ngIf="middleName.touched && !noMiddleName.value">
+                      <div *ngIf="middleName.hasError('required')" class="text-help">Middle name is required</div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="lastName.valid && lastName.touched" [class.has-danger]="!lastName.valid && lastName.touched">
+                    <label for="lastName" class="form-control-label">Last Name</label>
+                    <input type="text" id="lastNameInput" placeholder="Last Name" [ngFormControl]="applyForm.controls['lastName']" class="form-control" [class.form-control-success]="lastName.valid" [class.form-control-danger]="!lastName.valid">
+                    <div *ngIf="lastName.touched">
+                      <div *ngIf="lastName.hasError('required')" class="text-help">Last name is required</div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="row">
+                  <fieldset class="form-group col-xs-12 col-md-6" [class.has-success]="borrowerDob.valid && borrowerDob.touched" [class.has-danger]="!borrowerDob.valid && borrowerDob.touched">
+                    <label for="borrowerDob" class="form-control-label">Date of Birth</label>
+                    <input type="text" id="borrowerDobInput" placeholder="Date of Birth" [ngFormControl]="applyForm.controls['borrowerDob']" class="form-control" [class.form-control-success]="borrowerDob.valid" [class.form-control-danger]="!borrowerDob.valid">
+                    <div *ngIf="borrowerDob.touched">
+                      <div *ngIf="borrowerDob.hasError('required')" class="text-help">Date of birth required</div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="form-group col-xs-12 col-md-6" [class.has-success]="borrowerSsn.valid && borrowerSsn.touched" [class.has-danger]="!borrowerSsn.valid && borrowerSsn.touched">
+                    <label for="borrowerSsn" class="form-control-label">SSN</label>
+                    <input type="password" id="borrowerSsnInput" placeholder="***-**-****" [ngFormControl]="applyForm.controls['borrowerSsn']" class="form-control" [class.form-control-success]="borrowerSsn.valid" [class.form-control-danger]="!borrowerSsn.valid">
+                    <div *ngIf="borrowerSsn.touched">
+                      <div *ngIf="borrowerSsn.hasError('required')" class="text-help">SSN required</div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="row">
+                  <label for="maritalStatus" class="form-control-label col-xs-12">Marital Status</label>
+                  <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="exampleRadios" id="maritalStatusRadio1" value="married" (click)="setMaritalStatus('married')" [checked]="maritalStatus === 'married'">
+                        <span class="c-indicator"></span>
+                        Married
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="exampleRadios" id="maritalStatusRadio2" value="unmarried" (click)="setMaritalStatus('unmarried')" [checked]="maritalStatus === 'unmarried'">
+                        <span class="c-indicator"></span>
+                        Unmarried
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="exampleRadios" id="maritalStatusRadio3" value="separated" (click)="setMaritalStatus('separated')" [checked]="maritalStatus === 'separated'">
+                        <span class="c-indicator"></span>
+                        Separated
+                      </label>
+                    </div>
+                  </fieldset>
+                  <div class="col-xs-12 col-md-8">
+                    <!--div class="card card-block" *ngIf="!applyForm.controls['maritalStatus'].value">
+                    test
+                  </div-->
+                  <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married'">
+                    Select <i>Married</i> if currently married or in a registered domestic partnership.
+                  </div>
+                  <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'unmarried'">
+                    Select <i>Unmarried</i> if single, divorced, or widowed.
+                  </div>
+                </div>
               </div>
-            </fieldset>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="noMiddleName.value || (middleName.valid && middleName.touched)" [class.has-danger]="(!noMiddleName.value && !middleName.valid) && middleName.touched">
-              <label for="middleName" class="form-control-label">Middle Name</label>
-              <input type="text" id="middleNameInput" placeholder="Middle Name" [ngFormControl]="applyForm.controls['middleName']" class="form-control" [class.form-control-success]="middleName.valid || noMiddleName.value" [class.form-control-danger]="!middleName.valid" [disabled]="noMiddleName.value">
-              <label class="c-input c-checkbox">
-                <input type="checkbox" id="middleNameCheckbox" [(ngModel)]="noMiddleName.value" (click)="toggleMiddleNameValue()">
-                <span class="c-indicator"></span>
-                Check here if no middle name.
-              </label>
-              <div *ngIf="middleName.touched && !noMiddleName.value">
-                <div *ngIf="middleName.hasError('required')" class="text-help">Middle name is required</div>
+              <div class="row" *ngIf="applyForm.controls['maritalStatus'].value === 'married'">
+                <label for="filingMethod" class="form-control-label col-xs-12">Apply with spouse?</label>
+                <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
+                  <div class="radio">
+                    <label class="c-input c-radio">
+                      <input type="radio" name="coborrowerRadio1" (click)="setCoborrower(true)" [checked]="coborrower.value">
+                      <span class="c-indicator"></span>
+                      Yes
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label class="c-input c-radio">
+                      <input type="radio" name="coborrowerRadio2" (click)="setCoborrower(false)" [checked]="!coborrower.value">
+                      <span class="c-indicator"></span>
+                      No
+                    </label>
+                  </div>
+                </fieldset>
+                <div class="col-xs-12 col-md-8">
+                  <div class="card card-block card-info" *ngIf="coborrower.value">
+                    We highly recommend that, if you are currently married, you choose to apply with your spouse. Your spouse's credit history could be very beneficial.
+                  </div>
+                  <div class="card card-block card-inverse card-warning" *ngIf="!coborrower.value">
+                    <blockquote class="card-blockquote">
+                      While you may apply without your spouse, you could potentially benefit from your spouse's credit history.
+                    </blockquote>
+                  </div>
+                </div>
               </div>
-            </fieldset>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="lastName.valid && lastName.touched" [class.has-danger]="!lastName.valid && lastName.touched">
-              <label for="lastName" class="form-control-label">Last Name</label>
-              <input type="text" id="lastNameInput" placeholder="Last Name" [ngFormControl]="applyForm.controls['lastName']" class="form-control" [class.form-control-success]="lastName.valid" [class.form-control-danger]="!lastName.valid">
-              <div *ngIf="lastName.touched">
-                <div *ngIf="lastName.hasError('required')" class="text-help">Last name is required</div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="row">
-            <fieldset class="form-group col-xs-12 col-md-6" [class.has-success]="borrowerDob.valid && borrowerDob.touched" [class.has-danger]="!borrowerDob.valid && borrowerDob.touched">
-              <label for="borrowerDob" class="form-control-label">Date of Birth</label>
-              <input type="text" id="borrowerDobInput" placeholder="Date of Birth" [ngFormControl]="applyForm.controls['borrowerDob']" class="form-control" [class.form-control-success]="borrowerDob.valid" [class.form-control-danger]="!borrowerDob.valid">
-              <div *ngIf="borrowerDob.touched">
-                <div *ngIf="borrowerDob.hasError('required')" class="text-help">Date of birth required</div>
-              </div>
-            </fieldset>
-            <fieldset class="form-group col-xs-12 col-md-6" [class.has-success]="borrowerSsn.valid && borrowerSsn.touched" [class.has-danger]="!borrowerSsn.valid && borrowerSsn.touched">
-              <label for="borrowerSsn" class="form-control-label">SSN</label>
-              <input type="password" id="borrowerSsnInput" placeholder="***-**-****" [ngFormControl]="applyForm.controls['borrowerSsn']" class="form-control" [class.form-control-success]="borrowerSsn.valid" [class.form-control-danger]="!borrowerSsn.valid">
-              <div *ngIf="borrowerSsn.touched">
-                <div *ngIf="borrowerSsn.hasError('required')" class="text-help">SSN required</div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="row">
-            <label for="maritalStatus" class="form-control-label col-xs-12">Marital Status</label>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
-              <div class="radio">
-                <label class="c-input c-radio">
-                  <input type="radio" name="exampleRadios" id="maritalStatusRadio1" value="married" (click)="setMaritalStatus('married')" [checked]="maritalStatus === 'married'">
-                  <span class="c-indicator"></span>
-                  Married
-                </label>
-              </div>
-              <div class="radio">
-                <label class="c-input c-radio">
-                  <input type="radio" name="exampleRadios" id="maritalStatusRadio2" value="unmarried" (click)="setMaritalStatus('unmarried')" [checked]="maritalStatus === 'unmarried'">
-                  <span class="c-indicator"></span>
-                  Unmarried
-                </label>
-              </div>
-              <div class="radio">
-                <label class="c-input c-radio">
-                  <input type="radio" name="exampleRadios" id="maritalStatusRadio3" value="separated" (click)="setMaritalStatus('separated')" [checked]="maritalStatus === 'separated'">
-                  <span class="c-indicator"></span>
-                  Separated
-                </label>
-              </div>
-            </fieldset>
-            <div class="col-xs-12 col-md-8">
-              <!--div class="card card-block" *ngIf="!applyForm.controls['maritalStatus'].value">
-                test
-              </div-->
-              <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married'">
-                Select <i>Married</i> if currently married or in a registered domestic partnership.
-              </div>
-              <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'unmarried'">
-                Select <i>Unmarried</i> if single, divorced, or widowed.
+              <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married' && coborrower.value">
+                <h5 class="text-xs-center">Co-borrower info</h5>
+                <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.has-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
+                  <label for="coborrowerFirstName" class="form-control-label">First Name</label>
+                  <input type="text" id="coborrowerFirstNameInput" placeholder="First Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerFirstName']" [class.form-control-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.form-control-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
+                  <div *ngIf="coborrowerFirstName.touched">
+                    <div *ngIf="coborrowerFirstName.hasError('required')" class="text-help">First name is required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.has-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched">
+                  <label for="coborrowerMiddleName" class="form-control-label">Middle Name</label>
+                  <input type="text" id="coborrowerMiddleNameInput" placeholder="Middle Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerMiddleName']" [class.form-control-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.form-control-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched" [disabled]="!coborrowerMiddleNameExists.value">
+                  <label class="c-input c-checkbox">
+                    <input type="checkbox" id="middleNameCheckbox" [checked]="!coborrowerMiddleNameExists.value" (click)="toggleCoborrowerMiddleName()">
+                    <span class="c-indicator"></span>
+                    Check here if no middle name.
+                  </label>
+                  <div *ngIf="coborrowerMiddleName.touched">
+                    <div *ngIf="coborrowerMiddleName.hasError('required')" class="text-help">Middle name is required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerLastName.touched && coborrowerLastName.touched" [class.has-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
+                  <label for="coborrowerLastName" class="form-control-label">Last Name</label>
+                  <input type="text" id="coborrowerLastNameInput" placeholder="Last Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerLastName']" [class.form-control-success]="coborrowerLastName.valid && coborrowerLastName.touched" [class.form-control-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
+                  <div *ngIf="coborrowerLastName.touched">
+                    <div *ngIf="coborrowerLastName.hasError('required')" class="text-help">Last name is required</div>
+                  </div>
+                </fieldset>
               </div>
             </div>
-          </div>
-          <div class="row" *ngIf="applyForm.controls['maritalStatus'].value === 'married'">
-            <label for="filingMethod" class="form-control-label col-xs-12">Apply with spouse?</label>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
-              <div class="radio">
-                <label class="c-input c-radio">
-                  <input type="radio" name="coborrowerRadio1" (click)="setCoborrower(true)" [checked]="coborrower.value">
-                  <span class="c-indicator"></span>
-                  Yes
-                </label>
-              </div>
-              <div class="radio">
-                <label class="c-input c-radio">
-                  <input type="radio" name="coborrowerRadio2" (click)="setCoborrower(false)" [checked]="!coborrower.value">
-                  <span class="c-indicator"></span>
-                  No
-                </label>
-              </div>
-            </fieldset>
-            <div class="col-xs-12 col-md-8">
-              <div class="card card-block card-info" *ngIf="coborrower.value">
-                We highly recommend that, if you are currently married, you choose to apply with your spouse. Your spouse's credit history could be very beneficial.
-              </div>
-              <div class="card card-block card-inverse card-warning" *ngIf="!coborrower.value">
-                <blockquote class="card-blockquote">
-                While you may apply without your spouse, you could potentially benefit from your spouse's credit history.
-              </blockquote>
-              </div>
-            </div>
-          </div>
-          <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married' && coborrower.value">
-            <h5 class="text-xs-center">Co-borrower info</h5>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.has-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
-              <label for="coborrowerFirstName" class="form-control-label">First Name</label>
-              <input type="text" id="coborrowerFirstNameInput" placeholder="First Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerFirstName']" [class.form-control-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.form-control-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
-              <div *ngIf="coborrowerFirstName.touched">
-                <div *ngIf="coborrowerFirstName.hasError('required')" class="text-help">First name is required</div>
-              </div>
-            </fieldset>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.has-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched">
-              <label for="coborrowerMiddleName" class="form-control-label">Middle Name</label>
-              <input type="text" id="coborrowerMiddleNameInput" placeholder="Middle Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerMiddleName']" [class.form-control-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.form-control-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched" [disabled]="!coborrowerMiddleNameExists.value">
-              <label class="c-input c-checkbox">
-                <input type="checkbox" id="middleNameCheckbox" [checked]="!coborrowerMiddleNameExists.value" (click)="toggleCoborrowerMiddleName()">
-                <span class="c-indicator"></span>
-                Check here if no middle name.
-              </label>
-              <div *ngIf="coborrowerMiddleName.touched">
-                <div *ngIf="coborrowerMiddleName.hasError('required')" class="text-help">Middle name is required</div>
-              </div>
-            </fieldset>
-            <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerLastName.touched && coborrowerLastName.touched" [class.has-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
-              <label for="coborrowerLastName" class="form-control-label">Last Name</label>
-              <input type="text" id="coborrowerLastNameInput" placeholder="Last Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerLastName']" [class.form-control-success]="coborrowerLastName.valid && coborrowerLastName.touched" [class.form-control-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
-              <div *ngIf="coborrowerLastName.touched">
-                <div *ngIf="coborrowerLastName.hasError('required')" class="text-help">Last name is required</div>
-              </div>
-            </fieldset>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <h2 class="text-xs-center">II. Loan</h2>
-        <div class="card card-block">
-          <div class="row">
-            <label for="loanAmount" class="form-control-label">Loan Amount</label>
-            <fieldgroup class="form-group col-xs-12">
-              <input type="range" min="10000" max="2500000" step="1000" [(ngModel)]="loanAmount">
-            </fieldgroup>
-            <fieldset class="form-group col-xs-12" [class.has-success]="loanAmount.valid && loanAmount.touched" [class.has-danger]="!loanAmount.valid && loanAmount.touched">
-              <div class="input-group">
-                <span class="input-group-addon">$</span>
-                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="loanAmount" [ngFormControl]="applyForm.controls['loanAmount']">
-                <span class="input-group-addon">.00</span>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-
-        <h2 class="text-xs-center">III. Employment</h2>
-        <div class="card card-block">
-          <div class="row">
-          </div>
-        </div>
-
-        <h2 class="text-xs-center">IV. Declarations</h2>
-        <div class="card card-block">
-          <div class="row card card-block">
-            <div class="form-group col-xs-12">
-              <label>1. Are there any outstanding judgements against you?</label>
-              <fieldset for="dec1" class="text-xs-center">
-                <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec1" id="dec1-1" value="option1" (click)="setField('dec1', true)" [checked]="applyForm.controls['dec1'].value === true">
-                  <span class="c-indicator"></span>
-                  Yes
-                </label>
-                <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec1" id="dec1-2" value="option2" (click)="setField('dec1', false)" [checked]="applyForm.controls['dec1'].value === false">
-                  <span class="c-indicator"></span>
-                  No
-                </label>
-              </fieldset>
-            </div>
-            <div class="form-group col-xs-12" *ngIf="coborrower.value">
-              <label *ngIf="coborrowerFirstName.value">Against {{coborrowerFirstName.value}}?</label>
-              <label *ngIf="!coborrowerFirstName.value">Against your spouse?</label>
-              <fieldset for="dec1b" class="text-xs-center">
-                <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec1b" id="dec1b-1" value="option1" (click)="setField('coborrowerDec1', true)" [checked]="applyForm.controls['coborrowerDec1'].value === true">
-                  <span class="c-indicator"></span>
-                  Yes
-                </label>
-                <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec1b" id="dec1b-2" value="option2" (click)="setField('coborrowerDec1', false)" [checked]="applyForm.controls['coborrowerDec1'].value === false">
-                  <span class="c-indicator"></span>
-                  No
-                </label>
-              </fieldset>
-            </div>
-          </div>
-
-          <div class="row card card-block">
-            <div class="form-group col-xs-12">
-              <label>2. Have you been declared bankrup in within the past 7 years?</label>
-              <fieldset for="dec2" class="text-xs-center">
-                <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec2" id="dec2-1" value="option1" (click)="setField('dec2', true)" [checked]="applyForm.controls['dec2'].value === true">
-                  <span class="c-indicator"></span>
-                  Yes
-                </label>
-                <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec2" id="dec2-2" value="option2" (click)="setField('dec2', false)" [checked]="applyForm.controls['dec2'].value === false">
-                  <span class="c-indicator"></span>
-                  No
-                </label>
-              </fieldset>
-            </div>
-            <div class="form-group col-xs-12" *ngIf="coborrower.value">
-              <label *ngIf="coborrowerFirstName.value">Has {{coborrowerFirstName.value}}?</label>
-              <label *ngIf="!coborrowerFirstName.value">Has your coborrower?</label>
-              <fieldset for="dec2b" class="text-xs-center">
-                <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec2b" id="dec2b-1" value="option1" (click)="setField('coborrowerDec2', true)" [checked]="applyForm.controls['coborrowerDec2'].value === true">
-                  <span class="c-indicator"></span>
-                  Yes
-                </label>
-                <label class="radio-inline c-input c-radio">
-                  <input type="radio" name="dec2b" id="dec2b-2" value="option2" (click)="setField('coborrowerDec2', false)" [checked]="applyForm.controls['coborrowerDec2'].value === false">
-                  <span class="c-indicator"></span>
-                  No
-                </label>
+  <section class="two">
+    <div class="child">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+          <h2 class="text-xs-center"><i class="fa fa-money fa-fw"></i></h2>
+          <h2 class="text-xs-center">II. Loan</h2>
+          <div class="card card-block">
+            <div class="row">
+              <label for="loanType" class="form-control-label">Loan Type</label>
+              <fieldgroup class="form-group col-xs-12 text-xs-center">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary" (click)="loanType = 'mortgage'" [class.active]="loanType === 'mortgage'">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> Mortgage
+                  </label>
+                  <label class="btn btn-primary" (click)="loanType = 'refinance'" [class.active]="loanType === 'refinance'">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> Refinance
+                  </label>
+                </div>
+              </fieldgroup>
+              <label for="loanAmount" class="form-control-label">Loan Amount</label>
+              <fieldgroup class="form-group col-xs-12">
+                <input type="range" min="50000" max="5000000" step="1000" [(ngModel)]="loanAmount">
+              </fieldgroup>
+              <fieldset class="form-group col-xs-12" [class.has-success]="loanAmount.valid && loanAmount.touched" [class.has-danger]="!loanAmount.valid && loanAmount.touched">
+                <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="loanAmount" [ngFormControl]="applyForm.controls['loanAmount']">
+                  <span class="input-group-addon">.00</span>
+                </div>
               </fieldset>
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <fieldset class="col-xs-12 form-group">
-            <button [disabled]="!applyForm.valid" class="btn btn-primary btn-block">Apply</button>
-          </fieldset>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
+  </section>
+
+  <section class="three inverse">
+    <div class="child">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+          <h2 class="text-xs-center"><i class="fa fa-wrench fa-fw"></i></h2>
+          <h2 class="text-xs-center">III. Employment</h2>
+          <div class="card card-block">
+            <div class="row">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <section class="four">
+    <div class="child">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+          <h2 class="text-xs-center"><i class="fa fa-tasks fa-fw"></i></h2>
+          <h2 class="text-xs-center">IV. Declarations</h2>
+          <div class="card card-block">
+            <div class="row card card-block">
+              <div class="form-group col-xs-12">
+                <label>1. Are there any outstanding judgements against you?</label>
+                <fieldset for="dec1" class="text-xs-center">
+                  <label class="radio-inline c-input c-radio">
+                    <input type="radio" name="dec1" id="dec1-1" value="option1" (click)="setField('dec1', true)" [checked]="applyForm.controls['dec1'].value === true">
+                    <span class="c-indicator"></span>
+                    Yes
+                  </label>
+                  <label class="radio-inline c-input c-radio">
+                    <input type="radio" name="dec1" id="dec1-2" value="option2" (click)="setField('dec1', false)" [checked]="applyForm.controls['dec1'].value === false">
+                    <span class="c-indicator"></span>
+                    No
+                  </label>
+                </fieldset>
+              </div>
+              <div class="form-group col-xs-12" *ngIf="coborrower.value">
+                <label *ngIf="coborrowerFirstName.value">Against {{coborrowerFirstName.value}}?</label>
+                <label *ngIf="!coborrowerFirstName.value">Against your spouse?</label>
+                <fieldset for="dec1b" class="text-xs-center">
+                  <label class="radio-inline c-input c-radio">
+                    <input type="radio" name="dec1b" id="dec1b-1" value="option1" (click)="setField('coborrowerDec1', true)" [checked]="applyForm.controls['coborrowerDec1'].value === true">
+                    <span class="c-indicator"></span>
+                    Yes
+                  </label>
+                  <label class="radio-inline c-input c-radio">
+                    <input type="radio" name="dec1b" id="dec1b-2" value="option2" (click)="setField('coborrowerDec1', false)" [checked]="applyForm.controls['coborrowerDec1'].value === false">
+                    <span class="c-indicator"></span>
+                    No
+                  </label>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row card card-block">
+              <div class="form-group col-xs-12">
+                <label>2. Have you been declared bankrup in within the past 7 years?</label>
+                <fieldset for="dec2" class="text-xs-center">
+                  <label class="radio-inline c-input c-radio">
+                    <input type="radio" name="dec2" id="dec2-1" value="option1" (click)="setField('dec2', true)" [checked]="applyForm.controls['dec2'].value === true">
+                    <span class="c-indicator"></span>
+                    Yes
+                  </label>
+                  <label class="radio-inline c-input c-radio">
+                    <input type="radio" name="dec2" id="dec2-2" value="option2" (click)="setField('dec2', false)" [checked]="applyForm.controls['dec2'].value === false">
+                    <span class="c-indicator"></span>
+                    No
+                  </label>
+                </fieldset>
+              </div>
+              <div class="form-group col-xs-12" *ngIf="coborrower.value">
+                <label *ngIf="coborrowerFirstName.value">Has {{coborrowerFirstName.value}}?</label>
+                <label *ngIf="!coborrowerFirstName.value">Has your coborrower?</label>
+                <fieldset for="dec2b" class="text-xs-center">
+                  <label class="radio-inline c-input c-radio">
+                    <input type="radio" name="dec2b" id="dec2b-1" value="option1" (click)="setField('coborrowerDec2', true)" [checked]="applyForm.controls['coborrowerDec2'].value === true">
+                    <span class="c-indicator"></span>
+                    Yes
+                  </label>
+                  <label class="radio-inline c-input c-radio">
+                    <input type="radio" name="dec2b" id="dec2b-2" value="option2" (click)="setField('coborrowerDec2', false)" [checked]="applyForm.controls['coborrowerDec2'].value === false">
+                    <span class="c-indicator"></span>
+                    No
+                  </label>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+  <section class="five">
+    <div class="child">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+          <h2 class="text-xs-center"><i class="fa fa-balance-scale fa-fw"></i></h2>
+          <h2 class="text-xs-center">V. Government Monitoring Questions</h2>
+          <div class="card card-block">
+            <div class="row">
+            </div>
+          </div>
+
+          <div class="row">
+            <fieldset class="col-xs-12 form-group">
+              <button [disabled]="!applyForm.valid" class="btn btn-primary btn-block">Apply</button>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+</form>
 </div>

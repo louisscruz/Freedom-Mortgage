@@ -28,6 +28,7 @@ export class Apply {
   private coborrowerMiddleNameCache: string;
   private coborrowerLastName: AbstractControl;
 
+  private loanType: string = 'mortgage';
   private loanAmount: number = 250000;
 
   private dec1: AbstractControl;
@@ -88,6 +89,9 @@ export class Apply {
       'coborrowerLastName': ['', Validators.compose([
         conditionalRequired(this.coborrower)
       ])],
+      'loanType': ['', Validators.compose([
+        Validators.required
+      ])],
       'loanAmount': ['', Validators.compose([
         Validators.required
       ])],
@@ -113,6 +117,8 @@ export class Apply {
     this.coborrowerFirstName = this.applyForm.controls['coborrowerFirstName'];
     this.coborrowerMiddleName = this.applyForm.controls['coborrowerMiddleName'];
     this.coborrowerLastName = this.applyForm.controls['coborrowerLastName'];
+
+    //this.loanType = this.applyForm.controls['loanType'];
     //this.loanAmount = this.applyForm.controls['loanAmount'];
 
     this.dec1 = this.applyForm.controls['dec1'];
