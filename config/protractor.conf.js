@@ -1,17 +1,20 @@
 // @AngularClass
 require('ts-node/register');
+var helpers = require('./helpers');
 
 exports.config = {
-  baseUrl: 'http://localhost:9000/',
+  baseUrl: 'http://localhost:3000/',
 
   // use `npm run e2e`
   specs: [
-    'src/**/**.e2e.ts',
-    'src/**/*.e2e.ts'
+    helpers.root('src/**/**.e2e.ts'),
+    helpers.root('src/**/*.e2e.ts')
+    // 'src/**/**.e2e.ts',
+    // 'src/**/*.e2e.ts'
   ],
   exclude: [],
 
-  framework: 'jasmine',
+  framework: 'jasmine2',
 
   allScriptsTimeout: 110000,
 
@@ -35,7 +38,7 @@ exports.config = {
     browser.ignoreSynchronization = true;
   },
 
-  seleniumServerJar: "node_modules/protractor/selenium/selenium-server-standalone-2.48.2.jar",
+  seleniumServerJar: "node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar",
 
   /**
    * Angular 2 configuration

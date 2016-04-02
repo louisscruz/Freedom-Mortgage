@@ -6,10 +6,11 @@ import {CORE_DIRECTIVES,
         Validators,
         AbstractControl,
         Control} from 'angular2/common';
+import {DatePicker} from '../datepicker/datepicker';
 
 @Component({
   selector: 'apply',
-  directives: [],
+  directives: [DatePicker],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
 })
@@ -21,6 +22,8 @@ export class Apply {
   private lastName: AbstractControl;
   private borrowerDob: AbstractControl;
   private borrowerSsn: AbstractControl;
+  private borrowerPhone: AbstractControl;
+  private borrowerEmail: AbstractControl;
   private maritalStatus: AbstractControl;
   private includeCoborrower: AbstractControl;
   private coborrowerFirstName: AbstractControl;
@@ -41,6 +44,10 @@ export class Apply {
   };
 
   private coborrower: any = {
+    value: false
+  };
+
+  private spouse: any = {
     value: false
   };
 
@@ -75,6 +82,12 @@ export class Apply {
         Validators.required
       ])],
       'borrowerSsn': ['', Validators.compose([
+        Validators.required
+      ])],
+      'borrowerPhone': ['', Validators.compose([
+        Validators.required
+      ])],
+      'borrowerEmail': ['', Validators.compose([
         Validators.required
       ])],
       'maritalStatus': ['', Validators.compose([
@@ -113,6 +126,8 @@ export class Apply {
     this.lastName = this.applyForm.controls['lastName'];
     this.borrowerDob = this.applyForm.controls['borrowerDob'];
     this.borrowerSsn = this.applyForm.controls['borrowerSsn'];
+    this.borrowerPhone = this.applyForm.controls['borrowerPhone'];
+    this.borrowerEmail = this.applyForm.controls['borrowerEmail'];
     this.maritalStatus = this.applyForm.controls['maritalStatus'];
     this.coborrowerFirstName = this.applyForm.controls['coborrowerFirstName'];
     this.coborrowerMiddleName = this.applyForm.controls['coborrowerMiddleName'];
@@ -152,8 +167,10 @@ export class Apply {
     (<Control>this.applyForm.controls['maritalStatus']).updateValue(value);
     if (value === 'married') {
       this.setCoborrower(true);
+      this.setSpouse(true);
     } else {
       this.setCoborrower(false);
+      this.setSpouse(false);
     }
   }
 
@@ -165,6 +182,12 @@ export class Apply {
           (this.applyForm.controls[key] as Control).updateValueAndValidity();
         }
       }
+    }
+  }
+
+  setSpouse(value: boolean): void {
+    if (value !== this.spouse.value) {
+      this.spouse.value = !this.spouse.value;
     }
   }
 

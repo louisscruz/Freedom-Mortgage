@@ -12,6 +12,7 @@
               <div class="card card-block">
                 <h5 class="text-xs-center">Borrower Info</h5>
                 <div class="row">
+                  <datepicker></datepicker>
                   <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="firstName.valid && firstName.touched" [class.has-danger]="!firstName.valid && firstName.touched">
                     <label for="firstName" class="form-control-label">First Name</label>
                     <input type="text" id="firstNameInput" placeholder="First Name" [ngFormControl]="applyForm.controls['firstName']" class="form-control" [class.form-control-success]="firstName.valid" [class.form-control-danger]="!firstName.valid">
@@ -56,6 +57,22 @@
                   </fieldset>
                 </div>
                 <div class="row">
+                  <fieldset class="form-group col-xs-12 col-md-6" [class.has-success]="borrowerPhone.valid && borrowerPhone.touched" [class.has-danger]="!borrowerPhone.valid && borrowerPhone.touched">
+                    <label for="borrowerPhone" class="form-control-label">Phone Number</label>
+                    <input type="text" id="borrowerPhone" placeholder="Phone Number" [ngFormControl]="applyForm.controls['borrowerPhone']" class="form-control" [class.form-control-success]="borrowerPhone.valid" [class.form-control-danger]="!borrowerPhone.valid">
+                    <div *ngIf="borrowerPhone.touched">
+                      <div *ngIf="borrowerPhone.hasError('required')" class="text-help">Phone Number required</div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="form-group col-xs-12 col-md-6" [class.has-success]="borrowerEmail.valid && borrowerEmail.touched" [class.has-danger]="!borrowerEmail.valid && borrowerEmail.touched">
+                    <label for="borrowerEmail" class="form-control-label">Email Address</label>
+                    <input type="email" id="borrowerEmail" placeholder="Email Address" [ngFormControl]="applyForm.controls['borrowerEmail']" class="form-control" [class.form-control-success]="borrowerEmail.valid" [class.form-control-danger]="!borrowerEmail.valid">
+                    <div *ngIf="borrowerEmail.touched">
+                      <div *ngIf="borrowerEmail.hasError('required')" class="text-help">Email required</div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="row">
                   <label for="maritalStatus" class="form-control-label col-xs-12">Marital Status</label>
                   <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
                     <div class="radio">
@@ -92,8 +109,8 @@
                   </div>
                 </div>
               </div>
-              <div class="row" *ngIf="applyForm.controls['maritalStatus'].value === 'married'">
-                <label for="filingMethod" class="form-control-label col-xs-12">Apply with spouse?</label>
+              <div class="row" *ngIf="applyForm.controls['maritalStatus'].value">
+                <label for="filingMethod" class="form-control-label col-xs-12">Apply with coborrower?</label>
                 <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="maritalStatus.valid && maritalStatus.touched" [class.has-danger]="!maritalStatus.valid && maritalStatus.touched">
                   <div class="radio">
                     <label class="c-input c-radio">
@@ -121,34 +138,55 @@
                   </div>
                 </div>
               </div>
-              <div class="card card-block" *ngIf="applyForm.controls['maritalStatus'].value === 'married' && coborrower.value">
+              <div class="row" *ngIf="coborrower.value && applyForm.controls['maritalStatus'].value === 'married'">
+                <label for="filingMethod" class="form-control-label col-xs-12">Is your coborrower your spouse?</label>
+                <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="spouse.valid && spouse.touched" [class.has-danger]="!spouse.valid && spouse.touched">
+                  <div class="radio">
+                    <label class="c-input c-radio">
+                      <input type="radio" name="spouse1" (click)="setSpouse(true)" [checked]="spouse.value">
+                      <span class="c-indicator"></span>
+                      Yes
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label class="c-input c-radio">
+                      <input type="radio" name="spouse2" (click)="setSpouse(false)" [checked]="!spouse.value">
+                      <span class="c-indicator"></span>
+                      No
+                    </label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="card card-block" *ngIf="coborrower.value">
                 <h5 class="text-xs-center">Co-borrower info</h5>
-                <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.has-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
-                  <label for="coborrowerFirstName" class="form-control-label">First Name</label>
-                  <input type="text" id="coborrowerFirstNameInput" placeholder="First Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerFirstName']" [class.form-control-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.form-control-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
-                  <div *ngIf="coborrowerFirstName.touched">
-                    <div *ngIf="coborrowerFirstName.hasError('required')" class="text-help">First name is required</div>
-                  </div>
-                </fieldset>
-                <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.has-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched">
-                  <label for="coborrowerMiddleName" class="form-control-label">Middle Name</label>
-                  <input type="text" id="coborrowerMiddleNameInput" placeholder="Middle Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerMiddleName']" [class.form-control-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.form-control-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched" [disabled]="!coborrowerMiddleNameExists.value">
-                  <label class="c-input c-checkbox">
-                    <input type="checkbox" id="middleNameCheckbox" [checked]="!coborrowerMiddleNameExists.value" (click)="toggleCoborrowerMiddleName()">
-                    <span class="c-indicator"></span>
-                    Check here if no middle name.
-                  </label>
-                  <div *ngIf="coborrowerMiddleName.touched">
-                    <div *ngIf="coborrowerMiddleName.hasError('required')" class="text-help">Middle name is required</div>
-                  </div>
-                </fieldset>
-                <fieldset class="form-group col-xs-12 col-md-4" [class.has-success]="coborrowerLastName.touched && coborrowerLastName.touched" [class.has-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
-                  <label for="coborrowerLastName" class="form-control-label">Last Name</label>
-                  <input type="text" id="coborrowerLastNameInput" placeholder="Last Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerLastName']" [class.form-control-success]="coborrowerLastName.valid && coborrowerLastName.touched" [class.form-control-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
-                  <div *ngIf="coborrowerLastName.touched">
-                    <div *ngIf="coborrowerLastName.hasError('required')" class="text-help">Last name is required</div>
-                  </div>
-                </fieldset>
+                <div class="row">
+                  <fieldset class="form-group col-xs-12 col-sm-4" [class.has-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.has-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
+                    <label for="coborrowerFirstName" class="form-control-label">First Name</label>
+                    <input type="text" id="coborrowerFirstNameInput" placeholder="First Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerFirstName']" [class.form-control-success]="coborrowerFirstName.valid && coborrowerFirstName.touched" [class.form-control-danger]="!coborrowerFirstName.valid && coborrowerFirstName.touched">
+                    <div *ngIf="coborrowerFirstName.touched">
+                      <div *ngIf="coborrowerFirstName.hasError('required')" class="text-help">First name is required</div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="form-group col-xs-12 col-sm-4" [class.has-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.has-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched">
+                    <label for="coborrowerMiddleName" class="form-control-label">Middle Name</label>
+                    <input type="text" id="coborrowerMiddleNameInput" placeholder="Middle Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerMiddleName']" [class.form-control-success]="!coborrowerMiddleNameExists.value || (coborrowerMiddleName.valid && coborrowerMiddleName.touched)" [class.form-control-danger]="!coborrowerMiddleName.valid && coborrowerMiddleName.touched" [disabled]="!coborrowerMiddleNameExists.value">
+                    <label class="c-input c-checkbox">
+                      <input type="checkbox" id="middleNameCheckbox" [checked]="!coborrowerMiddleNameExists.value" (click)="toggleCoborrowerMiddleName()">
+                      <span class="c-indicator"></span>
+                      Check here if no middle name.
+                    </label>
+                    <div *ngIf="coborrowerMiddleName.touched">
+                      <div *ngIf="coborrowerMiddleName.hasError('required')" class="text-help">Middle name is required</div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="form-group col-xs-12 col-sm-4" [class.has-success]="coborrowerLastName.touched && coborrowerLastName.touched" [class.has-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
+                    <label for="coborrowerLastName" class="form-control-label">Last Name</label>
+                    <input type="text" id="coborrowerLastNameInput" placeholder="Last Name" class="form-control" [ngFormControl]="applyForm.controls['coborrowerLastName']" [class.form-control-success]="coborrowerLastName.valid && coborrowerLastName.touched" [class.form-control-danger]="!coborrowerLastName.valid && coborrowerLastName.touched">
+                    <div *ngIf="coborrowerLastName.touched">
+                      <div *ngIf="coborrowerLastName.hasError('required')" class="text-help">Last name is required</div>
+                    </div>
+                  </fieldset>
+                </div>
               </div>
             </div>
           </div>
@@ -181,7 +219,7 @@
               <fieldgroup class="form-group col-xs-12">
                 <input type="range" min="50000" max="5000000" step="1000" [(ngModel)]="loanAmount">
               </fieldgroup>
-              <fieldset class="form-group col-xs-12" [class.has-success]="loanAmount.valid && loanAmount.touched" [class.has-danger]="!loanAmount.valid && loanAmount.touched">
+              <fieldset class="form-group col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3" [class.has-success]="loanAmount.valid && loanAmount.touched" [class.has-danger]="!loanAmount.valid && loanAmount.touched">
                 <div class="input-group">
                   <span class="input-group-addon">$</span>
                   <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="loanAmount" [ngFormControl]="applyForm.controls['loanAmount']">
@@ -239,7 +277,7 @@
               </div>
               <div class="form-group col-xs-12" *ngIf="coborrower.value">
                 <label *ngIf="coborrowerFirstName.value">Against {{coborrowerFirstName.value}}?</label>
-                <label *ngIf="!coborrowerFirstName.value">Against your spouse?</label>
+                <label *ngIf="!coborrowerFirstName.value">Against your coborrower?</label>
                 <fieldset for="dec1b" class="text-xs-center">
                   <label class="radio-inline c-input c-radio">
                     <input type="radio" name="dec1b" id="dec1b-1" value="option1" (click)="setField('coborrowerDec1', true)" [checked]="applyForm.controls['coborrowerDec1'].value === true">

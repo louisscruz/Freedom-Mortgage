@@ -9,6 +9,8 @@ import {Home} from './home/home';
 import {Apply} from './apply/apply';
 import {FooterContent} from './footer-content/footer-content';
 
+import {RouterActive} from './directives/router-active';
+
 /*
  * App Component
  * Top Level Component
@@ -16,7 +18,7 @@ import {FooterContent} from './footer-content/footer-content';
 @Component({
   selector: 'app',
   providers: [],
-  directives: [],
+  directives: [Navbar, FooterContent, RouterActive],
   pipes: [],
   styles: [require('./app.scss')],
   encapsulation: ViewEncapsulation.None,

@@ -17,6 +17,9 @@ import 'rxjs/add/operator/mergeMap';
 //import 'jquery';
 import 'bootstrap-loader';
 require('font-awesome-sass-loader');
+//require('moment');
+//import 'moment/src/moment';
+//var moment = require('moment/src/moment');
 
 if ('production' === ENV) {
   // Production
