@@ -19,10 +19,8 @@
     "typings/browser.d.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "useCache": true,
     "resolveGlobs": true,
-    "forkChecker": true,
-    "cacheDirectory": "node_modules/.awesome-typescript-loader-cache"
+    "forkChecker": true
   },
   "compileOnSave": false,
   "buildOnSave": false,
@@ -38,8 +36,9 @@
     "./src/app/app.spec.ts",
     "./src/app/apply/apply.spec.ts",
     "./src/app/apply/apply.ts",
+    "./src/app/apply/states.ts",
     "./src/app/contact/contact.ts",
-    "./src/app/datepicker/datepicker.ts",
+    "./src/app/directives/mask.ts",
     "./src/app/directives/router-active.ts",
     "./src/app/footer-content/footer-content.spec.ts",
     "./src/app/footer-content/footer-content.ts",

@@ -6,11 +6,13 @@ import {CORE_DIRECTIVES,
         Validators,
         AbstractControl,
         Control} from 'angular2/common';
-import {DatePicker} from '../datepicker/datepicker';
+import {MaskDirective} from '../directives/mask';
+import {States} from './states';
 
 @Component({
   selector: 'apply',
-  directives: [DatePicker],
+  directives: [MaskDirective],
+  providers: [],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
 })
@@ -24,15 +26,27 @@ export class Apply {
   private borrowerSsn: AbstractControl;
   private borrowerPhone: AbstractControl;
   private borrowerEmail: AbstractControl;
+  private borrowerStreetAddr: AbstractControl;
+  private borrowerCity: AbstractControl;
+  private borrowerState: AbstractControl;
+  private borrowerZip: AbstractControl;
   private maritalStatus: AbstractControl;
   private includeCoborrower: AbstractControl;
   private coborrowerFirstName: AbstractControl;
   private coborrowerMiddleName: AbstractControl;
   private coborrowerMiddleNameCache: string;
   private coborrowerLastName: AbstractControl;
+  private coborrowerDob: AbstractControl;
+  private coborrowerSsn: AbstractControl;
+  private coborrowerPhone: AbstractControl;
+  private coborrowerPhoneSame: boolean = false;
+  private coborrowerEmail: AbstractControl;
+  private coborrowerEmailSame: boolean = false;
+  private coborrowerAddrSame: boolean = true;
 
-  private loanType: string = 'mortgage';
+  private loanType: string = 'purchase';
   private loanAmount: number = 250000;
+  private propertyAddress: AbstractControl;
 
   private dec1: AbstractControl;
   private coborrowerDec1: AbstractControl;
@@ -54,7 +68,22 @@ export class Apply {
   private coborrowerMiddleNameExists: any = {
     value: true
   };
+
+  private sameAddress: any = {
+    value: true
+  }
+
+  private propertyExists: any = {
+    value: false
+  };
+
+  public states = States;
   constructor(private _fb: FormBuilder) {
+    function emailValidator(control: Control): { [s: string]: boolean } {
+      if (!control.value.match(/.+@.+\..+/i) && control.value) {
+        return {invalidEmail: true};
+      }
+    }
     function conditionalRequired(...conditions: any[]): any {
       return (control: Control): { [s: string]: boolean } => {
         for (var i = 0; i < conditions.length; i++) {
@@ -88,7 +117,19 @@ export class Apply {
         Validators.required
       ])],
       'borrowerEmail': ['', Validators.compose([
+        Validators.required, emailValidator
+      ])],
+      'borrowerStreetAddr': ['', Validators.compose([
         Validators.required
+      ])],
+      'borrowerCity': ['', Validators.compose([
+        Validators.required
+      ])],
+      'borrowerState': ['', Validators.compose([
+        Validators.required
+      ])],
+      'borrowerZip': ['', Validators.compose([
+        Validators.required, Validators.minLength(5), Validators.maxLength(5)
       ])],
       'maritalStatus': ['', Validators.compose([
         Validators.required
@@ -102,11 +143,26 @@ export class Apply {
       'coborrowerLastName': ['', Validators.compose([
         conditionalRequired(this.coborrower)
       ])],
+      'coborrowerDob': ['', Validators.compose([
+        conditionalRequired(this.coborrower)
+      ])],
+      'coborrowerSsn': ['', Validators.compose([
+        conditionalRequired(this.coborrower)
+      ])],
+      'coborrowerPhone': ['', Validators.compose([
+        conditionalRequired(this.coborrower)
+      ])],
+      'coborrowerEmail': ['', Validators.compose([
+        conditionalRequired(this.coborrower), emailValidator
+      ])],
       'loanType': ['', Validators.compose([
         Validators.required
       ])],
       'loanAmount': ['', Validators.compose([
         Validators.required
+      ])],
+      'propertyAddress': ['', Validators.compose([
+        conditionalRequired(this.propertyExists)
       ])],
       'dec1': ['', Validators.compose([
         Validators.required
@@ -128,10 +184,18 @@ export class Apply {
     this.borrowerSsn = this.applyForm.controls['borrowerSsn'];
     this.borrowerPhone = this.applyForm.controls['borrowerPhone'];
     this.borrowerEmail = this.applyForm.controls['borrowerEmail'];
+    this.borrowerStreetAddr = this.applyForm.controls['borrowerStreetAddr'];
+    this.borrowerCity = this.applyForm.controls['borrowerCity'];
+    this.borrowerState = this.applyForm.controls['borrowerState'];
+    this.borrowerZip = this.applyForm.controls['borrowerZip'];
     this.maritalStatus = this.applyForm.controls['maritalStatus'];
     this.coborrowerFirstName = this.applyForm.controls['coborrowerFirstName'];
     this.coborrowerMiddleName = this.applyForm.controls['coborrowerMiddleName'];
     this.coborrowerLastName = this.applyForm.controls['coborrowerLastName'];
+    this.coborrowerDob = this.applyForm.controls['coborrowerDob'];
+    this.coborrowerSsn = this.applyForm.controls['coborrowerSsn'];
+    this.coborrowerPhone = this.applyForm.controls['coborrowerPhone'];
+    this.coborrowerEmail = this.applyForm.controls['coborrowerEmail'];
 
     //this.loanType = this.applyForm.controls['loanType'];
     //this.loanAmount = this.applyForm.controls['loanAmount'];
@@ -188,6 +252,37 @@ export class Apply {
   setSpouse(value: boolean): void {
     if (value !== this.spouse.value) {
       this.spouse.value = !this.spouse.value;
+    }
+  }
+
+  setSamePhone(): void {
+    this.coborrowerPhoneSame = !this.coborrowerPhoneSame;
+    (this.applyForm.controls['coborrowerPhone'] as Control).updateValue(this.applyForm.controls['borrowerPhone'].value);
+  }
+
+  setSameEmail(): void {
+    this.coborrowerEmailSame = !this.coborrowerEmailSame;
+    (this.applyForm.controls['coborrowerEmail'] as Control).updateValue(this.applyForm.controls['borrowerEmail'].value);
+  }
+
+  setSameAddress(value: boolean): void {
+    this.sameAddress.value = value;
+  }
+
+  setLoanType(value: string): void {
+    if (value !== this.loanType) {
+      this.loanType = value;
+      if (value === 'refinance') {
+        this.setPropertyExists(true);
+      } else if (this.propertyExists.value) {
+        this.setPropertyExists(false);
+      }
+    }
+  }
+
+  setPropertyExists(value: boolean): void {
+    if (value !== this.propertyExists.value) {
+      this.propertyExists.value = value;
     }
   }
 

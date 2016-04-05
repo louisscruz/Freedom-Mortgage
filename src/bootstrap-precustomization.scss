@@ -30,6 +30,10 @@ $card-cap-bg:              #f5f5f5 !default;
 
 $card-link-hover-color:    #fff !default;
 
+button:focus {
+  outline:0 !important;
+}
+
 .jumbotron-primary {
   background-color: $brand-primary;
 }

@@ -23,7 +23,7 @@
     "prebuild:prod": "npm run clean:dist",
     "build:prod": "webpack --config webpack.prod.config.js --progress --profile --colors --display-error-details --display-cached --bail",
     "server": "npm run server:dev:hmr",
-    "server:dev": "webpack-dev-server --config config/webpack.dev.js --inline --progress --profile --colors --watch --display-error-details --display-cached  --content-base src/",
+    "server:dev": "webpack-dev-server --config config/webpack.dev.js --inline --progress --profile --colors --watch --display-error-details --display-cached --content-base src/",
     "server:dev:hmr": "npm run server:dev -- --hot",
     "server:prod": "http-server dist --cors",
     "webdriver:update": "webdriver-manager update",
@@ -43,13 +43,11 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.9",
-    "es6-promise": "^3.1.2",
-    "es6-shim": "^0.33.3",
-    "es7-reflect-metadata": "^1.6.0",
+    "angular2": "2.0.0-beta.13",
+    "core-js": "^2.1.5",
     "moment": "^2.12.0",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "0.5.15"
+    "zone.js": "0.6.6"
   },
   "devDependencies": {
     "angular2-hmr": "^0.5.5",

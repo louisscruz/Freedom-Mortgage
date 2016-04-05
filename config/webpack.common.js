@@ -11,6 +11,8 @@ var helpers = require('./helpers');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+var ProvidePlugin = require('webpack/lib/ProvidePlugin');
+var autoprefixer = require('autoprefixer');
 
 /**
  * Webpack Constants
@@ -177,6 +179,8 @@ module.exports = {
 
   },
 
+  postcss: [autoprefixer],
+
   // Add additional plugins to the compiler.
   //
   // See: http://webpack.github.io/docs/configuration.html#plugins
@@ -227,6 +231,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       chunksSortMode: 'none'
+    }),
+
+    new ProvidePlugin({
+      "Tether": 'tether',
+      "window.Tether": "tether"
     })
 
   ],
