@@ -1,5 +1,7 @@
-import {Directive, Attribute, HostListener} from 'angular2/core';
-import {NgFormControl} from 'angular2/common';
+import {Directive, Attribute, HostListener, HostBinding} from 'angular2/core';
+import {NgFormControl, Control} from 'angular2/common';
+
+//var phoneUtil = require('google-libphonenumber').phoneUtil;
 
 @Directive({
   selector: '[mask]'
@@ -14,25 +16,30 @@ export class MaskDirective {
     this.dividers = maskPattern.replace(/\*/g,'').split('');
     this.dividers.push(' ');
     this.generatePattern(maskPattern);
+    console.log('pattern is:');
+    console.log(this.maskPattern);
   }
   @HostListener('keyup', ['$event.target'])
   onInputChange() {
-    this.modelValue = this.getModelValue();
-    let stringToFormat = this.modelValue;
-    //let stringToFormat = this.modelValue;
-    //if (stringToFormat.length < 11) {
-      //stringToFormat = this.padString(stringToFormat);
-    //}
+    /*this.modelValue = this.getModelValue();
+    var stringToFormat = this.modelValue;
+    if (stringToFormat.length < 10){
+      stringToFormat = this.padString(stringToFormat);
+    }
     this.viewValue = this.format(stringToFormat);
-    console.log(this.viewValue);
+    this.model.viewToModelUpdate(this.modelValue);
+    this.model.valueAccessor.writeValue(this.viewValue);*/
+    //this.modelValue = this.getModelValue();
+    //let stringToFormat = this.getModelValue().value;
+    //this.modelValue = this.format(stringToFormat);
     //this.model.viewToModelUpdate(this.modelValue);
-    //this.model.valueAccessor.writeValue(this.viewValue);
-    //this.model.viewToModelUpdate(this.viewValue);
-    //this.model.value = this.viewValue;
-    //alert(this.modelValue.toString());
-    this.model.valueAccessor.writeValue(this.viewValue);
-    console.log(this.modelValue)
-    console.log(this.model)
+    //(this.model.value as Control).updateValue(this.modelValue);
+    //this.model.control.updateValue(this.modelValue);
+    //console.log(this.model.control);
+    //var tel = phoneUtil.parse('+12024561111');
+    console.log(tel);
+    //this.model.valueAccessor.writeValue(this.modelValue);
+
   };
   generatePattern(patternString) {
     this.placeHolderCounts = (patternString.match(/\*/g) || []).length;
@@ -41,15 +48,23 @@ export class MaskDirective {
     }
     this.maskPattern = patternString;
   }
-  format(s) {
+  /*format(s) {
     let formattedString = this.maskPattern;
     for (var i = 0; i < this.placeHolderCounts; i++) {
       formattedString = formattedString.replace('{' + i + '}', s.charAt(i));
     }
     return formattedString;
+  }*/
+  format(s: string): string {
+    let formattedString = this.maskPattern;
+    for (let i = 0; i < this.placeHolderCounts; i++) {
+      formattedString = formattedString.replace('{' + i + '}', s.charAt(i));
+    }
+    console.log(formattedString);
+    return formattedString;
   }
   padString(s) {
-    let pad = '          ';
+    let pad = '         ';
     return (s + pad).substring(0, pad.length);
   }
   getModelValue() {

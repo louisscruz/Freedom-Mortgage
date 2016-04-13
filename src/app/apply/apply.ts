@@ -296,4 +296,8 @@ export class Apply {
 
   ngOnInit() {}
 
+  get cgValue(): string {
+    return JSON.stringify(this.applyForm.value, null, 2)
+  }
+
 }

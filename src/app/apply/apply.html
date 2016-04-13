@@ -63,6 +63,7 @@
                     <div *ngIf="borrowerPhone.touched">
                       <div *ngIf="borrowerPhone.hasError('required')" class="text-help">Phone Number required</div>
                     </div>
+                    {{borrowerPhone.value}}
                   </fieldset>
                   <fieldset class="form-group col-xs-12 col-md-6" [class.has-success]="borrowerEmail.valid && borrowerEmail.touched" [class.has-danger]="!borrowerEmail.valid && borrowerEmail.touched">
                     <label for="borrowerEmail" class="form-control-label">Email Address</label>
@@ -519,4 +520,10 @@
       </div>
     </section>
   </form>
+  <div class="container">
+    <div class="col-xs-12">
+  <h1>Value</h1>
+  {{cgValue}}
+</div>
+</div>
 </div>
