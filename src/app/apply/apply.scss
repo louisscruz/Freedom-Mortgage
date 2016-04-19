@@ -11,6 +11,9 @@
     //background-color: $primary;
   }
 }
+.form-control[readonly] {
+  background-color: white !important;
+}
 .input-group-addon {
   line-height: 1.4rem;
 }

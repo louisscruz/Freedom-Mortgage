@@ -46,7 +46,8 @@ export class Apply {
     borrowerGroup.addControl('lastName', new Control('', Validators.required));
     borrowerGroup.addControl('dob', new Control('', Validators.required));
     borrowerGroup.addControl('phone', new Control('', Validators.required));
-    //borrowerGroup.addControl('ssn', )
+    borrowerGroup.addControl('ssn', new Control('', Validators.required));
+    borrowerGroup.addControl('add', new Control('', Validators.required));
     borrowerGroup.addControl('maritalStatus', new Control('', Validators.required));
     applyForm.addControl('borrowerGroup', borrowerGroup);
     const coborrowerGroup = new ControlGroup({});
@@ -55,6 +56,8 @@ export class Apply {
     coborrowerGroup.addControl('lastName', new Control('', Validators.required));
     coborrowerGroup.addControl('dob', new Control('', Validators.required));
     coborrowerGroup.addControl('phone', new Control('', Validators.required));
+    coborrowerGroup.addControl('ssn', new Control('', Validators.required));
+    coborrowerGroup.addControl('add', new Control('', Validators.required));
     applyForm.addControl('coborrowerGroup', coborrowerGroup);
     applyForm.exclude('coborrowerGroup');
     return applyForm;
