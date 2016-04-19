@@ -1,40 +1,151 @@
 <div class="apply">
-  <form class="" [ngFormModel]="applyForm" (submit)="submit()">
+  <form [ngFormModel]="applyForm" (submit)="submit()">
     <section class="one inverse">
       <div class="child">
         <div class="container">
           <div class="row">
-            <div class="card card-block col-xs-12">
-              <div ngControlGroup="borrowerGroup">
-                <fieldset class="form-group">
-                  <label>First Name</label>
+            <div class="col-xs-12">
+              <h1 class="text-xs-center">Apply</h1>
+            </div>
+            <div class="card card-block col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1">
+              <h3 class="text-xs-center">Borrower Info</h3>
+              <div ngControlGroup="borrowerGroup" class="row">
+                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('firstName').valid && applyForm.controls['borrowerGroup'].find('firstName').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('firstName').valid && applyForm.controls['borrowerGroup'].find('firstName').touched">
+                  <label class="form-control-label">First Name</label>
                   <input type="text" class="form-control" ngControl="firstName">
+                  <div *ngIf="applyForm.controls['borrowerGroup'].find('firstName').touched">
+                    <div *ngIf="applyForm.controls['borrowerGroup'].find('firstName').hasError('required')" class="text-help">First name required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="!applyForm.controls['borrowerGroup'].contains('middleName') || (applyForm.controls['borrowerGroup'].find('middleName').valid && applyForm.controls['borrowerGroup'].find('middleName').touched)" [class.has-danger]="applyForm.controls['borrowerGroup'].contains('middleName') && (!applyForm.controls['borrowerGroup'].find('middleName').valid && applyForm.controls['borrowerGroup'].find('middleName').touched)">
+                  <label class="form-control-label">Middle Name</label>
+                  <input type="text" class="form-control" ngControl="middleName" [disabled]="!applyForm.controls['borrowerGroup'].contains('middleName')">
+                  <label class="c-input c-checkbox">
+                    <input type="checkbox" id="middleNameCheckbox" (click)="toggleBorrowerMiddleName()" [checked]="!applyForm.controls['borrowerGroup'].contains('middleName')">
+                    <span class="c-indicator"></span>
+                    Check here if no middle name.
+                  </label>
+                  <div *ngIf="applyForm.controls['borrowerGroup'].find('middleName').touched && applyForm.controls['borrowerGroup'].contains('middleName')">
+                    <div *ngIf="applyForm.controls['borrowerGroup'].find('middleName').hasError('required')" class="text-help">Middle name required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('lastName').valid && applyForm.controls['borrowerGroup'].find('lastName').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('lastName').valid && applyForm.controls['borrowerGroup'].find('lastName').touched">
+                  <label class="form-control-label">Last Name</label>
+                  <input type="text" class="form-control" ngControl="lastName">
+                  <div *ngIf="applyForm.controls['borrowerGroup'].find('lastName').touched">
+                    <div *ngIf="applyForm.controls['borrowerGroup'].find('lastName').hasError('required')" class="text-help">Last name required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('dob').valid && applyForm.controls['borrowerGroup'].find('dob').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('dob').valid && (applyForm.controls['borrowerGroup'].find('dob').touched && !borrowerDobOpen)">
+                  <label class="form-control-label">Birthdate</label>
+                  <input class="text" class="form-control" (click)="toggleBorrowerDob()" ngControl="dob" [value]="borrowerDob | date:'MM/dd/yy'" readonly>
+                  <div style="min-height:290px; position: absolute; z-index: 2;" [hidden]="!borrowerDobOpen">
+                    <datepicker [(ngModel)]="borrowerDob" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeBorrowerDob()"></datepicker>
+                  </div>
+                  <div *ngIf="applyForm.controls['borrowerGroup'].find('dob').touched && !borrowerDobOpen">
+                    <div *ngIf="applyForm.controls['borrowerGroup'].find('dob').hasError('required')" class="text-help">Birthdate required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-sm-4" [class.has-success]="applyForm.controls['borrowerGroup'].find('phone').valid && applyForm.controls['borrowerGroup'].find('phone').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('phone').valid && applyForm.controls['borrowerGroup'].find('phone').touched" *ngIf="true">
+                  <label class="form-control-label">Phone</label>
+                  <input class="text" class="form-control" ngControl="phone">
+                  <div *ngIf="applyForm.controls['borrowerGroup'].find('phone').touched">
+                    <div *ngIf="applyForm.controls['borrowerGroup'].find('phone').hasError('required')" class="text-help">Phone required</div>
+                  </div>
                 </fieldset>
               </div>
-              <div class="row">
+              <div class="">
+                <label class="form-control-label">Marital Status</label>
+                <fieldset class="form-group col-xs-12">
+                  <div class="radio">
+                    <label class="c-input c-radio">
+                      <input type="radio" name="marital1" (click)="setMaritalStatus('married')" [checked]="applyForm.controls['borrowerGroup'].controls['maritalStatus'].value === 'married'">
+                      <span class="c-indicator"></span>
+                      Married
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label class="c-input c-radio">
+                      <input type="radio" name="marital2" (click)="setMaritalStatus('unmarried')" [checked]="applyForm.controls['borrowerGroup'].controls['maritalStatus'].value === 'unmarried'">
+                      <span class="c-indicator"></span>
+                      Unmarried
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label class="c-input c-radio">
+                      <input type="radio" name="marital3" (click)="setMaritalStatus('separated')" [checked]="applyForm.controls['borrowerGroup'].controls['maritalStatus'].value === 'separated'">
+                      <span class="c-indicator"></span>
+                      Separated
+                    </label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="">
                 <label class="form-control-label">Apply with coborrower?</label>
                 <fieldset class="form-group col-xs-12">
                   <div class="radio">
                     <label class="c-input c-radio">
-                      <input type="radio" name="coborrower1" (click)="toggleCoborrower()" [checked]="applyForm.controls['coborrowerInfoGroup']">
+                      <input type="radio" name="coborrower1" (click)="addCoborrower()" [checked]="applyForm.contains('coborrowerGroup')">
                       <span class="c-indicator"></span>
                       Yes
                     </label>
                   </div>
                   <div class="radio">
                     <label class="c-input c-radio">
-                      <input type="radio" name="coborrower2" (click)="toggleCoborrower()" [checked]="!applyForm.controls['coborrowerInfoGroup']">
+                      <input type="radio" name="coborrower2" (click)="removeCoborrower()" [checked]="!applyForm.contains('coborrowerGroup')">
                       <span class="c-indicator"></span>
                       No
                     </label>
                   </div>
                 </fieldset>
               </div>
-              <div *ngIf="applyForm.controls['coborrowerInfoGroup']" ngControlGroup="coborrowerInfoGroup" class="card card-block col-xs-12">
-                <fieldset class="form-group">
-                  <label>First Name</label>
+              <div *ngIf="applyForm.contains('coborrowerGroup')" ngControlGroup="coborrowerGroup" class="card card-block col-xs-12">
+                <h3 class="text-xs-center">Coborrower Info</h3>
+                <div class="row">
+                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['coborrowerGroup'].find('firstName').valid && applyForm.controls['coborrowerGroup'].find('firstName').touched" [class.has-danger]="!applyForm.controls['coborrowerGroup'].find('firstName').valid && applyForm.controls['coborrowerGroup'].find('firstName').touched">
+                  <label class="form-control-label">First Name</label>
                   <input type="text" class="form-control" ngControl="firstName">
+                  <div *ngIf="applyForm.controls['coborrowerGroup'].find('firstName').touched">
+                    <div *ngIf="applyForm.controls['coborrowerGroup'].find('firstName').hasError('required')" class="text-help">First name is required</div>
+                  </div>
                 </fieldset>
+                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="!applyForm.controls['coborrowerGroup'].contains('middleName') || (applyForm.controls['coborrowerGroup'].find('middleName').valid && applyForm.controls['coborrowerGroup'].find('middleName').touched)" [class.has-danger]="applyForm.controls['coborrowerGroup'].contains('middleName') && (!applyForm.controls['coborrowerGroup'].find('middleName').valid && applyForm.controls['coborrowerGroup'].find('middleName').touched)">
+                  <label class="form-control-label">Middle Name</label>
+                  <input type="text" class="form-control" ngControl="middleName" [disabled]="!applyForm.controls['coborrowerGroup'].contains('middleName')">
+                  <label class="c-input c-checkbox">
+                    <input type="checkbox" id="middleNameCheckbox" (click)="toggleCoborrowerMiddleName()" [checked]="!applyForm.controls['coborrowerGroup'].contains('middleName')">
+                    <span class="c-indicator"></span>
+                    Check here if no middle name.
+                  </label>
+                  <div *ngIf="applyForm.controls['coborrowerGroup'].find('middleName').touched && applyForm.controls['coborrowerGroup'].contains('middleName')">
+                    <div *ngIf="applyForm.controls['coborrowerGroup'].find('middleName').hasError('required')" class="text-help">Middle name is required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['coborrowerGroup'].find('lastName').valid && applyForm.controls['coborrowerGroup'].find('lastName').touched" [class.has-danger]="!applyForm.controls['coborrowerGroup'].find('lastName').valid && applyForm.controls['coborrowerGroup'].find('lastName').touched">
+                  <label class="form-control-label">Last Name</label>
+                  <input type="text" class="form-control" ngControl="lastName">
+                  <div *ngIf="applyForm.controls['coborrowerGroup'].find('lastName').touched">
+                    <div *ngIf="applyForm.controls['coborrowerGroup'].find('lastName').hasError('required')" class="text-help">Last name is required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['coborrowerGroup'].find('dob').valid && applyForm.controls['coborrowerGroup'].find('dob').touched" [class.has-danger]="!applyForm.controls['coborrowerGroup'].find('dob').valid && (applyForm.controls['coborrowerGroup'].find('dob').touched && !coborrowerDobOpen)">
+                  <label class="form-control-label">Birthdate</label>
+                  <input class="text" class="form-control" (click)="toggleCoborrowerDob()" [value]="coborrowerDob | date:'MM/dd/yy'" ngControl="dob" readonly>
+                  <div style="min-height:290px; position: absolute; z-index: 2;" [hidden]="!coborrowerDobOpen">
+                    <datepicker [(ngModel)]="coborrowerDob" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeCoborrowerDob()"></datepicker>
+                  </div>
+                  <div *ngIf="(applyForm.controls['coborrowerGroup'].find('dob').touched && !coborrowerDobOpen)">
+                    <div *ngIf="applyForm.controls['coborrowerGroup'].find('dob').hasError('required')" class="text-help">Birthdate required</div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-xs-12 col-sm-4" [class.has-success]="applyForm.controls['coborrowerGroup'].find('phone').valid && applyForm.controls['coborrowerGroup'].find('phone').touched" [class.has-danger]="!applyForm.controls['coborrowerGroup'].find('phone').valid && applyForm.controls['coborrowerGroup'].find('phone').touched" *ngIf="true">
+                  <label class="form-control-label">Phone</label>
+                  <input class="text" class="form-control" ngControl="phone">
+                  <div *ngIf="applyForm.controls['coborrowerGroup'].find('phone').touched">
+                    <div *ngIf="applyForm.controls['coborrowerGroup'].find('phone').hasError('required')" class="text-help">Phone required</div>
+                  </div>
+                </fieldset>
+              </div>
               </div>
             </div>
           </div>
@@ -42,4 +153,7 @@
       </div>
     </section>
   </form>
+  applyForm.valid: {{applyForm.valid}}
+  <hr>
+  {{afValue}}
 </div>
