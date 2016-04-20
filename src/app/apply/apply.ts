@@ -13,7 +13,6 @@ import {DatePicker} from '../components/datepicker/datepicker';
 import {DatePickerService} from '../components/datepicker/datepicker.service';
 import {DatePickerPopup} from '../components/datepicker/datepicker-popup';
 import {ClickOutsideDirective} from '../directives/clickOutside';
-//import {DatePicker} from '../components/thing';
 import * as moment from 'moment';
 
 @Component({
@@ -31,6 +30,7 @@ export class Apply {
   private coborrowerDob: Date;
   private borrowerDobOpen: boolean = false;
   private coborrowerDobOpen: boolean = false;
+  private states = States;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef
@@ -46,18 +46,29 @@ export class Apply {
     borrowerGroup.addControl('lastName', new Control('', Validators.required));
     borrowerGroup.addControl('dob', new Control('', Validators.required));
     borrowerGroup.addControl('phone', new Control('', Validators.required));
+    borrowerGroup.addControl('email', new Control('', Validators.required));
     borrowerGroup.addControl('ssn', new Control('', Validators.required));
     borrowerGroup.addControl('add', new Control('', Validators.required));
+    borrowerGroup.addControl('city', new Control('', Validators.required));
+    borrowerGroup.addControl('state', new Control('', Validators.required));
+    borrowerGroup.addControl('zip', new Control('', Validators.required));
     borrowerGroup.addControl('maritalStatus', new Control('', Validators.required));
     applyForm.addControl('borrowerGroup', borrowerGroup);
     const coborrowerGroup = new ControlGroup({});
     coborrowerGroup.addControl('firstName', new Control('', Validators.required));
     coborrowerGroup.addControl('middleName', new Control('', Validators.required));
     coborrowerGroup.addControl('lastName', new Control('', Validators.required));
-    coborrowerGroup.addControl('dob', new Control('', Validators.required));
+    coborrowerGroup.addControl('email', new Control('', Validators.required));
     coborrowerGroup.addControl('phone', new Control('', Validators.required));
+    coborrowerGroup.addControl('dob', new Control('', Validators.required));
     coborrowerGroup.addControl('ssn', new Control('', Validators.required));
-    coborrowerGroup.addControl('add', new Control('', Validators.required));
+    const address = new ControlGroup({});
+    address.addControl('add', new Control('', Validators.required));
+    address.addControl('city', new Control('', Validators.required));
+    address.addControl('state', new Control('', Validators.required));
+    address.addControl('zip', new Control('', Validators.required));
+    coborrowerGroup.addControl('address', address);
+    coborrowerGroup.exclude('address');
     applyForm.addControl('coborrowerGroup', coborrowerGroup);
     applyForm.exclude('coborrowerGroup');
     return applyForm;
@@ -121,6 +132,15 @@ export class Apply {
     this.coborrowerDobOpen = false;
     (this.applyForm.controls['coborrowerGroup'].find('dob') as Control).updateValue(this.coborrowerDob);
     this._changeDetectorRef.detectChanges();
+  }
+
+  addCoborrowerAddress(): void {
+    (this.applyForm.controls['coborrowerGroup'] as ControlGroup).include('address');
+    this._changeDetectorRef.detectChanges();
+  }
+
+  removeCoborrowerAddress(): void {
+    (this.applyForm.controls['coborrowerGroup'] as ControlGroup).exclude('address');
   }
 
   get afValue(): string {

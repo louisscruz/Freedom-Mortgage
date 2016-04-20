@@ -2,28 +2,20 @@
  * Custom Type Definitions
  * When including 3rd party modules you also need to include the type definition for the module
  * if they don't provide one within the module. You can try to install it with typings
-
 typings install node --save
-
  * If you can't find the type definition in the registry we can make an ambient definition in
  * this file for now. For example
-
 declare module "my-module" {
   export function doesSomething(value: string): string;
 }
-
  *
  * If you're prototying and you will fix the types later you can also declare it as type any
  *
-
 declare var assert: any;
-
  *
  * If you're importing a module that uses Node.js modules which are CommonJS you need to import as
  *
-
 import * as _ from 'lodash'
-
  * You can include your type definitions in this file until you create one for the typings registry
  * see https://github.com/typings/registry
  *
@@ -116,45 +108,4 @@ interface Thenable<T> {
     onFulfilled?: (value: T) => U | Thenable<U>,
     onRejected?: (error: any) => void): Thenable<U>;
   catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-}
-import { ViewContainerRef, EventEmitter, AfterViewInit } from 'angular2/core';
-import { NgModel, ControlValueAccessor } from 'angular2/common';
-export declare class DatePicker implements ControlValueAccessor, AfterViewInit {
-    isOpened: boolean;
-    dateValue: string;
-    viewValue: string;
-    days: Array<Object>;
-    dayNames: Array<string>;
-    private el;
-    private date;
-    private viewContainer;
-    private onChange;
-    private onTouched;
-    private cd;
-    private cannonical;
-    modelFormat: string;
-    viewFormat: string;
-    initDate: string;
-    firstWeekDaySunday: boolean;
-    isStatic: boolean;
-    changed: EventEmitter<Date>;
-    constructor(cd: NgModel, viewContainer: ViewContainerRef);
-    ngAfterViewInit(): void;
-    openDatepicker(): void;
-    closeDatepicker(): void;
-    prevYear(): void;
-    prevMonth(): void;
-    nextYear(): void;
-    nextMonth(): void;
-    selectDate(e: any, date: any): void;
-    private generateCalendar(date);
-    isSelected(date: any): boolean;
-    private generateDayNames();
-    private initMouseEvents();
-    private setValue(value);
-    private initValue();
-    writeValue(value: string): void;
-    registerOnChange(fn: (_: any) => {}): void;
-    registerOnTouched(fn: (_: any) => {}): void;
-    private init();
 }
