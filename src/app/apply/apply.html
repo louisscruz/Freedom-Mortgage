@@ -48,6 +48,7 @@
                   <input type="text" class="form-control" ngControl="email" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('email').valid && applyForm.controls['borrowerGroup'].find('email').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('email').valid && applyForm.controls['borrowerGroup'].find('email').touched">
                   <div *ngIf="applyForm.controls['borrowerGroup'].find('email').touched">
                     <div *ngIf="applyForm.controls['borrowerGroup'].find('email').hasError('required')" class="text-help">Email required</div>
+                    <div *ngIf="applyForm.controls['borrowerGroup'].find('email').hasError('invalidEmail')" class="text-help">Email invalid</div>
                   </div>
                 </fieldset>
                 <fieldset class="form-group col-xs-12 col-sm-6 col-md-3" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('dob').valid && applyForm.controls['borrowerGroup'].find('dob').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('dob').valid && (applyForm.controls['borrowerGroup'].find('dob').touched && !borrowerDobOpen)">
@@ -97,6 +98,7 @@
                   <input type="text" class="form-control" ngControl="zip" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('zip').valid && applyForm.controls['borrowerGroup'].find('zip').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('zip').valid && applyForm.controls['borrowerGroup'].find('zip').touched">
                   <div *ngIf="applyForm.controls['borrowerGroup'].find('zip').touched">
                     <div *ngIf="applyForm.controls['borrowerGroup'].find('zip').hasError('required')" class="text-help">Zip code required</div>
+                    <div *ngIf="applyForm.controls['borrowerGroup'].find('zip').hasError('invalidZip')" class="text-help">Zip code invalid</div>
                   </div>
                 </fieldset>
               </div>
@@ -179,6 +181,7 @@
                   <input type="text" class="form-control" ngControl="email" [class.form-control-success]="applyForm.controls['coborrowerGroup'].find('email').valid && applyForm.controls['coborrowerGroup'].find('email').touched" [class.form-control-danger]="!applyForm.controls['coborrowerGroup'].find('email').valid && applyForm.controls['coborrowerGroup'].find('email').touched">
                   <div *ngIf="applyForm.controls['coborrowerGroup'].find('email').touched">
                     <div *ngIf="applyForm.controls['coborrowerGroup'].find('email').hasError('required')" class="text-help">Email required</div>
+                    <div *ngIf="applyForm.controls['coborrowerGroup'].find('email').hasError('invalidEmail')" class="text-help">Email invalid</div>
                   </div>
                 </fieldset>
                 <fieldset class="form-group col-xs-12 col-sm-6 col-md-3" [class.has-success]="applyForm.controls['coborrowerGroup'].find('phone').valid && applyForm.controls['coborrowerGroup'].find('phone').touched" [class.has-danger]="!applyForm.controls['coborrowerGroup'].find('phone').valid && applyForm.controls['coborrowerGroup'].find('phone').touched" *ngIf="true">
@@ -259,6 +262,7 @@
                     <input type="text" class="form-control" ngControl="zip" [class.form-control-success]="applyForm.controls['coborrowerGroup'].controls['address'].find('zip').valid && applyForm.controls['coborrowerGroup'].controls['address'].find('zip').touched" [class.form-control-danger]="!applyForm.controls['coborrowerGroup'].controls['address'].find('zip').valid && applyForm.controls['coborrowerGroup'].controls['address'].find('zip').touched">
                     <div *ngIf="applyForm.controls['coborrowerGroup'].controls['address'].find('zip').touched">
                       <div *ngIf="applyForm.controls['coborrowerGroup'].controls['address'].find('zip').hasError('required')" class="text-help">Zip code required</div>
+                      <div *ngIf="applyForm.controls['coborrowerGroup'].controls['address'].find('zip').hasError('invalidZip')" class="text-help">Zip code invalid</div>
                     </div>
                   </fieldset>
                 </div>

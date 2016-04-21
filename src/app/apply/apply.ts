@@ -38,6 +38,18 @@ export class Apply {
     this.applyForm = this.generateForm();
   }
 
+  emailValidator(control: Control): { [s: string]: boolean} {
+    if (!control.value.match(/.+@.+\..+/i) && control.value) {
+      return {invalidEmail: true};
+    }
+  }
+
+  zipValidator(control: Control): { [s: string]: boolean} {
+    if (control.value && (!control.value.match(/^[0-9]*$/) || control.value.length !== 5)) {
+      return {invalidZip: true}
+    }
+  }
+
   generateForm() {
     const applyForm = new ControlGroup({});
     const borrowerGroup = new ControlGroup({});
@@ -46,19 +58,25 @@ export class Apply {
     borrowerGroup.addControl('lastName', new Control('', Validators.required));
     borrowerGroup.addControl('dob', new Control('', Validators.required));
     borrowerGroup.addControl('phone', new Control('', Validators.required));
-    borrowerGroup.addControl('email', new Control('', Validators.required));
+    borrowerGroup.addControl('email', new Control('', Validators.compose([
+      Validators.required, this.emailValidator
+    ])));
     borrowerGroup.addControl('ssn', new Control('', Validators.required));
     borrowerGroup.addControl('add', new Control('', Validators.required));
     borrowerGroup.addControl('city', new Control('', Validators.required));
     borrowerGroup.addControl('state', new Control('', Validators.required));
-    borrowerGroup.addControl('zip', new Control('', Validators.required));
+    borrowerGroup.addControl('zip', new Control('', Validators.compose([
+      Validators.required, this.zipValidator
+    ])));
     borrowerGroup.addControl('maritalStatus', new Control('', Validators.required));
     applyForm.addControl('borrowerGroup', borrowerGroup);
     const coborrowerGroup = new ControlGroup({});
     coborrowerGroup.addControl('firstName', new Control('', Validators.required));
     coborrowerGroup.addControl('middleName', new Control('', Validators.required));
     coborrowerGroup.addControl('lastName', new Control('', Validators.required));
-    coborrowerGroup.addControl('email', new Control('', Validators.required));
+    coborrowerGroup.addControl('email', new Control('', Validators.compose([
+      Validators.required, this.emailValidator
+    ])));
     coborrowerGroup.addControl('phone', new Control('', Validators.required));
     coborrowerGroup.addControl('dob', new Control('', Validators.required));
     coborrowerGroup.addControl('ssn', new Control('', Validators.required));
@@ -66,7 +84,9 @@ export class Apply {
     address.addControl('add', new Control('', Validators.required));
     address.addControl('city', new Control('', Validators.required));
     address.addControl('state', new Control('', Validators.required));
-    address.addControl('zip', new Control('', Validators.required));
+    address.addControl('zip', new Control('', Validators.compose([
+      Validators.required, this.zipValidator
+    ])));
     coborrowerGroup.addControl('address', address);
     coborrowerGroup.exclude('address');
     applyForm.addControl('coborrowerGroup', coborrowerGroup);
