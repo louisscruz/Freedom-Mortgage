@@ -38,6 +38,14 @@ export class Apply {
     private _changeDetectorRef: ChangeDetectorRef
   ) {
     this.applyForm = this.generateForm();
+    if (sessionStorage.getItem('cachedForm') !== null) {
+      console.log(JSON.parse(sessionStorage.getItem('cachedForm')));
+    }
+    this.applyForm.valueChanges.subscribe(data => {
+      //console.log(sessionStorage.getItem('cachedForm'));
+      sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm.value));
+      //sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm));
+    });
   }
 
   emailValidator(control: Control): { [s: string]: boolean} {
@@ -201,6 +209,10 @@ export class Apply {
 
   removeProperty(): void {
     (this.applyForm.controls['loanGroup'] as ControlGroup).exclude('address');
+  }
+
+  ngOnChanges() {
+    alert('change')
   }
 
   get afValue(): string {
