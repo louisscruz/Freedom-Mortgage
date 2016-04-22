@@ -30,7 +30,9 @@ export class Apply {
   private coborrowerDob: Date;
   private borrowerDobOpen: boolean = false;
   private coborrowerDobOpen: boolean = false;
-  private states = States;
+  private states: Array<any> = States;
+  private loanMin: number = 50000;
+  private loanMax: number = 2500000;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef
@@ -91,6 +93,19 @@ export class Apply {
     coborrowerGroup.exclude('address');
     applyForm.addControl('coborrowerGroup', coborrowerGroup);
     applyForm.exclude('coborrowerGroup');
+    const loanGroup = new ControlGroup({});
+    loanGroup.addControl('type', new Control('purchase', Validators.required));
+    loanGroup.addControl('amount', new Control('250000', Validators.required));
+    const propertyAddress = new ControlGroup({});
+    propertyAddress.addControl('add', new Control('', Validators.required));
+    propertyAddress.addControl('city', new Control('', Validators.required));
+    propertyAddress.addControl('state', new Control('', Validators.required));
+    propertyAddress.addControl('zip', new Control('', Validators.compose([
+      Validators.required, this.zipValidator
+    ])));
+    loanGroup.addControl('address', propertyAddress);
+    loanGroup.exclude('address');
+    applyForm.addControl('loanGroup', loanGroup);
     return applyForm;
   }
 
@@ -161,6 +176,31 @@ export class Apply {
 
   removeCoborrowerAddress(): void {
     (this.applyForm.controls['coborrowerGroup'] as ControlGroup).exclude('address');
+  }
+
+  setLoanType(type: string): void {
+    (this.applyForm.controls['loanGroup'].find('type') as Control).updateValue(type);
+    if (type === 'refinance' && !(this.applyForm.controls['loanGroup'] as ControlGroup).contains('address')) {
+      this.addProperty();
+    }
+  }
+
+  setLoanAmount(event: any): void {
+    if (event.target.value > this.loanMax) {
+      this.loanMax = event.target.value;
+    } else if (event.target.value < this.loanMin) {
+      this.loanMin = event.target.value;
+    }
+    (this.applyForm.controls['loanGroup'].find('amount') as Control).updateValue(event.target.value);
+  }
+
+  addProperty(): void {
+    (this.applyForm.controls['loanGroup'] as ControlGroup).include('address');
+    this._changeDetectorRef.detectChanges();
+  }
+
+  removeProperty(): void {
+    (this.applyForm.controls['loanGroup'] as ControlGroup).exclude('address');
   }
 
   get afValue(): string {
