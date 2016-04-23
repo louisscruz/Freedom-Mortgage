@@ -54,7 +54,7 @@
                 </fieldset>
                 <fieldset class="form-group col-xs-12 col-sm-6 col-md-3" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('dob').valid && applyForm.controls['borrowerGroup'].find('dob').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('dob').valid && (applyForm.controls['borrowerGroup'].find('dob').touched && !borrowerDobOpen)">
                   <label class="form-control-label">Birthdate</label>
-                  <input type="text" class="form-control" (click)="toggleBorrowerDob()" ngControl="dob" [value]="borrowerDob" readonly [class.form-control-success]="applyForm.controls['borrowerGroup'].find('add').valid && applyForm.controls['borrowerGroup'].find('add').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('add').valid && applyForm.controls['borrowerGroup'].find('add').touched">
+                  <input type="text" class="form-control" (click)="toggleBorrowerDob()" ngControl="dob" [value]="borrowerDob" readonly [class.form-control-success]="applyForm.controls['borrowerGroup'].find('dob').valid && applyForm.controls['borrowerGroup'].find('dob').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('dob').valid && applyForm.controls['borrowerGroup'].find('dob').touched">
                   <div style="min-height:290px; position: absolute; z-index: 2;" [hidden]="!borrowerDobOpen">
                     <datepicker [(ngModel)]="borrowerDob" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeBorrowerDob()"></datepicker>
                   </div>
@@ -69,38 +69,48 @@
                     <div *ngIf="applyForm.controls['borrowerGroup'].find('ssn').hasError('required')" class="text-help">SSN required</div>
                   </div>
                 </fieldset>
-                <fieldset class="form-group col-xs-12" [class.has-success]="applyForm.controls['borrowerGroup'].find('add').valid && applyForm.controls['borrowerGroup'].find('add').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('add').valid && applyForm.controls['borrowerGroup'].find('add').touched" *ngIf="true">
-                  <label class="form-control-label">Address</label>
-                  <input type="text" class="form-control" ngControl="add" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('add').valid && applyForm.controls['borrowerGroup'].find('add').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('add').valid && applyForm.controls['borrowerGroup'].find('add').touched">
-                  <div *ngIf="applyForm.controls['borrowerGroup'].find('add').touched">
-                    <div *ngIf="applyForm.controls['borrowerGroup'].find('add').hasError('required')" class="text-help">Address required</div>
+                <div ngControlGroup="address" class="row">
+                  <div class="col-xs-12">
+                    <fieldset class="form-group col-xs-12" [class.has-success]="applyForm.controls['borrowerGroup'].find('address').find('add').valid && applyForm.controls['borrowerGroup'].find('address').find('add').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('address').find('add').valid && applyForm.controls['borrowerGroup'].find('address').find('add').touched" *ngIf="true">
+                      <label class="form-control-label">Address</label>
+                      <input type="text" class="form-control" ngControl="add" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('address').find('add').valid && applyForm.controls['borrowerGroup'].find('address').find('add').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('address').find('add').valid && applyForm.controls['borrowerGroup'].find('address').find('add').touched">
+                      <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('add').touched">
+                        <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('add').hasError('required')" class="text-help">Address required</div>
+                      </div>
+                    </fieldset>
                   </div>
-                </fieldset>
-                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('city').valid && applyForm.controls['borrowerGroup'].find('city').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('city').valid && applyForm.controls['borrowerGroup'].find('city').touched">
-                  <label class="form-control-label">City</label>
-                  <input type="text" class="form-control" ngControl="city" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('city').valid && applyForm.controls['borrowerGroup'].find('city').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('city').valid && applyForm.controls['borrowerGroup'].find('city').touched">
-                  <div *ngIf="applyForm.controls['borrowerGroup'].find('city').touched">
-                    <div *ngIf="applyForm.controls['borrowerGroup'].find('city').hasError('required')" class="text-help">City required</div>
+                  <div class="col-xs-12 col-sm-4">
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('address').find('city').valid && applyForm.controls['borrowerGroup'].find('address').find('city').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('address').find('city').valid && applyForm.controls['borrowerGroup'].find('address').find('city').touched">
+                      <label class="form-control-label">City</label>
+                      <input type="text" class="form-control" ngControl="city" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('address').find('city').valid && applyForm.controls['borrowerGroup'].find('address').find('city').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('address').find('city').valid && applyForm.controls['borrowerGroup'].find('address').find('city').touched">
+                      <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('city').touched">
+                        <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('city').hasError('required')" class="text-help">City required</div>
+                      </div>
+                    </fieldset>
                   </div>
-                </fieldset>
-                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('state').valid && applyForm.controls['borrowerGroup'].find('state').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('state').valid && applyForm.controls['borrowerGroup'].find('state').touched">
-                  <label class="form-control-label">State</label>
-                  <select class="c-select form-control" ngControl="state" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('state').valid && applyForm.controls['borrowerGroup'].find('state').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('state').valid && applyForm.controls['borrowerGroup'].find('state').touched">
-                    <option value="" disabled selected>State</option>
-                    <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
-                  </select>
-                  <div *ngIf="applyForm.controls['borrowerGroup'].find('state').touched">
-                    <div *ngIf="applyForm.controls['borrowerGroup'].find('state').hasError('required')" class="text-help">State required</div>
+                  <div class="col-xs-12 col-sm-4">
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('address').find('state').valid && applyForm.controls['borrowerGroup'].find('address').find('state').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('address').find('state').valid && applyForm.controls['borrowerGroup'].find('address').find('state').touched">
+                      <label class="form-control-label">State</label>
+                      <select class="c-select form-control" ngControl="state" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('address').find('state').valid && applyForm.controls['borrowerGroup'].find('address').find('state').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('address').find('state').valid && applyForm.controls['borrowerGroup'].find('address').find('state').touched">
+                        <option value="" disabled selected>State</option>
+                        <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
+                      </select>
+                      <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('state').touched">
+                        <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('state').hasError('required')" class="text-help">State required</div>
+                      </div>
+                    </fieldset>
                   </div>
-                </fieldset>
-                <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('zip').valid && applyForm.controls['borrowerGroup'].find('zip').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('zip').valid && applyForm.controls['borrowerGroup'].find('zip').touched">
-                  <label class="form-control-label">Zip</label>
-                  <input type="text" class="form-control" ngControl="zip" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('zip').valid && applyForm.controls['borrowerGroup'].find('zip').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('zip').valid && applyForm.controls['borrowerGroup'].find('zip').touched">
-                  <div *ngIf="applyForm.controls['borrowerGroup'].find('zip').touched">
-                    <div *ngIf="applyForm.controls['borrowerGroup'].find('zip').hasError('required')" class="text-help">Zip code required</div>
-                    <div *ngIf="applyForm.controls['borrowerGroup'].find('zip').hasError('invalidZip')" class="text-help">Zip code invalid</div>
+                  <div class="col-xs-12 col-sm-4">
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="applyForm.controls['borrowerGroup'].find('address').find('zip').valid && applyForm.controls['borrowerGroup'].find('address').find('zip').touched" [class.has-danger]="!applyForm.controls['borrowerGroup'].find('address').find('zip').valid && applyForm.controls['borrowerGroup'].find('address').find('zip').touched">
+                      <label class="form-control-label">Zip</label>
+                      <input type="text" class="form-control" ngControl="zip" [class.form-control-success]="applyForm.controls['borrowerGroup'].find('address').find('zip').valid && applyForm.controls['borrowerGroup'].find('address').find('zip').touched" [class.form-control-danger]="!applyForm.controls['borrowerGroup'].find('address').find('zip').valid && applyForm.controls['borrowerGroup'].find('address').find('zip').touched">
+                      <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('zip').touched">
+                        <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('zip').hasError('required')" class="text-help">Zip code required</div>
+                        <div *ngIf="applyForm.controls['borrowerGroup'].find('address').find('zip').hasError('invalidZip')" class="text-help">Zip code invalid</div>
+                      </div>
+                    </fieldset>
                   </div>
-                </fieldset>
+                </div>
               </div>
               <div class="">
                 <label class="form-control-label">Marital Status</label>
@@ -251,7 +261,7 @@
                       <label class="form-control-label">State</label>
                       <select class="c-select form-control" ngControl="state" [class.form-control-success]="applyForm.controls['coborrowerGroup'].controls['address'].find('state').valid && applyForm.controls['coborrowerGroup'].controls['address'].find('state').touched" [class.form-control-danger]="!applyForm.controls['coborrowerGroup'].controls['address'].find('state').valid && applyForm.controls['coborrowerGroup'].controls['address'].find('state').touched">
                         <option value="" disabled selected>State</option>
-                        <option *ngFor="#state of states" value="state.name">{{state.abbreviation}}</option>
+                        <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
                       </select>
                       <div *ngIf="applyForm.controls['coborrowerGroup'].controls['address'].find('state').touched">
                         <div *ngIf="applyForm.controls['coborrowerGroup'].controls['address'].find('state').hasError('required')" class="text-help">State required</div>
@@ -387,6 +397,112 @@
               <h2><i class="fa fa-wrench fa-fw"></i></h2>
               <h2>III. Employment Info</h2>
             </div>
+            <div ngControlGroup="employmentGroup" class="card card-block col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
+              <div class="row">
+                <div class="col-xs-12 text-xs-center">
+                  <h5>Borrower Job History</h5>
+                </div>
+                <div *ngFor="#job of borrowerEmploymentArray.controls; #i = index" class="card card-block col-xs-12">
+                  <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="i !== 0" (click)="deleteBorrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
+                  <div class="row">
+                    <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
+                      <label class="form-control-label">Company Name</label>
+                      <input type="text" class="form-control" [ngFormControl]="job.controls.company" [class.form-control-success]="job.controls.company.valid && job.controls.company.touched" [class.form-control-danger]="!job.controls.company.valid && job.controls.company.touched">
+                      <div *ngIf="job.controls.company.touched">
+                        <div *ngIf="job.controls.company.hasError('required')" class="text-help">Company name required</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.address.controls.add.valid && job.controls.address.controls.add.touched" [class.has-danger]="!job.controls.address.controls.add.valid && job.controls.address.controls.add.touched">
+                      <label class="form-control-label">Street Address</label>
+                      <input type="text" class="form-control" [ngFormControl]="job.controls.address.controls.add" [class.form-control-success]="job.controls.address.controls.add.valid && job.controls.address.controls.add.touched" [class.form-control-danger]="!job.controls.address.controls.add.valid && job.controls.address.controls.add.touched">
+                      <div *ngIf="job.controls.address.controls.add.touched">
+                        <div *ngIf="job.controls.address.controls.add.hasError('required')" class="text-help">Address required</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.address.controls.city.valid && job.controls.address.controls.city.touched" [class.has-danger]="!job.controls.address.controls.city.valid && job.controls.address.controls.city.touched">
+                      <label class="form-control-label">City</label>
+                      <input type="text" class="form-control" [ngFormControl]="job.controls.address.controls.city" [class.form-control-success]="job.controls.address.controls.city.valid && job.controls.address.controls.city.touched" [class.form-control-danger]="!job.controls.address.controls.city.valid && job.controls.address.controls.city.touched">
+                      <div *ngIf="job.controls.address.controls.city.touched">
+                        <div *ngIf="job.controls.address.controls.city.hasError('required')" class="text-help">Address required</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.address.controls.state.valid && job.controls.address.controls.state.touched" [class.has-danger]="!job.controls.address.controls.state.valid && job.controls.address.controls.state.touched">
+                      <label class="form-control-label">State</label>
+                      <select class="c-select form-control" [ngFormControl]="job.controls.address.controls.state" [class.form-control-success]="job.controls.address.controls.state.valid && job.controls.address.controls.state.touched" [class.form-control-danger]="!job.controls.address.controls.state.valid && job.controls.address.controls.state.touched">
+                        <option value="" disabled selected>State</option>
+                        <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
+                      </select>
+                      <div *ngIf="job.controls.address.controls.city.touched">
+                        <div *ngIf="job.controls.address.controls.city.hasError('required')" class="text-help">Address required</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched" [class.has-danger]="!job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched">
+                      <label class="form-control-label">Zip</label>
+                      <input type="text" class="form-control" [ngFormControl]="job.controls.address.controls.zip" [class.form-control-success]="job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched" [class.form-control-danger]="!job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched">
+                      <div *ngIf="job.controls.address.controls.zip.touched">
+                        <div *ngIf="job.controls.address.controls.zip.hasError('required')" class="text-help">Address required</div>
+                        <div *ngIf="job.controls.address.controls.zip.hasError('invalidZip')" class="text-help">Zip code invalid</div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <button type="button" class="btn btn-primary pull-xs-right" (click)="addBorrowerJob()">Add Job</button>
+                </div>
+              </div>
+              <div *ngIf="applyForm.controls['employmentGroup'].contains('coborrower')" class="row">
+                <div class="col-xs-12 text-xs-center">
+                  <h5>Coborrower Job History</h5>
+                </div>
+                <div *ngFor="#job of coborrowerEmploymentArray.controls; #i = index" class="card card-block col-xs-12">
+                  <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="i !== 0" (click)="deleteCoborrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
+                  <div class="row">
+                    <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
+                      <label class="form-control-label">Company Name</label>
+                      <input type="text" class="form-control" [ngFormControl]="job.controls.company" [class.form-control-success]="job.controls.company.valid && job.controls.company.touched" [class.form-control-danger]="!job.controls.company.valid && job.controls.company.touched">
+                      <div *ngIf="job.controls.company.touched">
+                        <div *ngIf="job.controls.company.hasError('required')" class="text-help">Company name required</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.address.controls.add.valid && job.controls.address.controls.add.touched" [class.has-danger]="!job.controls.address.controls.add.valid && job.controls.address.controls.add.touched">
+                      <label class="form-control-label">Street Address</label>
+                      <input type="text" class="form-control" [ngFormControl]="job.controls.address.controls.add" [class.form-control-success]="job.controls.address.controls.add.valid && job.controls.address.controls.add.touched" [class.form-control-danger]="!job.controls.address.controls.add.valid && job.controls.address.controls.add.touched">
+                      <div *ngIf="job.controls.address.controls.add.touched">
+                        <div *ngIf="job.controls.address.controls.add.hasError('required')" class="text-help">Address required</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.address.controls.city.valid && job.controls.address.controls.city.touched" [class.has-danger]="!job.controls.address.controls.city.valid && job.controls.address.controls.city.touched">
+                      <label class="form-control-label">City</label>
+                      <input type="text" class="form-control" [ngFormControl]="job.controls.address.controls.city" [class.form-control-success]="job.controls.address.controls.city.valid && job.controls.address.controls.city.touched" [class.form-control-danger]="!job.controls.address.controls.city.valid && job.controls.address.controls.city.touched">
+                      <div *ngIf="job.controls.address.controls.city.touched">
+                        <div *ngIf="job.controls.address.controls.city.hasError('required')" class="text-help">Address required</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.address.controls.state.valid && job.controls.address.controls.state.touched" [class.has-danger]="!job.controls.address.controls.state.valid && job.controls.address.controls.state.touched">
+                      <label class="form-control-label">State</label>
+                      <select class="c-select form-control" [ngFormControl]="job.controls.address.controls.state" [class.form-control-success]="job.controls.address.controls.state.valid && job.controls.address.controls.state.touched" [class.form-control-danger]="!job.controls.address.controls.state.valid && job.controls.address.controls.state.touched">
+                        <option value="" disabled selected>State</option>
+                        <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
+                      </select>
+                      <div *ngIf="job.controls.address.controls.city.touched">
+                        <div *ngIf="job.controls.address.controls.city.hasError('required')" class="text-help">Address required</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched" [class.has-danger]="!job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched">
+                      <label class="form-control-label">Zip</label>
+                      <input type="text" class="form-control" [ngFormControl]="job.controls.address.controls.zip" [class.form-control-success]="job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched" [class.form-control-danger]="!job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched">
+                      <div *ngIf="job.controls.address.controls.zip.touched">
+                        <div *ngIf="job.controls.address.controls.zip.hasError('required')" class="text-help">Address required</div>
+                        <div *ngIf="job.controls.address.controls.zip.hasError('invalidZip')" class="text-help">Zip code invalid</div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <button type="button" class="btn btn-primary pull-xs-right" (click)="addCoborrowerJob()">Add Job</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -397,7 +513,7 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12 text-xs-center">
-              <h2><i class="fa fa-wrench fa-fw"></i></h2>
+              <h2><i class="fa fa-check-circle-o fa-fw"></i></h2>
               <h2>IV. Declarations</h2>
             </div>
           </div>

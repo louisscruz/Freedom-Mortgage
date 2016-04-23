@@ -24,6 +24,8 @@ import * as moment from 'moment';
 })
 export class Apply {
   private applyForm: ControlGroup;
+  private borrowerEmploymentArray: ControlArray;
+  private coborrowerEmploymentArray: ControlArray;
   private borrowerMiddleNameCache: string;
   private coborrowerMiddleNameCache: string;
   private borrowerDob: Date;
@@ -38,6 +40,7 @@ export class Apply {
     private _changeDetectorRef: ChangeDetectorRef
   ) {
     this.applyForm = this.generateForm();
+    console.log(this.applyForm);
     if (sessionStorage.getItem('cachedForm') !== null) {
       console.log(JSON.parse(sessionStorage.getItem('cachedForm')));
     }
@@ -60,6 +63,18 @@ export class Apply {
     }
   }
 
+  generateAddress(): ControlGroup {
+    const address = new ControlGroup({
+      'add': new Control('', Validators.required),
+      'city': new Control('', Validators.required),
+      'state': new Control('', Validators.required),
+      'zip': new Control('', Validators.compose([
+        Validators.required, this.zipValidator
+      ]))
+    });
+    return address;
+  }
+
   generateForm() {
     const applyForm = new ControlGroup({});
     const borrowerGroup = new ControlGroup({});
@@ -72,12 +87,8 @@ export class Apply {
       Validators.required, this.emailValidator
     ])));
     borrowerGroup.addControl('ssn', new Control('', Validators.required));
-    borrowerGroup.addControl('add', new Control('', Validators.required));
-    borrowerGroup.addControl('city', new Control('', Validators.required));
-    borrowerGroup.addControl('state', new Control('', Validators.required));
-    borrowerGroup.addControl('zip', new Control('', Validators.compose([
-      Validators.required, this.zipValidator
-    ])));
+    const borrowerAddress = this.generateAddress();
+    borrowerGroup.addControl('address', borrowerAddress);
     borrowerGroup.addControl('maritalStatus', new Control('', Validators.required));
     applyForm.addControl('borrowerGroup', borrowerGroup);
     const coborrowerGroup = new ControlGroup({});
@@ -90,30 +101,27 @@ export class Apply {
     coborrowerGroup.addControl('phone', new Control('', Validators.required));
     coborrowerGroup.addControl('dob', new Control('', Validators.required));
     coborrowerGroup.addControl('ssn', new Control('', Validators.required));
-    const address = new ControlGroup({});
-    address.addControl('add', new Control('', Validators.required));
-    address.addControl('city', new Control('', Validators.required));
-    address.addControl('state', new Control('', Validators.required));
-    address.addControl('zip', new Control('', Validators.compose([
-      Validators.required, this.zipValidator
-    ])));
-    coborrowerGroup.addControl('address', address);
+    const coborrowerAddress = this.generateAddress();
+    coborrowerGroup.addControl('address', coborrowerAddress);
     coborrowerGroup.exclude('address');
     applyForm.addControl('coborrowerGroup', coborrowerGroup);
     applyForm.exclude('coborrowerGroup');
     const loanGroup = new ControlGroup({});
     loanGroup.addControl('type', new Control('purchase', Validators.required));
     loanGroup.addControl('amount', new Control('250000', Validators.required));
-    const propertyAddress = new ControlGroup({});
-    propertyAddress.addControl('add', new Control('', Validators.required));
-    propertyAddress.addControl('city', new Control('', Validators.required));
-    propertyAddress.addControl('state', new Control('', Validators.required));
-    propertyAddress.addControl('zip', new Control('', Validators.compose([
-      Validators.required, this.zipValidator
-    ])));
+    const propertyAddress = this.generateAddress();
     loanGroup.addControl('address', propertyAddress);
     loanGroup.exclude('address');
     applyForm.addControl('loanGroup', loanGroup);
+    const employmentGroup = new ControlGroup({});
+    this.borrowerEmploymentArray = new ControlArray([]);
+    this.coborrowerEmploymentArray = new ControlArray([]);
+    employmentGroup.addControl('borrower', this.borrowerEmploymentArray);
+    employmentGroup.addControl('coborrower', this.coborrowerEmploymentArray);
+    this.addBorrowerJob();
+    this.addCoborrowerJob();
+    employmentGroup.exclude('coborrower');
+    applyForm.addControl('employmentGroup', employmentGroup);
     return applyForm;
   }
 
@@ -148,11 +156,13 @@ export class Apply {
 
   addCoborrower(): void {
     this.applyForm.include('coborrowerGroup');
+    (this.applyForm.controls['employmentGroup'] as ControlGroup).include('coborrower');
     this._changeDetectorRef.detectChanges();
   }
 
   removeCoborrower(): void {
     this.applyForm.exclude('coborrowerGroup');
+    (this.applyForm.controls['employmentGroup'] as ControlGroup).exclude('coborrower');
   }
 
   toggleCoborrowerMiddleName(): void {
@@ -211,8 +221,28 @@ export class Apply {
     (this.applyForm.controls['loanGroup'] as ControlGroup).exclude('address');
   }
 
-  ngOnChanges() {
-    alert('change')
+  generateJob(): ControlGroup {
+    const job = new ControlGroup({
+      'company': new Control('', Validators.required),
+      'address': this.generateAddress()
+    });
+    return job;
+  }
+
+  addBorrowerJob(): void {
+    this.borrowerEmploymentArray.push(this.generateJob());
+  }
+
+  addCoborrowerJob(): void {
+    this.coborrowerEmploymentArray.push(this.generateJob());
+  }
+
+  deleteBorrowerJob(index: number): void {
+    this.borrowerEmploymentArray.removeAt(index);
+  }
+
+  deleteCoborrowerJob(index: number): void {
+    this.coborrowerEmploymentArray.removeAt(index);
   }
 
   get afValue(): string {
