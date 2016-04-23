@@ -207,8 +207,7 @@ module.exports = {
     // See: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
     // See: https://github.com/webpack/docs/wiki/optimization#multi-page-app
     new webpack.optimize.CommonsChunkPlugin({
-      name: helpers.reverse(['polyfills', 'vendor', 'main']),
-      minChunks: Infinity
+      name: helpers.reverse(['polyfills', 'vendor'])
     }),
 
     // Plugin: CopyWebpackPlugin
@@ -230,7 +229,7 @@ module.exports = {
     // See: https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      chunksSortMode: 'none'
+      chunksSortMode: helpers.packageSort(['polyfills', 'vendor', 'main'])
     }),
 
     new ProvidePlugin({
@@ -250,5 +249,5 @@ module.exports = {
     module: false,
     clearImmediate: false,
     setImmediate: false
-  },
+  }
 };
