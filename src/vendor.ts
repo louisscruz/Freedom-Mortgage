@@ -27,7 +27,7 @@ import 'rxjs/add/operator/mergeMap';
 // look in platform/directives and platform/providers
 import 'bootstrap-loader';
 require('font-awesome-sass-loader');
-//import 'moment';
+import 'moment';
 //require('google-libphonenumber');
 import 'google-libphonenumber';
 
