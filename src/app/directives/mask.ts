@@ -37,7 +37,6 @@ export class MaskDirective {
     //this.model.control.updateValue(this.modelValue);
     //console.log(this.model.control);
     //var tel = phoneUtil.parse('+12024561111');
-    console.log(tel);
     //this.model.valueAccessor.writeValue(this.modelValue);
 
   };
@@ -60,7 +59,6 @@ export class MaskDirective {
     for (let i = 0; i < this.placeHolderCounts; i++) {
       formattedString = formattedString.replace('{' + i + '}', s.charAt(i));
     }
-    console.log(formattedString);
     return formattedString;
   }
   padString(s) {

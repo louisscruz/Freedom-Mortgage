@@ -8,12 +8,10 @@ import {CORE_DIRECTIVES,
         AbstractControl,
         Control} from 'angular2/common';
 import {States} from './states';
-import {Moment} from 'moment';
 import {DatePicker} from '../components/datepicker/datepicker';
 import {DatePickerService} from '../components/datepicker/datepicker.service';
 import {DatePickerPopup} from '../components/datepicker/datepicker-popup';
 import {ClickOutsideDirective} from '../directives/clickOutside';
-import * as moment from 'moment';
 
 @Component({
   selector: 'apply',
