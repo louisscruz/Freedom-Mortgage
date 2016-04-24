@@ -405,6 +405,13 @@
                 <div *ngFor="#job of borrowerEmploymentArray.controls; #i = index" class="card card-block col-xs-12">
                   <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="i !== 0" (click)="deleteBorrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
                   <div class="row">
+                    <fieldset class="form-group col-xs-12 text-xs-center" *ngIf="true">
+                      <label class="c-input c-checkbox">
+                        <input type="checkbox" [ngFormControl]="job.controls.selfEmployed">
+                        <span class="c-indicator"></span>
+                        Self-employed
+                      </label>
+                    </fieldset>
                     <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
                       <label class="form-control-label">Company Name</label>
                       <input type="text" class="form-control" [ngFormControl]="job.controls.company" [class.form-control-success]="job.controls.company.valid && job.controls.company.touched" [class.form-control-danger]="!job.controls.company.valid && job.controls.company.touched">
@@ -440,8 +447,35 @@
                       <label class="form-control-label">Zip</label>
                       <input type="text" class="form-control" [ngFormControl]="job.controls.address.controls.zip" [class.form-control-success]="job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched" [class.form-control-danger]="!job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched">
                       <div *ngIf="job.controls.address.controls.zip.touched">
-                        <div *ngIf="job.controls.address.controls.zip.hasError('required')" class="text-help">Address required</div>
+                        <div *ngIf="job.controls.address.controls.zip.hasError('required')" class="text-help">Zip code required</div>
                         <div *ngIf="job.controls.address.controls.zip.hasError('invalidZip')" class="text-help">Zip code invalid</div>
+                      </div>
+                    </fieldset>
+                    <div class="col-xs-12" [class.has-success]="job.controls.years.valid && (job.controls.months.valid && job.controls.yearsInField.valid)">
+                      <label class="form-control-label">Length of employment:</label>
+                    </div>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="(job.controls.years.valid && job.controls.years.touched) && job.controls.months.valid" [class.has-danger]="!job.controls.years.valid && job.controls.years.touched">
+                      <label class="form-control-label">Years</label>
+                      <input type="number" class="form-control" [ngFormControl]="job.controls.years" min="0" max="80" pattern="[0-9]*$">
+                      <div *ngIf="job.controls.years.touched">
+                        <div *ngIf="job.controls.years.hasError('required')" class="text-help">Years required</div>
+                        <div *ngIf="job.controls.years.hasError('pattern')" class="text-help">Years must be a number</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="(job.controls.months.valid && job.controls.months.touched) && job.controls.years.valid" [class.has-danger]="!job.controls.months.valid && job.controls.months.touched">
+                      <label class="form-control-label">Months</label>
+                      <input type="number" class="form-control" [ngFormControl]="job.controls.months" min="0" max="12" pattern="[0-9]*$">
+                      <div *ngIf="job.controls.months.touched">
+                        <div *ngIf="job.controls.months.hasError('required')" class="text-help">Months required</div>
+                        <div *ngIf="job.controls.months.hasError('pattern')" class="text-help">Months must be a number</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.yearsInField.valid && job.controls.yearsInField.touched" [class.has-danger]="!job.controls.yearsInField.valid && job.controls.yearsInField.touched">
+                      <label class="form-control-label">Years in field</label>
+                      <input type="number" class="form-control" [ngFormControl]="job.controls.yearsInField" pattern="[0-9]*$">
+                      <div *ngIf="job.controls.yearsInField.touched">
+                        <div *ngIf="job.controls.yearsInField.hasError('required')" class="text-help">Years in field required</div>
+                        <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Years in field must be a number</div>
                       </div>
                     </fieldset>
                   </div>
@@ -457,6 +491,13 @@
                 <div *ngFor="#job of coborrowerEmploymentArray.controls; #i = index" class="card card-block col-xs-12">
                   <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="i !== 0" (click)="deleteCoborrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
                   <div class="row">
+                    <fieldset class="form-group col-xs-12" *ngIf="true">
+                      <label class="c-input c-checkbox">
+                        <input type="checkbox" [ngFormControl]="job.controls.selfEmployed">
+                        <span class="c-indicator"></span>
+                        Self-employed
+                      </label>
+                    </fieldset>
                     <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
                       <label class="form-control-label">Company Name</label>
                       <input type="text" class="form-control" [ngFormControl]="job.controls.company" [class.form-control-success]="job.controls.company.valid && job.controls.company.touched" [class.form-control-danger]="!job.controls.company.valid && job.controls.company.touched">
@@ -492,8 +533,35 @@
                       <label class="form-control-label">Zip</label>
                       <input type="text" class="form-control" [ngFormControl]="job.controls.address.controls.zip" [class.form-control-success]="job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched" [class.form-control-danger]="!job.controls.address.controls.zip.valid && job.controls.address.controls.zip.touched">
                       <div *ngIf="job.controls.address.controls.zip.touched">
-                        <div *ngIf="job.controls.address.controls.zip.hasError('required')" class="text-help">Address required</div>
+                        <div *ngIf="job.controls.address.controls.zip.hasError('required')" class="text-help">Zip code required</div>
                         <div *ngIf="job.controls.address.controls.zip.hasError('invalidZip')" class="text-help">Zip code invalid</div>
+                      </div>
+                    </fieldset>
+                    <div class="col-xs-12" [class.has-success]="job.controls.years.valid && (job.controls.months.valid && job.controls.yearsInField.valid)">
+                      <label class="form-control-label">Length of employment:</label>
+                    </div>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="(job.controls.years.valid && job.controls.years.touched) && job.controls.months.valid" [class.has-danger]="!job.controls.years.valid && job.controls.years.touched">
+                      <label class="form-control-label">Years</label>
+                      <input type="number" class="form-control" [ngFormControl]="job.controls.years" min="0" max="80" pattern="[0-9]*$">
+                      <div *ngIf="job.controls.years.touched">
+                        <div *ngIf="job.controls.years.hasError('required')" class="text-help">Years required</div>
+                        <div *ngIf="job.controls.years.hasError('pattern')" class="text-help">Years must be a number</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="(job.controls.months.valid && job.controls.months.touched) && job.controls.years.valid" [class.has-danger]="!job.controls.months.valid && job.controls.months.touched">
+                      <label class="form-control-label">Months</label>
+                      <input type="number" class="form-control" [ngFormControl]="job.controls.months" min="0" max="12" pattern="[0-9]*$">
+                      <div *ngIf="job.controls.months.touched">
+                        <div *ngIf="job.controls.months.hasError('required')" class="text-help">Months required</div>
+                        <div *ngIf="job.controls.months.hasError('pattern')" class="text-help">Months must be a number</div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.yearsInField.valid && job.controls.yearsInField.touched" [class.has-danger]="!job.controls.yearsInField.valid && job.controls.yearsInField.touched">
+                      <label class="form-control-label">Years in field</label>
+                      <input type="number" class="form-control" [ngFormControl]="job.controls.yearsInField" pattern="[0-9]*$">
+                      <div *ngIf="job.controls.yearsInField.touched">
+                        <div *ngIf="job.controls.yearsInField.hasError('required')" class="text-help">Years in field required</div>
+                        <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Years in field must be a number</div>
                       </div>
                     </fieldset>
                   </div>

@@ -221,8 +221,13 @@ export class Apply {
 
   generateJob(): ControlGroup {
     const job = new ControlGroup({
+      'selfEmployed': new Control(false, Validators.required),
       'company': new Control('', Validators.required),
-      'address': this.generateAddress()
+      'address': this.generateAddress(),
+      'phone': new Control('', Validators.required),
+      'years': new Control('', Validators.required),
+      'months': new Control('', Validators.required),
+      'yearsInField': new Control('', Validators.required)
     });
     return job;
   }
