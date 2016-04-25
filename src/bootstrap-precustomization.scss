@@ -66,13 +66,13 @@ section {
       color: white;
     }
   }
-  &.one {
+  &.one, &.four {
     background-color: $brand-primary;
   }
-  &.two {
+  &.two, &.five {
     background-color: white;
   }
-  &.three {
+  &.three, &.six {
     background-color: $brand-success
   }
 }

@@ -24,6 +24,8 @@ export class Apply {
   private applyForm: ControlGroup;
   private borrowerEmploymentArray: ControlArray;
   private coborrowerEmploymentArray: ControlArray;
+  private borrowerDeclarationsArray: ControlArray;
+  private coborrowerDeclarationsArray: ControlArray;
   private borrowerMiddleNameCache: string;
   private coborrowerMiddleNameCache: string;
   private borrowerDob: Date;
@@ -33,12 +35,13 @@ export class Apply {
   private states: Array<any> = States;
   private loanMin: number = 50000;
   private loanMax: number = 2500000;
+  private abcArray: Array<string>;
+  private declarations: Array<Object>;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef
   ) {
     this.applyForm = this.generateForm();
-    console.log(this.applyForm);
     if (sessionStorage.getItem('cachedForm') !== null) {
       console.log(JSON.parse(sessionStorage.getItem('cachedForm')));
     }
@@ -46,6 +49,20 @@ export class Apply {
       //console.log(sessionStorage.getItem('cachedForm'));
       sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm.value));
       //sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm));
+    });
+    this.applyForm.controls['declarationsGroup'].find('borrower').find('l').valueChanges.subscribe(data => {
+      if (data === true) {
+        (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).include('m');
+      } else {
+        (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).exclude('m');
+      }
+    });
+    this.applyForm.controls['declarationsGroup'].find('coborrower').find('l').valueChanges.subscribe(data => {
+      if (data === true) {
+        (this.applyForm.controls['declarationsGroup'].find('coborrower') as ControlGroup).include('m');
+      } else {
+        (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).exclude('m');
+      }
     });
   }
 
@@ -71,6 +88,30 @@ export class Apply {
       ]))
     });
     return address;
+  }
+
+  generateDeclarations(): ControlGroup {
+    const dec = new ControlGroup({
+      'a': new Control('', Validators.required),
+      'b': new Control('', Validators.required),
+      'c': new Control('', Validators.required),
+      'd': new Control('', Validators.required),
+      'e': new Control('', Validators.required),
+      'f': new Control('', Validators.required),
+      'g': new Control('', Validators.required),
+      'h': new Control('', Validators.required),
+      'i': new Control('', Validators.required),
+      'j': new Control('', Validators.required),
+      'k': new Control('', Validators.required),
+      'l': new Control('', Validators.required),
+      'm': new Control('', Validators.required),
+      'm1': new Control('', Validators.required),
+      'm2': new Control('', Validators.required)
+    });
+    dec.exclude('m');
+    dec.exclude('m1');
+    dec.exclude('m2');
+    return dec;
   }
 
   generateForm() {
@@ -120,6 +161,13 @@ export class Apply {
     this.addCoborrowerJob();
     employmentGroup.exclude('coborrower');
     applyForm.addControl('employmentGroup', employmentGroup);
+    const declarationsGroup = new ControlGroup({});
+    const borrowerDeclarations = this.generateDeclarations();
+    const coborrowerDeclarations = this.generateDeclarations();
+    declarationsGroup.addControl('borrower', borrowerDeclarations);
+    declarationsGroup.addControl('coborrower', coborrowerDeclarations);
+    declarationsGroup.exclude('coborrower');
+    applyForm.addControl('declarationsGroup', declarationsGroup);
     return applyForm;
   }
 
@@ -155,6 +203,7 @@ export class Apply {
   addCoborrower(): void {
     this.applyForm.include('coborrowerGroup');
     (this.applyForm.controls['employmentGroup'] as ControlGroup).include('coborrower');
+    (this.applyForm.controls['declarationsGroup'] as ControlGroup).include('coborrower');
     this._changeDetectorRef.detectChanges();
   }
 
@@ -246,6 +295,10 @@ export class Apply {
 
   deleteCoborrowerJob(index: number): void {
     this.coborrowerEmploymentArray.removeAt(index);
+  }
+
+  setDeclaration(field: Control, value: any): void {
+    field.updateValue(value);
   }
 
   get afValue(): string {

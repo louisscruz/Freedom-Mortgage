@@ -409,7 +409,7 @@
                       <label class="c-input c-checkbox">
                         <input type="checkbox" [ngFormControl]="job.controls.selfEmployed">
                         <span class="c-indicator"></span>
-                        Self-employed
+                        Self-employed position
                       </label>
                     </fieldset>
                     <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
@@ -472,7 +472,7 @@
                     </fieldset>
                     <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.yearsInField.valid && job.controls.yearsInField.touched" [class.has-danger]="!job.controls.yearsInField.valid && job.controls.yearsInField.touched">
                       <label class="form-control-label">Years in field</label>
-                      <input type="number" class="form-control" [ngFormControl]="job.controls.yearsInField" pattern="[0-9]*$">
+                      <input type="number" class="form-control" [ngFormControl]="job.controls.yearsInField" min="0" max="12" pattern="[0-9]*$">
                       <div *ngIf="job.controls.yearsInField.touched">
                         <div *ngIf="job.controls.yearsInField.hasError('required')" class="text-help">Years in field required</div>
                         <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Years in field must be a number</div>
@@ -495,7 +495,7 @@
                       <label class="c-input c-checkbox">
                         <input type="checkbox" [ngFormControl]="job.controls.selfEmployed">
                         <span class="c-indicator"></span>
-                        Self-employed
+                        Self-employed position
                       </label>
                     </fieldset>
                     <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
@@ -558,7 +558,7 @@
                     </fieldset>
                     <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.yearsInField.valid && job.controls.yearsInField.touched" [class.has-danger]="!job.controls.yearsInField.valid && job.controls.yearsInField.touched">
                       <label class="form-control-label">Years in field</label>
-                      <input type="number" class="form-control" [ngFormControl]="job.controls.yearsInField" pattern="[0-9]*$">
+                      <input type="number" class="form-control" [ngFormControl]="job.controls.yearsInField" min="0" max="80" pattern="[0-9]*$">
                       <div *ngIf="job.controls.yearsInField.touched">
                         <div *ngIf="job.controls.yearsInField.hasError('required')" class="text-help">Years in field required</div>
                         <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Years in field must be a number</div>
@@ -581,8 +581,8 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12 text-xs-center">
-              <h2><i class="fa fa-check-circle-o fa-fw"></i></h2>
-              <h2>IV. Declarations</h2>
+              <h2><i class="fa fa-money fa-fw"></i></h2>
+              <h2>IV. Income and Expenses</h2>
             </div>
           </div>
         </div>
@@ -594,8 +594,556 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12 text-xs-center">
-              <h2><i class="fa fa-wrench fa-fw"></i></h2>
-              <h2>V. Equal Opportunity</h2>
+              <h2><i class="fa fa-check-circle-o fa-fw"></i></h2>
+              <h2>V. Declarations</h2>
+            </div>
+            <div ngControlGroup="declarationsGroup" class="card card-block col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">1. Are there any outstanding judgements against you?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec1" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('a'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec1" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('a'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec1" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('a'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec1" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('a'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">2. Have you been declared bankrupt in the past 7 years?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec2" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('b'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec2" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('b'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec2" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('b'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec2" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('b'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">3. Have you had property foreclosed upon or given title or deed in lieu thereof in the past 7 years?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec3" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('c'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec3" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('c'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec3" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('c'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec3" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('c'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">4. Are you a party to a lawsuit?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec4" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('d'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec4" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('d'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec4" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('d'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec4" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('d'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">5. Have you directly or indirectly been obligated on any loan which resulted in foreclosure, transfer of title in lieu of foreclosure, or judgement?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec5" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('e'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec5" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('e'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec5" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('e'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec5" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('e'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">6. Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial obligation, bond, or loan guarantee?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec6" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('f'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec6" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('f'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec6" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('f'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec6" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('f'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">7. Are you obligated to pay alimony, child support, or separate maintenance?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec7" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('g'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec7" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('g'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec7" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('g'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec7" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('g'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">8. Is any part of the down payment borrowed?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec8" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('h'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec8" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('h'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec8" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('h'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec8" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('h'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">9. Are you a co-maker or endorser on a note?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec9" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('i'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec9" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('i'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec9" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('i'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec9" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('i'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">10. Are you a U.S. citizen?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec10" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('j'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec10" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('j'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec10" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('j'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec10" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('j'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">11. Are you a permanent resident alien?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec11" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('k'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec11" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('k'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec11" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('k'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec11" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('k'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">12. Do you intend to occupy the property as your primary residence?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec12" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('l'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec12" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('l'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec12" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('l'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec12" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('l'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card card-block" *ngIf="applyForm.controls['declarationsGroup'].find('borrower').contains('m') || applyForm.controls['declarationsGroup'].find('coborrower').contains('m')">
+                <div class="form-group col-xs-12">
+                  <label class="form-control-label">13. Have you had an ownership interest in a property in the last three years?</label>
+                </div>
+                <div class="row">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].find('borrower').contains('m')">
+                    <label class="form-control-label">Borrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec13" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec13" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower') && applyForm.controls['declarationsGroup'].find('coborrower').contains('m')">
+                    <label class="form-control-label">Coborrower</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec13" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m'), true)">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec13" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="six">
+      <div class="child">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 text-xs-center">
+              <h2><i class="fa fa-legal fa-fw"></i></h2>
+              <h2>VI. Equal Opportunity</h2>
             </div>
           </div>
         </div>
