@@ -28,8 +28,6 @@ import 'rxjs/add/operator/mergeMap';
 import 'bootstrap-loader';
 require('font-awesome-sass-loader');
 import 'moment';
-//require('google-libphonenumber');
-import 'google-libphonenumber';
 
 if ('production' === ENV) {
   // Production
