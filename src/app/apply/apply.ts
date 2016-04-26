@@ -90,6 +90,28 @@ export class Apply {
         (this.applyForm.controls['declarationsGroup'].find('coborrower') as ControlGroup).exclude('m2');
       }
     });
+    this.applyForm.controls['opportunityGroup'].find('borrower').find('decline').valueChanges.subscribe(data => {
+      if (data === true) {
+        (this.applyForm.controls['opportunityGroup'].find('borrower') as ControlGroup).exclude('ethnicity');
+        (this.applyForm.controls['opportunityGroup'].find('borrower') as ControlGroup).exclude('race');
+        (this.applyForm.controls['opportunityGroup'].find('borrower') as ControlGroup).exclude('sex');
+      } else {
+        (this.applyForm.controls['opportunityGroup'].find('borrower') as ControlGroup).include('ethnicity');
+        (this.applyForm.controls['opportunityGroup'].find('borrower') as ControlGroup).include('race');
+        (this.applyForm.controls['opportunityGroup'].find('borrower') as ControlGroup).include('sex');
+      }
+    });
+    this.applyForm.controls['opportunityGroup'].find('coborrower').find('decline').valueChanges.subscribe(data => {
+      if (data === true) {
+        (this.applyForm.controls['opportunityGroup'].find('coborrower') as ControlGroup).exclude('ethnicity');
+        (this.applyForm.controls['opportunityGroup'].find('coborrower') as ControlGroup).exclude('race');
+        (this.applyForm.controls['opportunityGroup'].find('coborrower') as ControlGroup).exclude('sex');
+      } else {
+        (this.applyForm.controls['opportunityGroup'].find('coborrower') as ControlGroup).include('ethnicity');
+        (this.applyForm.controls['opportunityGroup'].find('coborrower') as ControlGroup).include('race');
+        (this.applyForm.controls['opportunityGroup'].find('coborrower') as ControlGroup).include('sex');
+      }
+    });
   }
 
   emailValidator(control: Control): { [s: string]: boolean} {
@@ -138,6 +160,16 @@ export class Apply {
     dec.exclude('m1');
     dec.exclude('m2');
     return dec;
+  }
+
+  generateOpportunity(): ControlGroup {
+    const group = new ControlGroup({
+      'decline': new Control(false, Validators.required),
+      'ethnicity': new Control('', Validators.required),
+      'race': new Control('', Validators.required),
+      'sex': new Control('', Validators.required)
+    });
+    return group;
   }
 
   generateForm() {
@@ -194,6 +226,13 @@ export class Apply {
     declarationsGroup.addControl('coborrower', coborrowerDeclarations);
     declarationsGroup.exclude('coborrower');
     applyForm.addControl('declarationsGroup', declarationsGroup);
+    const opportunityGroup = new ControlGroup({});
+    const borrowerOpportunityGroup = this.generateOpportunity();
+    const coborrowerOpportunityGroup = this.generateOpportunity();
+    opportunityGroup.addControl('borrower', borrowerOpportunityGroup);
+    opportunityGroup.addControl('coborrower', coborrowerOpportunityGroup);
+    opportunityGroup.exclude('coborrower');
+    applyForm.addControl('opportunityGroup', opportunityGroup);
     return applyForm;
   }
 
@@ -230,6 +269,7 @@ export class Apply {
     this.applyForm.include('coborrowerGroup');
     (this.applyForm.controls['employmentGroup'] as ControlGroup).include('coborrower');
     (this.applyForm.controls['declarationsGroup'] as ControlGroup).include('coborrower');
+    (this.applyForm.controls['opportunityGroup'] as ControlGroup).include('coborrower');
     this._changeDetectorRef.detectChanges();
   }
 
@@ -323,7 +363,7 @@ export class Apply {
     this.coborrowerEmploymentArray.removeAt(index);
   }
 
-  setDeclaration(field: Control, value: any): void {
+  setValue(field: Control, value: any): void {
     field.updateValue(value);
   }
 
