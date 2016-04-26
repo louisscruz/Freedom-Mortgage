@@ -400,7 +400,7 @@
             <div ngControlGroup="employmentGroup" class="card card-block col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
               <div class="row">
                 <div class="col-xs-12 text-xs-center">
-                  <h5>Borrower Job History</h5>
+                  <h5>{{borrowerName}}'s Job History</h5>
                 </div>
                 <div *ngFor="#job of borrowerEmploymentArray.controls; #i = index" class="card card-block col-xs-12">
                   <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="i !== 0" (click)="deleteBorrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
@@ -581,7 +581,7 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12 text-xs-center">
-              <h2><i class="fa fa-money fa-fw"></i></h2>
+              <h2><i class="fa fa-pie-chart fa-fw"></i></h2>
               <h2>IV. Income and Expenses</h2>
             </div>
           </div>
@@ -604,7 +604,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec1" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('a'), true)">
@@ -621,7 +621,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec1" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('a'), true)">
@@ -645,7 +645,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec2" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('b'), true)">
@@ -662,7 +662,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec2" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('b'), true)">
@@ -686,7 +686,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec3" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('c'), true)">
@@ -703,7 +703,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec3" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('c'), true)">
@@ -727,7 +727,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec4" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('d'), true)">
@@ -744,7 +744,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec4" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('d'), true)">
@@ -768,7 +768,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec5" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('e'), true)">
@@ -785,7 +785,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec5" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('e'), true)">
@@ -809,7 +809,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec6" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('f'), true)">
@@ -826,7 +826,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec6" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('f'), true)">
@@ -850,7 +850,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec7" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('g'), true)">
@@ -867,7 +867,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec7" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('g'), true)">
@@ -891,7 +891,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec8" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('h'), true)">
@@ -908,7 +908,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec8" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('h'), true)">
@@ -932,7 +932,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec9" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('i'), true)">
@@ -949,7 +949,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec9" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('i'), true)">
@@ -973,7 +973,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec10" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('j'), true)">
@@ -990,7 +990,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec10" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('j'), true)">
@@ -1014,7 +1014,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec11" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('k'), true)">
@@ -1031,7 +1031,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec11" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('k'), true)">
@@ -1055,7 +1055,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec12" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('l'), true)">
@@ -1072,7 +1072,7 @@
                     </div>
                   </fieldset>
                   <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower')">
-                    <label class="form-control-label">Coborrower</label>
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec12" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('l'), true)">
@@ -1096,7 +1096,7 @@
                 </div>
                 <div class="row">
                   <fieldset ngControlGroup="borrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].find('borrower').contains('m')">
-                    <label class="form-control-label">Borrower</label>
+                    <label class="form-control-label">{{borrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="borrowerDec13" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m'), true)">
@@ -1112,8 +1112,8 @@
                       </label>
                     </div>
                   </fieldset>
-                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower') && applyForm.controls['declarationsGroup'].find('coborrower').contains('m')">
-                    <label class="form-control-label">Coborrower</label>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" [class.col-xs-offset-6]="!applyForm.controls['declarationsGroup'].find('borrower').contains('m')" *ngIf="applyForm.controls['declarationsGroup'].contains('coborrower') && applyForm.controls['declarationsGroup'].find('coborrower').contains('m')">
+                    <label class="form-control-label">{{coborrowerName}}:</label>
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrowerDec13" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m'), true)">
@@ -1126,6 +1126,105 @@
                         <input type="radio" name="coborrowerDec13" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m'), false)">
                         <span class="c-indicator"></span>
                         No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="row" *ngIf="applyForm.controls['declarationsGroup'].find('borrower').contains('m1') || applyForm.controls['declarationsGroup'].find('coborrower').contains('m1')">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6 card card-block" *ngIf="applyForm.controls['declarationsGroup'].find('borrower').contains('m1')">
+                    <label class="form-control-label">{{borrowerName}}: What type of property did you own?</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec14" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m1'), 'PR')">
+                        <span class="c-indicator"></span>
+                        Principal residence
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec14" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m1'), 'SH')">
+                        <span class="c-indicator"></span>
+                        Second home
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec14" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m1'), 'IP')">
+                        <span class="c-indicator"></span>
+                        Investment property
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6 card card-block" [class.col-xs-offset-6]="!applyForm.controls['declarationsGroup'].find('borrower').contains('m1')" *ngIf="applyForm.controls['declarationsGroup'].find('coborrower').contains('m1')">
+                    <label class="form-control-label">{{coborrowerName}}: What type of property did you own?</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec14" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m1'), 'PR')">
+                        <span class="c-indicator"></span>
+                        Principal residence
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec14" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m1'), 'SH')">
+                        <span class="c-indicator"></span>
+                        Second home
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec14" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m1'), 'IP')">
+                        <span class="c-indicator"></span>
+                        Investment property
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="row" *ngIf="applyForm.controls['declarationsGroup'].find('borrower').contains('m2') || applyForm.controls['declarationsGroup'].find('coborrower').contains('m2')">
+                  <fieldset ngControlGroup="borrower" class="form-group col-xs-6 card card-block" *ngIf="applyForm.controls['declarationsGroup'].find('borrower').contains('m2')">
+                    <label class="form-control-label">{{borrowerName}}: How did you hold title to the home?</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec15" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m2'), 'S')">
+                        <span class="c-indicator"></span>
+                        By yourself
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec15" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m2'), 'SP')">
+                        <span class="c-indicator"></span>
+                        Jointly with spouse
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="borrowerDec15" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('borrower').find('m2'), 'O')">
+                        <span class="c-indicator"></span>
+                        Jointly with another person
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset ngControlGroup="coborrower" class="form-group col-xs-6 card card-block" [class.col-xs-offset-6]="!applyForm.controls['declarationsGroup'].find('borrower').contains('m1')" *ngIf="applyForm.controls['declarationsGroup'].find('coborrower').contains('m1')">
+                    <label class="form-control-label">{{coborrowerName}}: How did you hold title to the home?</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec15" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m2'), 'S')">
+                        <span class="c-indicator"></span>
+                        By yourself
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec15" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m2'), 'SP')">
+                        <span class="c-indicator"></span>
+                        Jointly with spouse
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="coborrowerDec15" (click)="setDeclaration(applyForm.controls['declarationsGroup'].find('coborrower').find('m2'), 'O')">
+                        Jointly with another person
                       </label>
                     </div>
                   </fieldset>

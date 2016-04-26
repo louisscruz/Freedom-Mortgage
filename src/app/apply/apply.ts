@@ -24,8 +24,8 @@ export class Apply {
   private applyForm: ControlGroup;
   private borrowerEmploymentArray: ControlArray;
   private coborrowerEmploymentArray: ControlArray;
-  private borrowerDeclarationsArray: ControlArray;
-  private coborrowerDeclarationsArray: ControlArray;
+  private borrowerName: string = 'Borrower';
+  private coborrowerName: string = 'Coborrower';
   private borrowerMiddleNameCache: string;
   private coborrowerMiddleNameCache: string;
   private borrowerDob: Date;
@@ -35,8 +35,6 @@ export class Apply {
   private states: Array<any> = States;
   private loanMin: number = 50000;
   private loanMax: number = 2500000;
-  private abcArray: Array<string>;
-  private declarations: Array<Object>;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef
@@ -50,6 +48,16 @@ export class Apply {
       sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm.value));
       //sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm));
     });
+    this.applyForm.controls['borrowerGroup'].find('firstName').valueChanges.subscribe(data => {
+      if (this.borrowerName !== data) {
+        this.borrowerName = data;
+      }
+    });
+    this.applyForm.controls['coborrowerGroup'].find('firstName').valueChanges.subscribe(data => {
+      if (this.coborrowerName !== data) {
+        this.coborrowerName = data;
+      }
+    });
     this.applyForm.controls['declarationsGroup'].find('borrower').find('l').valueChanges.subscribe(data => {
       if (data === true) {
         (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).include('m');
@@ -61,7 +69,25 @@ export class Apply {
       if (data === true) {
         (this.applyForm.controls['declarationsGroup'].find('coborrower') as ControlGroup).include('m');
       } else {
-        (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).exclude('m');
+        (this.applyForm.controls['declarationsGroup'].find('coborrower') as ControlGroup).exclude('m');
+      }
+    });
+    this.applyForm.controls['declarationsGroup'].find('borrower').find('m').valueChanges.subscribe(data => {
+      if (data === true) {
+        (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).include('m1');
+        (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).include('m2');
+      } else {
+        (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).exclude('m1');
+        (this.applyForm.controls['declarationsGroup'].find('borrower') as ControlGroup).exclude('m2');
+      }
+    });
+    this.applyForm.controls['declarationsGroup'].find('coborrower').find('m').valueChanges.subscribe(data => {
+      if (data === true) {
+        (this.applyForm.controls['declarationsGroup'].find('coborrower') as ControlGroup).include('m1');
+        (this.applyForm.controls['declarationsGroup'].find('coborrower') as ControlGroup).include('m2');
+      } else {
+        (this.applyForm.controls['declarationsGroup'].find('coborrower') as ControlGroup).exclude('m1');
+        (this.applyForm.controls['declarationsGroup'].find('coborrower') as ControlGroup).exclude('m2');
       }
     });
   }
