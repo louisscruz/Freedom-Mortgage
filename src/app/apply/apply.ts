@@ -12,10 +12,11 @@ import {DatePicker} from '../components/datepicker/datepicker';
 import {DatePickerService} from '../components/datepicker/datepicker.service';
 import {DatePickerPopup} from '../components/datepicker/datepicker-popup';
 import {ClickOutsideDirective} from '../directives/clickOutside';
+import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
 
 @Component({
   selector: 'apply',
-  directives: [DatePicker, DatePickerPopup, ClickOutsideDirective],
+  directives: [DatePicker, DatePickerPopup, ClickOutsideDirective, DROPDOWN_DIRECTIVES],
   providers: [DatePickerService],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
@@ -172,6 +173,25 @@ export class Apply {
     return group;
   }
 
+  generateIncome(): ControlGroup {
+    const group = new ControlGroup({
+      'baseIncome': new Control('0.00', Validators.required),
+      'overtime': new Control('0.00', Validators.required),
+      'bonuses': new Control('0.00', Validators.required),
+      'commissions': new Control('0.00', Validators.required),
+      'dividends': new Control('0.00', Validators.required),
+      'rental': new Control('0.00', Validators.required),
+      'other': new Control('0.00', Validators.required)
+    });
+    group.exclude('overtime');
+    group.exclude('bonuses');
+    group.exclude('commissions');
+    group.exclude('dividends');
+    group.exclude('rental');
+    group.exclude('other');
+    return group;
+  }
+
   generateForm() {
     const applyForm = new ControlGroup({});
     const borrowerGroup = new ControlGroup({});
@@ -219,6 +239,13 @@ export class Apply {
     this.addCoborrowerJob();
     employmentGroup.exclude('coborrower');
     applyForm.addControl('employmentGroup', employmentGroup);
+    const incomeGroup = new ControlGroup({});
+    const borrowerIncomeGroup = this.generateIncome();
+    const coborrowerIncomeGroup = this.generateIncome();
+    incomeGroup.addControl('borrower', borrowerIncomeGroup);
+    incomeGroup.addControl('coborrower', coborrowerIncomeGroup);
+    incomeGroup.exclude('coborrower');
+    applyForm.addControl('incomeGroup', incomeGroup);
     const declarationsGroup = new ControlGroup({});
     const borrowerDeclarations = this.generateDeclarations();
     const coborrowerDeclarations = this.generateDeclarations();
@@ -268,6 +295,7 @@ export class Apply {
   addCoborrower(): void {
     this.applyForm.include('coborrowerGroup');
     (this.applyForm.controls['employmentGroup'] as ControlGroup).include('coborrower');
+    (this.applyForm.controls['incomeGroup'] as ControlGroup).include('coborrower');
     (this.applyForm.controls['declarationsGroup'] as ControlGroup).include('coborrower');
     (this.applyForm.controls['opportunityGroup'] as ControlGroup).include('coborrower');
     this._changeDetectorRef.detectChanges();
@@ -276,6 +304,9 @@ export class Apply {
   removeCoborrower(): void {
     this.applyForm.exclude('coborrowerGroup');
     (this.applyForm.controls['employmentGroup'] as ControlGroup).exclude('coborrower');
+    (this.applyForm.controls['incomeGroup'] as ControlGroup).exclude('coborrower');
+    (this.applyForm.controls['declarationsGroup'] as ControlGroup).exclude('coborrower');
+    (this.applyForm.controls['opportunityGroup'] as ControlGroup).exclude('coborrower');
   }
 
   toggleCoborrowerMiddleName(): void {
@@ -365,6 +396,26 @@ export class Apply {
 
   setValue(field: Control, value: any): void {
     field.updateValue(value);
+  }
+
+  addGroup(parentGroup: string, targetGroup: string): void {
+    (this.applyForm.find(parentGroup).find('borrower') as ControlGroup).include(targetGroup);
+    (this.applyForm.find(parentGroup).find('coborrower') as ControlGroup).include(targetGroup);
+  }
+
+  removeGroup(parentGroup: string, targetGroup: string): void {
+    (this.applyForm.find(parentGroup).find('borrower') as ControlGroup).exclude(targetGroup);
+    (this.applyForm.find(parentGroup).find('coborrower') as ControlGroup).exclude(targetGroup);
+  }
+
+  get monthlyIncome(): string {
+    const total = (parseFloat(this.applyForm.find('incomeGroup').find('borrower').find('baseIncome').value) + parseFloat(this.applyForm.find('incomeGroup').find('coborrower').find('baseIncome').value)).toFixed(2);
+    return total;
+  }
+
+  get bonuses(): string {
+    const total = (parseFloat(this.applyForm.find('incomeGroup').find('borrower').find('bonuses').value) + parseFloat(this.applyForm.find('incomeGroup').find('coborrower').find('bonuses').value)).toFixed(2);
+    return total;
   }
 
   get afValue(): string {
