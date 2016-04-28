@@ -20,9 +20,9 @@
 .fw {
   width: 100%;
 }
-//.ng-valid.ng-touched {
-  //@extend .form-control-success;
-//}
+input.ng-valid.ng-touched {
+  //@include .form-control-success;
+}
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
