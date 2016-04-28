@@ -348,7 +348,8 @@ export class Apply {
   }
 
   updateRent(): void {
-    (this.applyForm.find('incomeGroup').find('rent') as Control).updateValue(this.borrowerRent + this.coborrowerRent);
+    let value = parseFloat((this.borrowerRent + this.coborrowerRent).toFixed(2));
+    (this.applyForm.find('incomeGroup').find('rent') as Control).updateValue(value);
   }
 
   get incomeTotal(): string {

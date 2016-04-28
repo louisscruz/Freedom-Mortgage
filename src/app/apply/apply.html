@@ -803,7 +803,7 @@
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
                     <div class="row">
                       <div class="col-xs-12">
-                        <label class="form-control-label font-weight-bold">Combined Monthly Rental Payments</label>
+                        <label class="form-control-label font-weight-bold">Monthly Rental Payments</label>
                       </div>
                     </div>
                     <div class="row">
@@ -811,7 +811,7 @@
                         <label class="form-control-label">{{borrowerName}}:</label>
                         <input type="number" class="form-control" [(ngModel)]="borrowerRent" (change)="updateRent()" min=0 step="0.01">
                       </fieldset>
-                      <fieldset class="form-group col-xs-6">
+                      <fieldset class="form-group col-xs-6" *ngIf="applyForm.contains('coborrowerGroup')">
                         <label class="form-control-label">{{coborrowerName}}:</label>
                         <input type="number" class="form-control" [(ngModel)]="coborrowerRent" (change)="updateRent()" min=0 step="0.01">
                       </fieldset>
@@ -835,9 +835,19 @@
       <div class="child">
         <div class="container">
           <div class="row">
+            test
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="six">
+      <div class="child">
+        <div class="container">
+          <div class="row">
             <div class="col-xs-12 text-xs-center">
               <h2><i class="fa fa-check-circle-o fa-fw"></i></h2>
-              <h2>V. Declarations</h2>
+              <h2>VI. Declarations</h2>
             </div>
             <div ngControlGroup="declarationsGroup" class="col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
               <div class="card card-block">
@@ -1481,13 +1491,13 @@
       </div>
     </section>
 
-    <section class="six">
+    <section class="seven">
       <div class="child">
         <div class="container">
           <div class="row">
             <div class="col-xs-12 text-xs-center">
               <h2><i class="fa fa-balance-scale fa-fw"></i></h2>
-              <h2>VI. Equal Opportunity</h2>
+              <h2>VII. Equal Opportunity</h2>
             </div>
             <div ngControlGroup="opportunityGroup" class="col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
               <div class="card card-block">
