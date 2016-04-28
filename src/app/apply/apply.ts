@@ -77,6 +77,31 @@ export class Apply {
     return address;
   }
 
+  generateIncome(): ControlGroup {
+    const group = new ControlGroup({
+      'baseIncome': new Control('0.00', Validators.required),
+      'overtime': new Control('0.00', Validators.required),
+      'bonuses': new Control('0.00', Validators.required),
+      'commissions': new Control('0.00', Validators.required),
+      'dividends': new Control('0.00', Validators.required),
+      'rental': new Control('0.00', Validators.required),
+      'other': new Control('0.00', Validators.required)
+    });
+    group.exclude('overtime');
+    group.exclude('bonuses');
+    group.exclude('commissions');
+    group.exclude('dividends');
+    group.exclude('rental');
+    group.exclude('other');
+    return group;
+  }
+
+  generateAssets(): ControlGroup {
+    const group = new ControlGroup({
+    })
+    return group;
+  }
+
   generateDeclarations(): ControlGroup {
     const dec = new ControlGroup({
       'a': new Control('', Validators.required),
@@ -108,25 +133,6 @@ export class Apply {
       'race': new Control('', Validators.required),
       'sex': new Control('', Validators.required)
     });
-    return group;
-  }
-
-  generateIncome(): ControlGroup {
-    const group = new ControlGroup({
-      'baseIncome': new Control('0.00', Validators.required),
-      'overtime': new Control('0.00', Validators.required),
-      'bonuses': new Control('0.00', Validators.required),
-      'commissions': new Control('0.00', Validators.required),
-      'dividends': new Control('0.00', Validators.required),
-      'rental': new Control('0.00', Validators.required),
-      'other': new Control('0.00', Validators.required)
-    });
-    group.exclude('overtime');
-    group.exclude('bonuses');
-    group.exclude('commissions');
-    group.exclude('dividends');
-    group.exclude('rental');
-    group.exclude('other');
     return group;
   }
 
@@ -185,6 +191,13 @@ export class Apply {
     incomeGroup.addControl('rent', new Control('0.00', Validators.required))
     incomeGroup.exclude('coborrower');
     applyForm.addControl('incomeGroup', incomeGroup);
+    const assetsGroup = new ControlGroup({});
+    const borrowerAssetsGroup = this.generateAssets();
+    const coborrowerAssetsGroup = this.generateAssets();
+    assetsGroup.addControl('borrower', borrowerAssetsGroup);
+    assetsGroup.addControl('coborrower', coborrowerAssetsGroup);
+    assetsGroup.exclude('coborrower');
+    applyForm.addControl('assetsGroup', assetsGroup);
     const declarationsGroup = new ControlGroup({});
     const borrowerDeclarations = this.generateDeclarations();
     const coborrowerDeclarations = this.generateDeclarations();
@@ -367,13 +380,6 @@ export class Apply {
     }
     return total.toFixed(2);
   }
-
-  /*get expensesTotal(): string {
-    let total = 0;
-
-    (this.applyForm.find('incomeGroup').find('rent') as Control).updateValue(total);
-    return total.toFixed(2);
-  }*/
 
   get afValue(): string {
     return JSON.stringify(this.applyForm.value, null, 2)
