@@ -491,10 +491,11 @@
                 </div>
                 <div *ngIf="applyForm.find('employmentGroup').contains('coborrower')" class="row">
                   <div class="col-xs-12 text-xs-center">
-                    <h5>Coborrower Job History</h5>
+                    <hr>
+                    <h5>{{coborrowerName}}'s Job History</h5>
                   </div>
-                  <div *ngFor="#job of coborrowerEmploymentArray.controls; #i = index" class="card card-block col-xs-12">
-                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="i !== 0" (click)="deleteCoborrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
+                  <div *ngFor="#job of coborrowerEmploymentArray.controls; #i=index" class="card card-block col-xs-12">
+                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteCoborrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <fieldset class="form-group col-xs-12" *ngIf="true">
                         <label class="c-input c-checkbox">

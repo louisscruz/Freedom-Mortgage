@@ -180,7 +180,6 @@ export class Apply {
     employmentGroup.addControl('borrower', this.borrowerEmploymentArray);
     employmentGroup.addControl('coborrower', this.coborrowerEmploymentArray);
     this.addBorrowerJob();
-    this.addCoborrowerJob();
     employmentGroup.exclude('coborrower');
     applyForm.addControl('employmentGroup', employmentGroup);
     const incomeGroup = new ControlGroup({});
