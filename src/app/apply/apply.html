@@ -871,40 +871,52 @@
                     <label class="form-control-label">1. Are there any outstanding judgements against you?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec1" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('a'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec1" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('a'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec1" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('a'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec1" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('a'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group col-xs-12">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec1" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('a'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec1" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('a'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('a')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec1" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('a'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec1" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('a'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('a')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
@@ -912,40 +924,52 @@
                     <label class="form-control-label">2. Have you been declared bankrupt in the past 7 years?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec2" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('b'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec2" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('b'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec2" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('b'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec2" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('b'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec2" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('b'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec2" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('b'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('b')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec2" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('b'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec2" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('b'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('b')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
@@ -953,40 +977,52 @@
                     <label class="form-control-label">3. Have you had property foreclosed upon or given title or deed in lieu thereof in the past 7 years?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec3" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('c'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec3" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('c'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec3" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('c'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec3" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('c'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec3" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('c'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec3" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('c'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('c')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec3" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('c'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec3" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('c'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('c')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
@@ -994,40 +1030,52 @@
                     <label class="form-control-label">4. Are you a party to a lawsuit?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec4" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('d'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec4" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('d'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec4" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('d'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec4" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('d'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec4" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('d'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec4" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('d'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('d')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec4" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('d'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec4" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('d'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('d')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
@@ -1035,40 +1083,52 @@
                     <label class="form-control-label">5. Have you directly or indirectly been obligated on any loan which resulted in foreclosure, transfer of title in lieu of foreclosure, or judgement?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec5" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('e'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec5" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('e'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec5" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('e'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec5" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('e'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group ">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec5" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('e'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec5" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('e'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('e')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group " *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec5" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('e'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec5" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('e'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('e')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
@@ -1076,40 +1136,52 @@
                     <label class="form-control-label">6. Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial obligation, bond, or loan guarantee?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec6" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('f'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec6" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('f'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec6" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('f'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec6" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('f'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec6" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('f'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec6" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('f'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('f')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec6" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('f'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec6" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('f'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('f')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
@@ -1117,40 +1189,52 @@
                     <label class="form-control-label">7. Are you obligated to pay alimony, child support, or separate maintenance?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec7" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('g'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec7" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('g'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec7" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('g'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec7" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('g'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec7" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('g'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec7" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('g'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('g')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec7" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('g'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec7" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('g'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('g')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
@@ -1158,40 +1242,52 @@
                     <label class="form-control-label">8. Is any part of the down payment borrowed?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec8" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('h'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec8" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('h'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec8" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('h'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec8" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('h'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec8" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('h'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec8" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('h'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('h')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec8" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('h'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec8" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('h'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('h')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
@@ -1199,40 +1295,52 @@
                     <label class="form-control-label">9. Are you a co-maker or endorser on a note?</label>
                   </div>
                   <div class="row">
-                    <fieldset ngControlGroup="borrower" class="form-group col-xs-6">
-                      <label class="form-control-label">{{borrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec9" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('i'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="borrowerDec9" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('i'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
-                    <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
-                      <label class="form-control-label">{{coborrowerName}}:</label>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec9" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('i'), true)">
-                          <span class="c-indicator"></span>
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label class="c-input c-radio">
-                          <input type="radio" name="coborrowerDec9" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('i'), false)">
-                          <span class="c-indicator"></span>
-                          No
-                        </label>
-                      </div>
-                    </fieldset>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="borrower" class="form-group">
+                        <label class="form-control-label">{{borrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec9" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('i'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="borrowerDec9" (click)="setValue(applyForm.find('declarationsGroup').find('borrower').find('i'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('borrower').contains('i')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
+                    <div class="col-xs-6">
+                      <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
+                        <label class="form-control-label">{{coborrowerName}}:</label>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec9" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('i'), true)">
+                            <span class="c-indicator"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label class="c-input c-radio">
+                            <input type="radio" name="coborrowerDec9" (click)="setValue(applyForm.find('declarationsGroup').find('coborrower').find('i'), false)">
+                            <span class="c-indicator"></span>
+                            No
+                          </label>
+                        </div>
+                      </fieldset>
+                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('i')" class="form-group col-xs-12">
+                        <label class="form-control-label">Please provide an explanation</label>
+                        <textarea class="form-control"></textarea>
+                      </fieldset>
+                    </div>
                   </div>
                 </div>
                 <div class="card card-block">
