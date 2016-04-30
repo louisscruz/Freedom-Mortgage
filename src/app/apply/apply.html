@@ -890,9 +890,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('a')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('a')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('a').valid && explanationsForm.find('borrower').find('a').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="a"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('a').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('a').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -915,9 +918,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('a')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('a')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('a').valid && explanationsForm.find('coborrower').find('a').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="a"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('a').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('a').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -947,9 +953,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('b')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('b')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('b').valid && explanationsForm.find('borrower').find('b').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="b"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('b').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('b').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -972,9 +981,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('b')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('b')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('b').valid && explanationsForm.find('coborrower').find('b').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="b"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('b').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('b').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1004,9 +1016,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('c')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('c')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('c').valid && explanationsForm.find('borrower').find('c').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="c"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('c').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('c').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1029,9 +1044,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('c')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('c')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('c').valid && explanationsForm.find('coborrower').find('c').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="c"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('c').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('c').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1061,9 +1079,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('d')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('d')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('d').valid && explanationsForm.find('borrower').find('d').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="d"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('d').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('d').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1086,9 +1107,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('d')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('d')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('d').valid && explanationsForm.find('coborrower').find('d').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="d"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('d').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('d').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1118,9 +1142,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('e')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('e')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('e').valid && explanationsForm.find('borrower').find('e').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="e"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('e').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('e').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1143,9 +1170,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('e')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('e')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('e').valid && explanationsForm.find('coborrower').find('e').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="e"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('e').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('e').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1175,9 +1205,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('f')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('f')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('f').valid && explanationsForm.find('borrower').find('f').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="f"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('f').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('f').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1200,9 +1233,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('f')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('f')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('f').valid && explanationsForm.find('coborrower').find('f').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="f"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('f').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('f').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1232,9 +1268,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('g')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('g')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('g').valid && explanationsForm.find('borrower').find('g').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="g"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('g').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('g').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1257,9 +1296,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('g')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('g')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('g').valid && explanationsForm.find('coborrower').find('g').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="g"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('g').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('g').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1289,9 +1331,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('h')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('h')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('h').valid && explanationsForm.find('borrower').find('h').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="h"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('h').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('h').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1314,9 +1359,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('h')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('h')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('h').valid && explanationsForm.find('coborrower').find('h').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="h"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('h').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('h').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1346,9 +1394,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('i')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('i')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('borrower').find('i').valid && explanationsForm.find('borrower').find('i').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="i"></textarea>
+                          <div *ngIf="explanationsForm.find('borrower').find('i').touched">
+                            <div *ngIf="explanationsForm.find('borrower').find('i').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1371,9 +1422,12 @@
                         </div>
                       </fieldset>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('i')" class="form-group col-xs-12">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('i')" class="form-group col-xs-12" [class.has-danger]="!explanationsForm.find('coborrower').find('i').valid && explanationsForm.find('coborrower').find('i').touched">
                           <label class="form-control-label">Please provide an explanation</label>
                           <textarea class="form-control" ngControl="i"></textarea>
+                          <div *ngIf="explanationsForm.find('coborrower').find('i').touched">
+                            <div *ngIf="explanationsForm.find('coborrower').find('i').hasError('required')" class="text-help">An explanation is required</div>
+                          </div>
                         </fieldset>
                       </div>
                     </div>

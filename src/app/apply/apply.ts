@@ -15,7 +15,7 @@ import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
 
 const declarationsKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'm1', 'm2', 'explanations'];
-const checkArray = declarationsKeys.slice(0, 8);
+const checkArray = declarationsKeys.slice(0, 9);
 
 @Component({
   selector: 'apply',
@@ -442,7 +442,7 @@ export class Apply {
         parentGroup.find(y).valueChanges.subscribe(data => {
           let concat = '';
           for (const z in parentGroup.controls) {
-            if (parentGroup.contains(z)) {
+            if (parentGroup.contains(z) && parentGroup.find(z).value !== '') {
               concat += (z.toString() + ': ' + parentGroup.find(z).value) + ' ';
             }
           }
