@@ -426,41 +426,25 @@ export class Apply {
         this.coborrowerName = data;
       }
     });
-    this.applyForm.find('declarationsGroup').find('borrower').find('l').valueChanges.subscribe(data => {
-      if (data === true) {
-        (this.applyForm.find('declarationsGroup').find('borrower') as ControlGroup).include('m');
-      } else {
-        (this.applyForm.find('declarationsGroup').find('borrower') as ControlGroup).exclude('m');
-      }
-    });
-    this.applyForm.find('declarationsGroup').find('coborrower').find('l').valueChanges.subscribe(data => {
-      if (data === true) {
-        (this.applyForm.find('declarationsGroup').find('coborrower') as ControlGroup).include('m');
-      } else {
-        (this.applyForm.find('declarationsGroup').find('coborrower') as ControlGroup).exclude('m');
-      }
-    });
-    this.applyForm.find('declarationsGroup').find('borrower').find('m').valueChanges.subscribe(data => {
-      if (data === true) {
-        (this.applyForm.find('declarationsGroup').find('borrower') as ControlGroup).include('m1');
-        (this.applyForm.find('declarationsGroup').find('borrower') as ControlGroup).include('m2');
-      } else {
-        (this.applyForm.find('declarationsGroup').find('borrower') as ControlGroup).exclude('m1');
-        (this.applyForm.find('declarationsGroup').find('borrower') as ControlGroup).exclude('m2');
-      }
-    });
-    this.applyForm.find('declarationsGroup').find('coborrower').find('m').valueChanges.subscribe(data => {
-      if (data === true) {
-        (this.applyForm.find('declarationsGroup').find('coborrower') as ControlGroup).include('m1');
-        (this.applyForm.find('declarationsGroup').find('coborrower') as ControlGroup).include('m2');
-      } else {
-        (this.applyForm.find('declarationsGroup').find('coborrower') as ControlGroup).exclude('m1');
-        (this.applyForm.find('declarationsGroup').find('coborrower') as ControlGroup).exclude('m2');
-      }
-    });
     const checkArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
     for (const x in (this.applyForm.find('declarationsGroup') as ControlGroup).controls) {
       const parentGroup = (this.applyForm.find('declarationsGroup').find(x) as ControlGroup);
+      parentGroup.find('l').valueChanges.subscribe(data => {
+        if (data === true) {
+          parentGroup.include('m');
+        } else {
+          parentGroup.exclude('m');
+        }
+      });
+      parentGroup.find('m').valueChanges.subscribe(data => {
+        if (data === true) {
+          parentGroup.include('m1');
+          parentGroup.include('m2');
+        } else {
+          parentGroup.exclude('m1');
+          parentGroup.exclude('m2');
+        }
+      });
       for (let i = 0; i < checkArray.length; i++) {
         parentGroup.find(checkArray[i]).valueChanges.subscribe(data => {
           if (data === true) {
@@ -488,27 +472,19 @@ export class Apply {
         });
       }
     }
-    this.applyForm.find('opportunityGroup').find('borrower').find('decline').valueChanges.subscribe(data => {
-      if (data === true) {
-        (this.applyForm.find('opportunityGroup').find('borrower') as ControlGroup).exclude('ethnicity');
-        (this.applyForm.find('opportunityGroup').find('borrower') as ControlGroup).exclude('race');
-        (this.applyForm.find('opportunityGroup').find('borrower') as ControlGroup).exclude('sex');
-      } else {
-        (this.applyForm.find('opportunityGroup').find('borrower') as ControlGroup).include('ethnicity');
-        (this.applyForm.find('opportunityGroup').find('borrower') as ControlGroup).include('race');
-        (this.applyForm.find('opportunityGroup').find('borrower') as ControlGroup).include('sex');
-      }
-    });
-    this.applyForm.find('opportunityGroup').find('coborrower').find('decline').valueChanges.subscribe(data => {
-      if (data === true) {
-        (this.applyForm.find('opportunityGroup').find('coborrower') as ControlGroup).exclude('ethnicity');
-        (this.applyForm.find('opportunityGroup').find('coborrower') as ControlGroup).exclude('race');
-        (this.applyForm.find('opportunityGroup').find('coborrower') as ControlGroup).exclude('sex');
-      } else {
-        (this.applyForm.find('opportunityGroup').find('coborrower') as ControlGroup).include('ethnicity');
-        (this.applyForm.find('opportunityGroup').find('coborrower') as ControlGroup).include('race');
-        (this.applyForm.find('opportunityGroup').find('coborrower') as ControlGroup).include('sex');
-      }
-    });
+    for (const x in (this.applyForm.find('opportunityGroup') as ControlGroup).controls) {
+      const parentGroup = (this.applyForm.find('opportunityGroup').find(x) as ControlGroup);
+      parentGroup.find('decline').valueChanges.subscribe(data => {
+        if (data === true) {
+          parentGroup.exclude('ethnicity');
+          parentGroup.exclude('race');
+          parentGroup.exclude('sex');
+        } else {
+          parentGroup.include('ethnicity');
+          parentGroup.include('race');
+          parentGroup.include('sex');
+        }
+      });
+    }
   }
 }
