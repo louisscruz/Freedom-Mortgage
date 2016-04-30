@@ -473,6 +473,21 @@ export class Apply {
         });
       }
     }
+    for (const x in this.explanationsForm.controls) {
+      const parentGroup = (this.explanationsForm.find(x) as ControlGroup);
+      for (const y in parentGroup.controls) {
+        parentGroup.find(y).valueChanges.subscribe(data => {
+          let concat = '';
+          for (const z in parentGroup.controls) {
+            if (parentGroup.contains(z)) {
+              concat += (z.toString() + ': ' + parentGroup.find(z).value) + ' ';
+            }
+          }
+          concat = concat.trim();
+          (this.applyForm.find('declarationsGroup').find(x).find('explanations') as Control).updateValue(concat);
+        });
+      }
+    }
     this.applyForm.find('opportunityGroup').find('borrower').find('decline').valueChanges.subscribe(data => {
       if (data === true) {
         (this.applyForm.find('opportunityGroup').find('borrower') as ControlGroup).exclude('ethnicity');

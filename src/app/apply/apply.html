@@ -889,10 +889,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('a')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('a')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="a"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -912,10 +914,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('a')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('a')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="a"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -942,10 +946,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('b')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('b')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="b"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group col-xs-6" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -965,10 +971,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('b')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('b')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="b"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -995,10 +1003,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('c')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('c')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="c"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -1018,10 +1028,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('c')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('c')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="c"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1048,10 +1060,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('d')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('d')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="d"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -1071,10 +1085,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('d')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('d')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="d"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1101,10 +1117,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('e')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('e')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="e"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group " *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -1124,10 +1142,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('e')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('e')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="e"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1154,10 +1174,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('f')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('f')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="f"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -1177,10 +1199,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('f')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('f')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="f"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1207,10 +1231,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('g')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('g')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="g"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -1230,10 +1256,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('g')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('g')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="g"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1260,10 +1288,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('h')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('h')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="h"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -1283,10 +1313,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('h')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('h')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="h"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1313,10 +1345,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('borrower').contains('i')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('i')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="i"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                     <div class="col-xs-6">
                       <fieldset ngControlGroup="coborrower" class="form-group" *ngIf="applyForm.find('declarationsGroup').contains('coborrower')">
@@ -1336,10 +1370,12 @@
                           </label>
                         </div>
                       </fieldset>
-                      <fieldset *ngIf="explanationsForm.find('coborrower').contains('i')" class="form-group col-xs-12">
-                        <label class="form-control-label">Please provide an explanation</label>
-                        <textarea class="form-control"></textarea>
-                      </fieldset>
+                      <div [ngFormModel]="explanationsForm">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('i')" class="form-group col-xs-12">
+                          <label class="form-control-label">Please provide an explanation</label>
+                          <textarea class="form-control" ngControl="i"></textarea>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
