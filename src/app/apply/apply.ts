@@ -391,6 +391,11 @@ export class Apply {
     return total.toFixed(2);
   }
 
+  get expensesTotal(): string {
+    let total = this.borrowerRent + this.coborrowerRent;
+    return total.toFixed(2);
+  }
+
   get afValue(): string {
     return JSON.stringify(this.applyForm.value, null, 2)
   }
