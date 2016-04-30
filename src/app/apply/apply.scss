@@ -10,6 +10,9 @@
     min-height: 100vh;
     //background-color: $primary;
   }
+  textarea {
+    max-height: 500px;
+  }
 }
 .form-control[readonly] {
   background-color: white !important;

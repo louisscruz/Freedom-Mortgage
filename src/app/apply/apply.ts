@@ -13,13 +13,14 @@ import {DatePickerService} from '../components/datepicker/datepicker.service';
 import {DatePickerPopup} from '../components/datepicker/datepicker-popup';
 import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
+import {focusedTextarea} from '../directives/focusedTextArea';
 
 const declarationsKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'm1', 'm2', 'explanations'];
 const checkArray = declarationsKeys.slice(0, 9);
 
 @Component({
   selector: 'apply',
-  directives: [DatePicker, DatePickerPopup, ClickOutsideDirective, DROPDOWN_DIRECTIVES],
+  directives: [DatePicker, DatePickerPopup, ClickOutsideDirective, DROPDOWN_DIRECTIVES, focusedTextarea],
   providers: [DatePickerService],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
@@ -352,8 +353,11 @@ export class Apply {
     this.coborrowerEmploymentArray.removeAt(index);
   }
 
-  setValue(field: Control, value: any): void {
+  setValue(field: Control, value: any, el?: any): void {
     field.updateValue(value);
+    if (el) {
+      el.focus();
+    }
   }
 
   addGroup(parentGroup: string, targetGroup: string): void {
@@ -373,6 +377,10 @@ export class Apply {
 
   explanationNeeded(group: Array<string>, selector: string): boolean {
     return (group.indexOf(selector) !== -1);
+  }
+
+  setAllFieldsTouched(): void {
+    console.log(this.applyForm);
   }
 
   get incomeTotal(): string {
