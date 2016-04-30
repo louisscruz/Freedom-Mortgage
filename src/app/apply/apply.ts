@@ -14,6 +14,9 @@ import {DatePickerPopup} from '../components/datepicker/datepicker-popup';
 import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
 
+const declarationsKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'm1', 'm2', 'explanations'];
+const checkArray = declarationsKeys.slice(0, 8);
+
 @Component({
   selector: 'apply',
   directives: [DatePicker, DatePickerPopup, ClickOutsideDirective, DROPDOWN_DIRECTIVES],
@@ -110,45 +113,22 @@ export class Apply {
   }
 
   generateDeclarations(): ControlGroup {
-    const dec = new ControlGroup({
-      'a': new Control('', Validators.required),
-      'b': new Control('', Validators.required),
-      'c': new Control('', Validators.required),
-      'd': new Control('', Validators.required),
-      'e': new Control('', Validators.required),
-      'f': new Control('', Validators.required),
-      'g': new Control('', Validators.required),
-      'h': new Control('', Validators.required),
-      'i': new Control('', Validators.required),
-      'j': new Control('', Validators.required),
-      'k': new Control('', Validators.required),
-      'l': new Control('', Validators.required),
-      'm': new Control('', Validators.required),
-      'm1': new Control('', Validators.required),
-      'm2': new Control('', Validators.required),
-      'explanations': new Control('', Validators.required)
-    });
-    dec.exclude('m');
-    dec.exclude('m1');
-    dec.exclude('m2');
-    dec.exclude('explanations');
-    return dec;
+    const group = new ControlGroup({});
+    for (let i = 0; i < declarationsKeys.length; i++) {
+      group.addControl(declarationsKeys[i], new Control('', Validators.required));
+    }
+    group.exclude('m');
+    group.exclude('m1');
+    group.exclude('m2');
+    group.exclude('explanations');
+    return group;
   }
 
   generateExplanations(): ControlGroup {
-    const group = new ControlGroup({
-      'a': new Control('', Validators.required),
-      'b': new Control('', Validators.required),
-      'c': new Control('', Validators.required),
-      'd': new Control('', Validators.required),
-      'e': new Control('', Validators.required),
-      'f': new Control('', Validators.required),
-      'g': new Control('', Validators.required),
-      'h': new Control('', Validators.required),
-      'i': new Control('', Validators.required),
-    });
-    for (const x in group.controls) {
-      group.exclude(x);
+    const group = new ControlGroup({});
+    for (let i = 0; i < checkArray.length; i++) {
+      group.addControl(checkArray[i], new Control('', Validators.required));
+      group.exclude(checkArray[i]);
     }
     return group;
   }
@@ -426,7 +406,6 @@ export class Apply {
         this.coborrowerName = data;
       }
     });
-    const checkArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
     for (const x in (this.applyForm.find('declarationsGroup') as ControlGroup).controls) {
       const parentGroup = (this.applyForm.find('declarationsGroup').find(x) as ControlGroup);
       parentGroup.find('l').valueChanges.subscribe(data => {
