@@ -511,11 +511,18 @@
                           Self-employed position
                         </label>
                       </fieldset>
-                      <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
+                      <fieldset class="form-group col-xs-12 col-sm-8" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
                         <label class="form-control-label">Company Name</label>
                         <input type="text" class="form-control" [ngFormControl]="job.controls.company" [class.form-control-success]="job.controls.company.valid && job.controls.company.touched" [class.form-control-danger]="!job.controls.company.valid && job.controls.company.touched">
                         <div *ngIf="job.controls.company.touched">
                           <div *ngIf="job.controls.company.hasError('required')" class="text-help">Company name required</div>
+                        </div>
+                      </fieldset>
+                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.phone.valid && job.controls.phone.touched" [class.has-danger]="!job.controls.phone.valid && job.controls.phone.touched">
+                        <label class="form-control-label">Phone</label>
+                        <input type="text" class="form-control" [ngFormControl]="job.controls.phone" [class.form-controls-success]="job.controls.phone && job.controls.phone.touched" [class.form-control-danger]="!job.controls.phone.valid && job.controls.phone.touched">
+                        <div *ngIf="job.controls.phone.touched">
+                          <div *ngIf="job.controls.phone.hasError('required')" class="text-help">Phone required</div>
                         </div>
                       </fieldset>
                       <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.address.controls.add.valid && job.controls.address.controls.add.touched" [class.has-danger]="!job.controls.address.controls.add.valid && job.controls.address.controls.add.touched">
