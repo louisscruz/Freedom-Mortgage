@@ -13,7 +13,7 @@ import {DatePickerService} from '../components/datepicker/datepicker.service';
 import {DatePickerPopup} from '../components/datepicker/datepicker-popup';
 import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
-import {focusedTextarea} from '../directives/focusedTextArea';
+import {focusedTextarea} from '../directives/focusedTextarea';
 
 const declarationsKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'm1', 'm2', 'explanations'];
 const checkArray = declarationsKeys.slice(0, 9);
