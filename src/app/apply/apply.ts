@@ -187,7 +187,7 @@ export class Apply {
     this.coborrowerEmploymentArray = new ControlArray([]);
     employmentGroup.addControl('borrower', this.borrowerEmploymentArray);
     employmentGroup.addControl('coborrower', this.coborrowerEmploymentArray);
-    this.addBorrowerJob();
+    this.addBorrowerRequiredJob();
     employmentGroup.exclude('coborrower');
     applyForm.addControl('employmentGroup', employmentGroup);
     const incomeGroup = new ControlGroup({});
@@ -337,8 +337,25 @@ export class Apply {
     return job;
   }
 
+  generateRequiredJob(): ControlGroup {
+    const job = new ControlGroup({
+      'selfEmployed': new Control(false, Validators.required),
+      'company': new Control('', Validators.required),
+      'address': this.generateAddress(),
+      'phone': new Control('', Validators.required),
+      'years': new Control('', Validators.required),
+      'months': new Control('', Validators.required),
+      'yearsInField': new Control('', Validators.required)
+    }, {}, Validators.required);
+    return job;
+  }
+
   addBorrowerJob(): void {
     this.borrowerEmploymentArray.push(this.generateJob());
+  }
+
+  addBorrowerRequiredJob(): void {
+    this.borrowerEmploymentArray.push(this.generateRequiredJob());
   }
 
   addCoborrowerJob(): void {
@@ -419,6 +436,28 @@ export class Apply {
         this.coborrowerName = data;
       }
     });
+    /*for (const x in (this.applyForm.find('employmentGroup') as ControlGroup).controls) {
+      const parentGroup = (this.applyForm.find('employmentGroup').find(x) as ControlArray);
+      parentGroup.valueChanges.subscribe(data => {
+        console.log(data);
+      });
+    }*/
+    (this.applyForm.find('employmentGroup').find('borrower') as ControlGroup).valueChanges.subscribe(data => {
+      const parentGroup = (this.applyForm.find('employmentGroup').find('borrower') as ControlArray);
+      let time = 0;
+      for (let i = 0; i < parentGroup.controls.length; i++) {
+        const group = parentGroup.controls[i];
+        if (!group.validator || !group.valid) {
+          return;
+        } else if (group.find('years').value && group.find('months').value) {
+          time += (parseInt(group.find('years').value) * 12);
+          time += parseInt(group.find('months').value);
+        }
+      }
+      if (time < 24) {
+        this.addBorrowerJob();
+      }
+    })
     for (const x in (this.applyForm.find('declarationsGroup') as ControlGroup).controls) {
       const parentGroup = (this.applyForm.find('declarationsGroup').find(x) as ControlGroup);
       parentGroup.find('l').valueChanges.subscribe(data => {

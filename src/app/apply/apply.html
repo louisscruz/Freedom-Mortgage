@@ -408,7 +408,7 @@
                     <h5>{{borrowerName}}'s Job History</h5>
                   </div>
                   <div *ngFor="#job of borrowerEmploymentArray.controls; #i = index" class="card card-block col-xs-12">
-                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="i !== 0" (click)="deleteBorrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
+                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="!job.validator" (click)="deleteBorrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <fieldset class="form-group col-xs-12 text-xs-center" *ngIf="true">
                         <label class="c-input c-checkbox">
@@ -417,11 +417,18 @@
                           Self-employed position
                         </label>
                       </fieldset>
-                      <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
+                      <fieldset class="form-group col-xs-12 col-sm-8" *ngIf="true" [class.has-success]="job.controls.company.valid && job.controls.company.touched" [class.has-danger]="!job.controls.company.valid && job.controls.company.touched">
                         <label class="form-control-label">Company Name</label>
                         <input type="text" class="form-control" [ngFormControl]="job.controls.company" [class.form-control-success]="job.controls.company.valid && job.controls.company.touched" [class.form-control-danger]="!job.controls.company.valid && job.controls.company.touched">
                         <div *ngIf="job.controls.company.touched">
                           <div *ngIf="job.controls.company.hasError('required')" class="text-help">Company name required</div>
+                        </div>
+                      </fieldset>
+                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.phone.valid && job.controls.phone.touched" [class.has-danger]="!job.controls.phone.valid && job.controls.phone.touched">
+                        <label class="form-control-label">Phone</label>
+                        <input type="text" class="form-control" [ngFormControl]="job.controls.phone" [class.form-controls-success]="job.controls.phone && job.controls.phone.touched" [class.form-control-danger]="!job.controls.phone.valid && job.controls.phone.touched">
+                        <div *ngIf="job.controls.phone.touched">
+                          <div *ngIf="job.controls.phone.hasError('required')" class="text-help">Phone required</div>
                         </div>
                       </fieldset>
                       <fieldset class="form-group col-xs-12" *ngIf="true" [class.has-success]="job.controls.address.controls.add.valid && job.controls.address.controls.add.touched" [class.has-danger]="!job.controls.address.controls.add.valid && job.controls.address.controls.add.touched">
@@ -459,28 +466,28 @@
                       <div class="col-xs-12" [class.has-success]="job.controls.years.valid && (job.controls.months.valid && job.controls.yearsInField.valid)">
                         <label class="form-control-label">Length of employment:</label>
                       </div>
-                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="(job.controls.years.valid && job.controls.years.touched) && job.controls.months.valid" [class.has-danger]="!job.controls.years.valid && job.controls.years.touched">
+                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.years.valid && job.controls.years.touched" [class.has-danger]="!job.controls.years.valid && job.controls.years.touched">
                         <label class="form-control-label">Years</label>
-                        <input type="number" class="form-control" [ngFormControl]="job.controls.years" min="0" max="80" pattern="[0-9]*$">
+                        <input type="text" class="form-control" [ngFormControl]="job.controls.years" pattern="[0-9]*$">
                         <div *ngIf="job.controls.years.touched">
                           <div *ngIf="job.controls.years.hasError('required')" class="text-help">Years required</div>
-                          <div *ngIf="job.controls.years.hasError('pattern')" class="text-help">Years must be a number</div>
+                          <div *ngIf="job.controls.years.hasError('pattern')" class="text-help">Invalid number</div>
                         </div>
                       </fieldset>
-                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="(job.controls.months.valid && job.controls.months.touched) && job.controls.years.valid" [class.has-danger]="!job.controls.months.valid && job.controls.months.touched">
+                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.months.valid && job.controls.months.touched" [class.has-danger]="!job.controls.months.valid && job.controls.months.touched">
                         <label class="form-control-label">Months</label>
-                        <input type="number" class="form-control" [ngFormControl]="job.controls.months" min="0" max="12" pattern="[0-9]*$">
+                        <input type="text" class="form-control" [ngFormControl]="job.controls.months" pattern="^[0]*[1-9]$|^[0]*1[0-2]$">
                         <div *ngIf="job.controls.months.touched">
                           <div *ngIf="job.controls.months.hasError('required')" class="text-help">Months required</div>
-                          <div *ngIf="job.controls.months.hasError('pattern')" class="text-help">Months must be a number</div>
+                          <div *ngIf="job.controls.months.hasError('pattern')" class="text-help">Invalid number</div>
                         </div>
                       </fieldset>
                       <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.yearsInField.valid && job.controls.yearsInField.touched" [class.has-danger]="!job.controls.yearsInField.valid && job.controls.yearsInField.touched">
                         <label class="form-control-label">Years in field</label>
-                        <input type="number" class="form-control" [ngFormControl]="job.controls.yearsInField" min="0" max="12" pattern="[0-9]*$">
+                        <input type="text" class="form-control" [ngFormControl]="job.controls.yearsInField" pattern="[0-9]*$">
                         <div *ngIf="job.controls.yearsInField.touched">
                           <div *ngIf="job.controls.yearsInField.hasError('required')" class="text-help">Years in field required</div>
-                          <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Years in field must be a number</div>
+                          <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Invalid number</div>
                         </div>
                       </fieldset>
                     </div>
@@ -546,28 +553,28 @@
                       <div class="col-xs-12" [class.has-success]="job.controls.years.valid && (job.controls.months.valid && job.controls.yearsInField.valid)">
                         <label class="form-control-label">Length of employment:</label>
                       </div>
-                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="(job.controls.years.valid && job.controls.years.touched) && job.controls.months.valid" [class.has-danger]="!job.controls.years.valid && job.controls.years.touched">
+                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.years.valid && job.controls.years.touched" [class.has-danger]="!job.controls.years.valid && job.controls.years.touched">
                         <label class="form-control-label">Years</label>
-                        <input type="number" class="form-control" [ngFormControl]="job.controls.years" min="0" max="80" pattern="[0-9]*$">
+                        <input type="text" class="form-control" [ngFormControl]="job.controls.years" pattern="[0-9]*$">
                         <div *ngIf="job.controls.years.touched">
                           <div *ngIf="job.controls.years.hasError('required')" class="text-help">Years required</div>
-                          <div *ngIf="job.controls.years.hasError('pattern')" class="text-help">Years must be a number</div>
+                          <div *ngIf="job.controls.years.hasError('pattern')" class="text-help">Invalid number</div>
                         </div>
                       </fieldset>
-                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="(job.controls.months.valid && job.controls.months.touched) && job.controls.years.valid" [class.has-danger]="!job.controls.months.valid && job.controls.months.touched">
+                      <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.months.valid && job.controls.months.touched" [class.has-danger]="!job.controls.months.valid && job.controls.months.touched">
                         <label class="form-control-label">Months</label>
-                        <input type="number" class="form-control" [ngFormControl]="job.controls.months" min="0" max="12" pattern="[0-9]*$">
+                        <input type="text" class="form-control" [ngFormControl]="job.controls.months" pattern="^[0]*[1-9]$|^[0]*1[0-2]$">
                         <div *ngIf="job.controls.months.touched">
                           <div *ngIf="job.controls.months.hasError('required')" class="text-help">Months required</div>
-                          <div *ngIf="job.controls.months.hasError('pattern')" class="text-help">Months must be a number</div>
+                          <div *ngIf="job.controls.months.hasError('pattern')" class="text-help">Invalid number</div>
                         </div>
                       </fieldset>
                       <fieldset class="form-group col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="job.controls.yearsInField.valid && job.controls.yearsInField.touched" [class.has-danger]="!job.controls.yearsInField.valid && job.controls.yearsInField.touched">
                         <label class="form-control-label">Years in field</label>
-                        <input type="number" class="form-control" [ngFormControl]="job.controls.yearsInField" min="0" max="80" pattern="[0-9]*$">
+                        <input type="text" class="form-control" [ngFormControl]="job.controls.yearsInField" pattern="[0-9]*$">
                         <div *ngIf="job.controls.yearsInField.touched">
                           <div *ngIf="job.controls.yearsInField.hasError('required')" class="text-help">Years in field required</div>
-                          <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Years in field must be a number</div>
+                          <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Invalid number</div>
                         </div>
                       </fieldset>
                     </div>
@@ -618,7 +625,7 @@
                 </div>
                 <div class="row" *ngIf="applyForm.find('incomeGroup').find('borrower').contains('overtime')">
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
-                    <button type="button" class="btn btn-secondary  btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'overtime')"><i class="fa fa-close fa-fw"></i></button>
+                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'overtime')"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12">
                         <label class="form-control-label font-weight-bold">Monthly Overtime</label>
@@ -638,7 +645,7 @@
                 </div>
                 <div class="row" *ngIf="applyForm.find('incomeGroup').find('borrower').contains('bonuses')">
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
-                    <button type="button" class="btn btn-secondary  btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'bonuses')"><i class="fa fa-close fa-fw"></i></button>
+                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'bonuses')"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12">
                         <label class="form-control-label font-weight-bold">Monthly Bonuses</label>
@@ -662,7 +669,7 @@
                 </div>
                 <div class="row" *ngIf="applyForm.find('incomeGroup').find('borrower').contains('commissions')">
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
-                    <button type="button" class="btn btn-secondary  btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'commissions')"><i class="fa fa-close fa-fw"></i></button>
+                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'commissions')"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12">
                         <label class="form-control-label font-weight-bold">Monthly Commissions</label>
@@ -686,7 +693,7 @@
                 </div>
                 <div class="row" *ngIf="applyForm.find('incomeGroup').find('borrower').contains('dividends')">
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
-                    <button type="button" class="btn btn-secondary  btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'dividends')"><i class="fa fa-close fa-fw"></i></button>
+                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'dividends')"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12">
                         <label class="form-control-label font-weight-bold">Monthly Dividends/Interest</label>
@@ -712,7 +719,7 @@
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
                     <div class="row">
                       <div class="col-xs-12">
-                        <button type="button" class="btn btn-secondary  btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'rental')"><i class="fa fa-close fa-fw"></i></button>
+                        <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'rental')"><i class="fa fa-close fa-fw"></i></button>
                         <label class="form-control-label font-weight-bold">Monthly Rental</label>
                       </div>
                     </div>
@@ -736,7 +743,7 @@
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
                     <div class="row">
                       <div class="col-xs-12">
-                        <button type="button" class="btn btn-secondary  btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'other')"><i class="fa fa-close fa-fw"></i></button>
+                        <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'other')"><i class="fa fa-close fa-fw"></i></button>
                         <label class="form-control-label font-weight-bold">Other Monthly Income</label>
                       </div>
                     </div>
