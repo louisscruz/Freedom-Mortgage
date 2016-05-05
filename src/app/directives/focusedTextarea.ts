@@ -1,4 +1,4 @@
-import {Directive, Renderer, ElementRef} from 'angular2/core';
+import {Directive, Renderer, ElementRef} from '@angular/core';
 @Directive({
   selector: 'textarea'
 })

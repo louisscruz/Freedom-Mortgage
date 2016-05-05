@@ -1,7 +1,7 @@
-import {Component, OnInit, EventEmitter, Input, HostListener} from 'angular2/core';
+import {Component, OnInit, EventEmitter, Input} from '@angular/core';
 import {
   CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgModel
-} from 'angular2/common';
+} from '@angular/common';
 import {DateFormatter} from './date-formatter';
 
 const FORMAT_DAY = 'DD';
@@ -40,7 +40,7 @@ const SHORTCUT_PROPAGATION = false;
 
 @Component({
   selector: 'datepicker-inner',
-  events: ['update', 'close'],
+  events: ['update'],
   template: `
     <div *ngIf="datepickerMode" class="well well-sm bg-faded p-a card" role="application" ><!--&lt;!&ndash;ng-keydown="keydown($event)"&ndash;&gt;-->
       <ng-content></ng-content>
@@ -48,7 +48,7 @@ const SHORTCUT_PROPAGATION = false;
   `,
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, NgClass, NgModel]
 })
-export class DatePickerInner implements OnInit {
+export class DatePickerInnerComponent implements OnInit {
   @Input() public datepickerMode:string;
   @Input() public startingDay:number;
   @Input() public yearRange:number;
@@ -89,26 +89,11 @@ export class DatePickerInner implements OnInit {
   private refreshViewHandlerYear:Function;
   private compareHandlerYear:Function;
   private update:EventEmitter<Date> = new EventEmitter(false);
-  private close:EventEmitter<any> = new EventEmitter(false);
 
   @Input()
   public get activeDate():Date {
     return this._activeDate;
   }
-
-  private localEvent: Event = null;
-  /*@HostListener('document:click')
-  compareEvent(event) {
-    if (event !== this.localEvent) {
-      this.close.emit(false);
-    }
-    this.localEvent = null;
-  }
-
-  @HostListener('click')
-  trackEvent(event): void {
-    this.localEvent = event;
-  }*/
 
   public set activeDate(value:Date) {
     this._activeDate = value;
@@ -141,12 +126,12 @@ export class DatePickerInner implements OnInit {
 
     if (this.initDate) {
       this.activeDate = this.initDate;
-    } else {
+      this.selectedDate = new Date(this.activeDate.valueOf());
+      this.update.emit(this.activeDate);
+    } else if (this.activeDate === undefined) {
       this.activeDate = new Date();
     }
-    this.selectedDate = new Date(this.activeDate.valueOf());
 
-    this.update.emit(this.activeDate);
     this.refreshView();
   }
 
@@ -165,6 +150,10 @@ export class DatePickerInner implements OnInit {
   }
 
   public compare(date1:Date, date2:Date):number {
+    if(date1=== undefined || date2 === undefined) {
+      return undefined;
+    }
+
     if (this.datepickerMode === 'day' && this.compareHandlerDay) {
       return this.compareHandlerDay(date1, date2);
     }
@@ -223,8 +212,7 @@ export class DatePickerInner implements OnInit {
 
   public createDateObject(date:Date, format:string):any {
     let dateObject:any = {};
-    dateObject.date = date;
-    dateObject.date.setHours(0, 0, 0, 0);
+    dateObject.date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     dateObject.label = this.dateFilter(date, format);
     dateObject.selected = this.compare(date, this.selectedDate) === 0;
     dateObject.disabled = this.isDisabled(date);
@@ -241,15 +229,15 @@ export class DatePickerInner implements OnInit {
     return arrays;
   }
 
-  // Fix a hard-reprodusible bug with timezones
+  // Fix a hard-reproducible bug with timezones
   // The bug depends on OS, browser, current timezone and current date
   // i.e.
   // var date = new Date(2014, 0, 1);
   // console.log(date.getFullYear(), date.getMonth(), date.getDate(),
   // date.getHours()); can result in "2013 11 31 23" because of the bug.
-  public fixTimeZone(date:Date):void {
+  public fixTimeZone(date:Date):Date {
     let hours = date.getHours();
-    date.setHours(hours === 23 ? hours + 2 : 0);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours === 23 ? hours + 2 : 0);
   }
 
   public select(date:Date):void {
@@ -258,8 +246,7 @@ export class DatePickerInner implements OnInit {
         this.activeDate = new Date(0, 0, 0, 0, 0, 0, 0);
       }
 
-      this.activeDate.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
-      this.close.emit(false);
+      this.activeDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     } else {
       this.activeDate = date;
       this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) - 1];
@@ -287,7 +274,7 @@ export class DatePickerInner implements OnInit {
     if (expectedStep) {
       let year = this.activeDate.getFullYear() + direction * (expectedStep.years || 0);
       let month = this.activeDate.getMonth() + direction * (expectedStep.months || 0);
-      this.activeDate.setFullYear(year, month, 1);
+      this.activeDate = new Date(year, month, 1);
 
       this.refreshView();
     }

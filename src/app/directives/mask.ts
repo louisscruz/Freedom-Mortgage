@@ -1,5 +1,5 @@
-import {Directive, Attribute, HostListener, HostBinding} from 'angular2/core';
-import {NgFormControl, Control} from 'angular2/common';
+import {Directive, Attribute, HostListener, HostBinding} from '@angular/core';
+import {NgFormControl, Control} from '@angular/common';
 
 //var phoneUtil = require('google-libphonenumber').phoneUtil;
 

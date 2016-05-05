@@ -3,7 +3,7 @@ import {
   OnInit, OnDestroy, Input, Output, HostBinding,
   EventEmitter, ElementRef, ContentChildren,
   Query, QueryList
-} from 'angular2/core';
+} from '@angular/core';
 
 import {dropdownService, NONINPUT} from './dropdown.service';
 

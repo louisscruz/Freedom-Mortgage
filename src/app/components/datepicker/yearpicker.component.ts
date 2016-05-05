@@ -1,7 +1,7 @@
-import {Component, OnInit} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from 'angular2/common';
-import {Ng2BootstrapConfig} from '../../ng2-bootstrap-config';
-import {DatePickerInner} from './datepicker-inner';
+import {Component, OnInit} from '@angular/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
+import {Ng2BootstrapConfig} from '../ng2-bootstrap-config';
+import {DatePickerInnerComponent} from './datepicker-inner.component';
 
 // write an interface for template options
 const TEMPLATE_OPTIONS:any = {
@@ -38,7 +38,7 @@ const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapConfig.theme] ||
       <th>
         <button type="button" class="btn btn-default btn-sm pull-left"
                 (click)="datePicker.move(-1)" tabindex="-1">
-          <i class="fa fa-angle-left fa-fw"></i>
+          <i class="fa fa-chevron-left fa-fw"></i>
         </button>
       </th>
       <th colspan="3">
@@ -53,7 +53,7 @@ const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapConfig.theme] ||
       <th>
         <button type="button" class="btn btn-default btn-sm pull-right"
                 (click)="datePicker.move(1)" tabindex="-1">
-          <i class="fa fa-angle-right fa-fw"></i>
+          <i class="fa fa-chevron-right fa-fw"></i>
         </button>
       </th>
     </tr>
@@ -69,12 +69,12 @@ const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapConfig.theme] ||
   `,
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, NgClass]
 })
-export class YearPicker implements OnInit {
-  public datePicker:DatePickerInner;
+export class YearPickerComponent implements OnInit {
+  public datePicker:DatePickerInnerComponent;
   private title:string;
   private rows:Array<any> = [];
 
-  public constructor(datePicker:DatePickerInner) {
+  public constructor(datePicker:DatePickerInnerComponent) {
     this.datePicker = datePicker;
   }
 
@@ -89,7 +89,7 @@ export class YearPicker implements OnInit {
 
       for (let i = 0, start = self.getStartingYear(this.activeDate.getFullYear()); i < this.yearRange; i++) {
         date = new Date(start + i, 0, 1);
-        this.fixTimeZone(date);
+        date = this.fixTimeZone(date);
         years[i] = this.createDateObject(date, this.formatYear);
         years[i].uid = this.uniqueId + '-' + i;
       }

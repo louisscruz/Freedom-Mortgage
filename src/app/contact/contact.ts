@@ -1,11 +1,11 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {CORE_DIRECTIVES,
         FORM_DIRECTIVES,
         FormBuilder,
         ControlGroup,
         Validators,
         AbstractControl,
-        Control} from 'angular2/common';
+        Control} from '@angular/common';
 
 @Component({
   selector: 'contact',

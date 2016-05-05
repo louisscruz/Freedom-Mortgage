@@ -862,6 +862,40 @@
                   </div>
                 </div>
                 <div class="row">
+                  <fieldset class="form-group col-xs-12" *ngIf="applyForm.find('assetsGroup').contains('joined')">
+                    <label class="form-control-label">Are your assets joined?</label>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="joined" (click)="setValue(applyForm.find('assetsGroup').find('joined'), true)" [checked]="applyForm.find('assetsGroup').find('joined').value">
+                        <span class="c-indicator"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label class="c-input c-radio">
+                        <input type="radio" name="joined" (click)="setValue(applyForm.find('assetsGroup').find('joined'), false)">
+                        <span class="c-indicator"></span>
+                        No
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 card card-block">
+                    <h6 class="text-xs-center">{{borrowerName}}</h6>
+                    <div class="card card-block">
+                      <label class="form-control-label">Automobile</label>
+                      <fieldset class="form-group col-xs-12">
+                        <label class="form-control-label">Make, model, year</label>
+                        <input type="text" class="form-control">
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="applyForm.find('assetsGroup').contains('coborrower')">
+                  <div class="col-xs-12 card card-block">
+                    <h6 class="text-xs-center">{{coborrowerName}}</h6>
+                  </div>
                 </div>
               </div>
             </div>

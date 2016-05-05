@@ -1,4 +1,4 @@
-import {Component, ChangeDetectorRef} from 'angular2/core';
+import {Component, ChangeDetectorRef} from '@angular/core';
 import {CORE_DIRECTIVES,
         FORM_DIRECTIVES,
         FormBuilder,
@@ -6,11 +6,11 @@ import {CORE_DIRECTIVES,
         ControlArray,
         Validators,
         AbstractControl,
-        Control} from 'angular2/common';
+        Control} from '@angular/common';
 import {States} from './states';
-import {DatePicker} from '../components/datepicker/datepicker';
+import {DatePickerComponent} from '../components/datepicker/datepicker.component';
 import {DatePickerService} from '../components/datepicker/datepicker.service';
-import {DatePickerPopup} from '../components/datepicker/datepicker-popup';
+import {DatePickerPopupDirective} from '../components/datepicker/datepicker-popup.component';
 import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
 import {focusedTextarea} from '../directives/focusedTextarea';
@@ -20,7 +20,7 @@ const checkArray = declarationsKeys.slice(0, 9);
 
 @Component({
   selector: 'apply',
-  directives: [DatePicker, DatePickerPopup, ClickOutsideDirective, DROPDOWN_DIRECTIVES, focusedTextarea],
+  directives: [DatePickerComponent, DatePickerPopupDirective, ClickOutsideDirective, DROPDOWN_DIRECTIVES, focusedTextarea],
   providers: [DatePickerService],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
@@ -195,7 +195,7 @@ export class Apply {
     const coborrowerIncomeGroup = this.generateIncome();
     incomeGroup.addControl('borrower', borrowerIncomeGroup);
     incomeGroup.addControl('coborrower', coborrowerIncomeGroup);
-    incomeGroup.addControl('rent', new Control('0.00', Validators.required))
+    incomeGroup.addControl('rent', new Control('0.00', Validators.required));
     incomeGroup.exclude('coborrower');
     applyForm.addControl('incomeGroup', incomeGroup);
     const assetsGroup = new ControlGroup({});
@@ -204,6 +204,8 @@ export class Apply {
     assetsGroup.addControl('borrower', borrowerAssetsGroup);
     assetsGroup.addControl('coborrower', coborrowerAssetsGroup);
     assetsGroup.exclude('coborrower');
+    assetsGroup.addControl('joined', new Control(true, Validators.required));
+    assetsGroup.exclude('joined');
     applyForm.addControl('assetsGroup', assetsGroup);
     const declarationsGroup = new ControlGroup({});
     const borrowerDeclarations = this.generateDeclarations();
@@ -257,6 +259,8 @@ export class Apply {
     (this.applyForm.controls['incomeGroup'] as ControlGroup).include('coborrower');
     (this.applyForm.find('declarationsGroup') as ControlGroup).include('coborrower');
     (this.applyForm.find('opportunityGroup') as ControlGroup).include('coborrower');
+    (this.applyForm.find('assetsGroup') as ControlGroup).include('joined');
+    //(this.applyForm.find('assetsGroup') as ControlGroup).include('coborrower');
     this._changeDetectorRef.detectChanges();
   }
 
@@ -266,6 +270,8 @@ export class Apply {
     (this.applyForm.controls['incomeGroup'] as ControlGroup).exclude('coborrower');
     (this.applyForm.find('declarationsGroup') as ControlGroup).exclude('coborrower');
     (this.applyForm.find('opportunityGroup') as ControlGroup).exclude('coborrower');
+    (this.applyForm.find('assetsGroup') as ControlGroup).exclude('joined');
+    //(this.applyForm.find('assetsGroup') as ControlGroup).exclude('coborrower');
   }
 
   toggleCoborrowerMiddleName(): void {
@@ -457,7 +463,14 @@ export class Apply {
       if (time < 24) {
         this.addBorrowerJob();
       }
-    })
+    });
+    (this.applyForm.find('assetsGroup').find('joined') as Control).valueChanges.subscribe(data => {
+      if (this.applyForm.find('assetsGroup').find('joined').value === false) {
+        (this.applyForm.find('assetsGroup') as ControlGroup).include('coborrower');
+      } else {
+        (this.applyForm.find('assetsGroup') as ControlGroup).exclude('coborrower');
+      }
+    });
     for (const x in (this.applyForm.find('declarationsGroup') as ControlGroup).controls) {
       const parentGroup = (this.applyForm.find('declarationsGroup').find(x) as ControlGroup);
       parentGroup.find('l').valueChanges.subscribe(data => {

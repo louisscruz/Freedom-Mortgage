@@ -1,13 +1,13 @@
 import {
-  Component, Directive, OnInit, EventEmitter, ComponentRef, ViewEncapsulation,
-  ElementRef, DynamicComponentLoader, Self, Renderer, bind, Injector
-} from 'angular2/core';
+  Component, Directive, EventEmitter, ComponentRef, ViewEncapsulation,
+  ElementRef, DynamicComponentLoader, Self, Renderer, ReflectiveInjector, provide, ViewContainerRef
+} from '@angular/core';
 import {
   CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgModel, NgStyle
-} from 'angular2/common';
-import {IAttribute} from './common';
+} from '@angular/common';
+import {KeyAttribute} from './common';
 import {positionService} from './position';
-import {DatePicker} from './datepicker';
+import {DatePickerComponent} from './datepicker.component';
 
 // import {DatePickerInner} from './datepicker-inner';
 // import {DayPicker} from './daypicker';
@@ -24,7 +24,7 @@ class PopupOptions {
   }
 }
 
-const datePickerPopupConfig:IAttribute = {
+const datePickerPopupConfig:KeyAttribute = {
   datepickerPopup: 'YYYY-MM-dd',
   currentText: 'Today',
   clearText: 'Clear',
@@ -43,7 +43,7 @@ const datePickerPopupConfig:IAttribute = {
         [ngStyle]="{top: top, left: left, display: display}"
         [ngClass]="classMap">
         <li>
-            <datepicker (cupdate)="onUpdate($event)" *ngIf="popupComp" [(ngModel)]="popupComp.cd.model" [show-weeks]="true"></datepicker>
+             <datepicker (cupdate)="onUpdate($event)" *ngIf="popupComp" [(ngModel)]="popupComp.cd.model" [show-weeks]="true"></datepicker>
         </li>
         <li *ngIf="showButtonBar" style="padding:10px 9px 2px">
             <span class="btn-group pull-left">
@@ -53,12 +53,11 @@ const datePickerPopupConfig:IAttribute = {
             <button type="button" class="btn btn-sm btn-success pull-right" (click)="close()">{{ getText('close') }}</button>
         </li>
     </ul>`,
-  directives: [NgClass, NgStyle, DatePicker, FORM_DIRECTIVES, CORE_DIRECTIVES],
+  directives: [NgClass, NgStyle, DatePickerComponent, FORM_DIRECTIVES, CORE_DIRECTIVES],
   encapsulation: ViewEncapsulation.None
 })
-
-class PopupContainer {
-  public popupComp:DatePickerPopup;
+class PopupContainerComponent {
+  public popupComp:DatePickerPopupDirective;
 
   private classMap:any;
   private top:string;
@@ -105,7 +104,7 @@ class PopupContainer {
   }
 
   public getText(key:string):string {
-    return (<IAttribute>this)[key + 'Text'] || datePickerPopupConfig[key + 'Text'];
+    return (this as KeyAttribute)[key + 'Text'] || datePickerPopupConfig[key + 'Text'];
   }
 
   public isDisabled(/*date:Date*/):boolean {
@@ -119,21 +118,21 @@ class PopupContainer {
   properties: ['datepickerPopup', 'isOpen']/*,
    host: {'(cupdate)': 'onUpdate1($event)'}*/
 })
-export class DatePickerPopup implements OnInit {
+export class DatePickerPopupDirective {
   public cd:NgModel;
-  public element:ElementRef;
+  public viewContainerRef:ViewContainerRef;
   public renderer:Renderer;
   public loader:DynamicComponentLoader;
 
   private _activeDate:Date;
   private _isOpen:boolean = false;
   private placement:string = 'bottom';
-  private popup:Promise<ComponentRef>;
+  private popup:Promise<ComponentRef<any>>;
 
-  public constructor(@Self() cd:NgModel, element:ElementRef,
+  public constructor(@Self() cd:NgModel, viewContainerRef:ViewContainerRef,
                      renderer:Renderer, loader:DynamicComponentLoader) {
     this.cd = cd;
-    this.element = element;
+    this.viewContainerRef = viewContainerRef;
     this.renderer = renderer;
     this.loader = loader;
     this.activeDate = cd.model;
@@ -165,13 +164,10 @@ export class DatePickerPopup implements OnInit {
     }
   }
 
-  public ngOnInit():void {
-  }
-
   public hide(cb:Function):void {
     if (this.popup) {
-      this.popup.then((componentRef:ComponentRef) => {
-        componentRef.dispose();
+      this.popup.then((componentRef:ComponentRef<any>) => {
+        componentRef.destroy();
         cb();
         return componentRef;
       });
@@ -185,15 +181,14 @@ export class DatePickerPopup implements OnInit {
       placement: this.placement
     });
 
-    let binding = Injector.resolve([
-      bind(PopupOptions)
-        .toValue(options)
+    let binding = ReflectiveInjector.resolve([
+      provide(PopupOptions, {useValue: options})
     ]);
 
     this.popup = this.loader
-      .loadNextToLocation(PopupContainer, this.element, binding)
-      .then((componentRef:ComponentRef) => {
-        componentRef.instance.position(this.element);
+      .loadNextToLocation(PopupContainerComponent, this.viewContainerRef, binding)
+      .then((componentRef:ComponentRef<any>) => {
+        componentRef.instance.position(this.viewContainerRef);
         componentRef.instance.popupComp = this;
         /*componentRef.instance.update1.observer({
          next: (newVal) => {

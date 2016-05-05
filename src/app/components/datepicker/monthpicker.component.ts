@@ -1,7 +1,7 @@
-import {Component, OnInit} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from 'angular2/common';
-import {DatePickerInner} from './datepicker-inner';
-import {Ng2BootstrapConfig} from '../../ng2-bootstrap-config';
+import {Component, OnInit} from '@angular/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
+import {DatePickerInnerComponent} from './datepicker-inner.component';
+import {Ng2BootstrapConfig} from '../ng2-bootstrap-config';
 
 // write an interface for template options
 const TEMPLATE_OPTIONS:any = {
@@ -34,7 +34,7 @@ const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapConfig.theme] ||
       <th>
         <button type="button" class="btn btn-default btn-sm pull-left"
                 (click)="datePicker.move(-1)" tabindex="-1">
-          <i class="fa fa-angle-left fa-fw"></i>
+          <i class="fa fa-chevron-left fa-fw"></i>
         </button></th>
       <th>
         <button [id]="uniqueId + '-title'"
@@ -48,7 +48,7 @@ const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapConfig.theme] ||
       <th>
         <button type="button" class="btn btn-default btn-sm pull-right"
                 (click)="datePicker.move(1)" tabindex="-1">
-          <i class="fa fa-angle-right fa-fw"></i>
+          <i class="fa fa-chevron-right fa-fw"></i>
         </button>
       </th>
     </tr>
@@ -64,12 +64,12 @@ const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapConfig.theme] ||
   `,
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, NgClass]
 })
-export class MonthPicker implements OnInit {
+export class MonthPickerComponent implements OnInit {
   public title:string;
   public rows:Array<any> = [];
-  public datePicker:DatePickerInner;
+  public datePicker:DatePickerInnerComponent;
 
-  public constructor(datePicker:DatePickerInner) {
+  public constructor(datePicker:DatePickerInnerComponent) {
     this.datePicker = datePicker;
   }
 
@@ -85,7 +85,7 @@ export class MonthPicker implements OnInit {
 
       for (let i = 0; i < 12; i++) {
         date = new Date(year, i, 1);
-        this.fixTimeZone(date);
+        date = this.fixTimeZone(date);
         months[i] = this.createDateObject(date, this.formatMonth);
         months[i].uid = this.uniqueId + '-' + i;
       }

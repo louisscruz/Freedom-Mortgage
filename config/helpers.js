@@ -1,6 +1,5 @@
 var path = require('path');
 
-
 // Helper functions
 var _root = path.resolve(__dirname, '..');
 
@@ -50,8 +49,6 @@ function packageSort(packages) {
     } else {
       return 1;
     }
-    // a must be equal to b
-    return 0;
   }
 }
 

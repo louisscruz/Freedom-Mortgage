@@ -3,7 +3,7 @@ import {Directive,
         Output,
         HostListener,
         EventEmitter,
-        ElementRef} from 'angular2/core';
+        ElementRef} from '@angular/core';
 
 @Directive({
   selector: 'clickOutside'
