@@ -1,4 +1,4 @@
-import {Component, ChangeDetectorRef} from '@angular/core';
+import {Component, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CORE_DIRECTIVES,
         FORM_DIRECTIVES,
         FormBuilder,
@@ -8,6 +8,8 @@ import {CORE_DIRECTIVES,
         AbstractControl,
         Control} from '@angular/common';
 import {States} from './states';
+import {FieldsetComponent} from '../components/fieldset.component';
+import {BootstrapInputDirective} from '../directives/input.directive';
 import {DatePickerComponent} from '../components/datepicker/datepicker.component';
 import {DatePickerService} from '../components/datepicker/datepicker.service';
 import {DatePickerPopupDirective} from '../components/datepicker/datepicker-popup.component';
@@ -20,8 +22,9 @@ const checkArray = declarationsKeys.slice(0, 9);
 
 @Component({
   selector: 'apply',
-  directives: [DatePickerComponent, DatePickerPopupDirective, ClickOutsideDirective, DROPDOWN_DIRECTIVES, focusedTextarea],
+  directives: [DatePickerComponent, DatePickerPopupDirective, ClickOutsideDirective, DROPDOWN_DIRECTIVES, focusedTextarea, FieldsetComponent, BootstrapInputDirective],
   providers: [DatePickerService],
+  //encapsulation: ViewEncapsulation.None,
   styles: [require('./apply.scss')],
   template: require('./apply.html')
 })
