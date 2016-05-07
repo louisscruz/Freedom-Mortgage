@@ -1,4 +1,4 @@
-import {Component, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
+import {Component, ChangeDetectorRef} from '@angular/core';
 import {CORE_DIRECTIVES,
         FORM_DIRECTIVES,
         FormBuilder,
@@ -24,7 +24,6 @@ const checkArray = declarationsKeys.slice(0, 9);
   selector: 'apply',
   directives: [DatePickerComponent, DatePickerPopupDirective, ClickOutsideDirective, DROPDOWN_DIRECTIVES, focusedTextarea, FieldsetComponent, BootstrapInputDirective],
   providers: [DatePickerService],
-  //encapsulation: ViewEncapsulation.None,
   styles: [require('./apply.scss')],
   template: require('./apply.html')
 })
@@ -45,6 +44,14 @@ export class Apply {
   private loanMax: number = 2500000;
   private borrowerRent: number = 0.00;
   private coborrowerRent: number = 0.00;
+  private borrowerCarsArray: ControlArray;
+  private coborrowerCarsArray: ControlArray;
+  private borrowerOtherAssetsArray: ControlArray;
+  private coborrowerOtherAssetsArray: ControlArray;
+  private borrowerOtherLiabilitiesArray: ControlArray;
+  private coborrowerOtherLiabilitiesArray: ControlArray;
+  private borrowerAlimonyArray: ControlArray;
+  private coborrowerAlimonyArray: ControlArray;
   private explanationsForm: ControlGroup;
   private borrowerExplanations: Array<string> = [];
   private coborrowerExplanations: Array<string> = [];
@@ -107,12 +114,6 @@ export class Apply {
     group.exclude('dividends');
     group.exclude('rental');
     group.exclude('other');
-    return group;
-  }
-
-  generateAssets(): ControlGroup {
-    const group = new ControlGroup({
-    })
     return group;
   }
 
@@ -202,8 +203,34 @@ export class Apply {
     incomeGroup.exclude('coborrower');
     applyForm.addControl('incomeGroup', incomeGroup);
     const assetsGroup = new ControlGroup({});
-    const borrowerAssetsGroup = this.generateAssets();
-    const coborrowerAssetsGroup = this.generateAssets();
+    this.borrowerCarsArray = new ControlArray([]);
+    this.coborrowerCarsArray = new ControlArray([]);
+    this.borrowerOtherAssetsArray = new ControlArray([]);
+    this.coborrowerOtherAssetsArray = new ControlArray([]);
+    this.borrowerOtherLiabilitiesArray = new ControlArray([]);
+    this.coborrowerOtherLiabilitiesArray = new ControlArray([]);
+    this.borrowerAlimonyArray = new ControlArray([]);
+    this.coborrowerAlimonyArray = new ControlArray([]);
+    const borrowerAssetsGroup = new ControlGroup({
+      'assets': new ControlGroup({
+        'cars': this.borrowerCarsArray,
+        'other': this.borrowerOtherAssetsArray
+      }),
+      'liabilities': new ControlGroup({
+        'other': this.borrowerOtherLiabilitiesArray,
+        'alimony': this.borrowerAlimonyArray
+      })
+    });
+    const coborrowerAssetsGroup = new ControlGroup({
+      'assets': new ControlGroup({
+        'cars': this.coborrowerCarsArray,
+        'other': this.coborrowerOtherAssetsArray
+      }),
+      'liabilities': new ControlGroup({
+        'other': this.coborrowerOtherLiabilitiesArray,
+        'alimony': this.coborrowerAlimonyArray
+      })
+    });
     assetsGroup.addControl('borrower', borrowerAssetsGroup);
     assetsGroup.addControl('coborrower', coborrowerAssetsGroup);
     assetsGroup.exclude('coborrower');
@@ -263,7 +290,9 @@ export class Apply {
     (this.applyForm.find('declarationsGroup') as ControlGroup).include('coborrower');
     (this.applyForm.find('opportunityGroup') as ControlGroup).include('coborrower');
     (this.applyForm.find('assetsGroup') as ControlGroup).include('joined');
-    //(this.applyForm.find('assetsGroup') as ControlGroup).include('coborrower');
+    if (!this.applyForm.find('assetsGroup').find('joined').value) {
+      (this.applyForm.find('assetsGroup') as ControlGroup).include('coborrower');
+    }
     this._changeDetectorRef.detectChanges();
   }
 
@@ -274,7 +303,7 @@ export class Apply {
     (this.applyForm.find('declarationsGroup') as ControlGroup).exclude('coborrower');
     (this.applyForm.find('opportunityGroup') as ControlGroup).exclude('coborrower');
     (this.applyForm.find('assetsGroup') as ControlGroup).exclude('joined');
-    //(this.applyForm.find('assetsGroup') as ControlGroup).exclude('coborrower');
+    (this.applyForm.find('assetsGroup') as ControlGroup).exclude('coborrower');
   }
 
   toggleCoborrowerMiddleName(): void {
@@ -401,12 +430,122 @@ export class Apply {
     (this.applyForm.find('incomeGroup').find('rent') as Control).updateValue(value);
   }
 
-  explanationNeeded(group: Array<string>, selector: string): boolean {
-    return (group.indexOf(selector) !== -1);
+  generateCar(): ControlGroup {
+    const group = new ControlGroup({
+      'make': new Control('', Validators.required),
+      'value': new Control('', Validators.required)
+    });
+    return group;
   }
 
-  setAllFieldsTouched(): void {
-    console.log(this.applyForm);
+  addBorrowerCar(): void {
+    if (this.borrowerCarsArray.length >= 3) {
+      return;
+    }
+    this.borrowerCarsArray.push(this.generateCar());
+  }
+
+  deleteBorrowerCar(index: number): void {
+    this.borrowerCarsArray.removeAt(index);
+  }
+
+  addCoborrowerCar(): void {
+    if (this.coborrowerCarsArray.length >= 3) {
+      return;
+    }
+    this.coborrowerCarsArray.push(this.generateCar());
+  }
+
+  deleteCoborrowerCar(index: number): void {
+    this.coborrowerCarsArray.removeAt(index);
+  }
+
+  generateAsset(): ControlGroup {
+    const group = new ControlGroup({
+      'description': new Control('', Validators.required),
+      'value': new Control('', Validators.required)
+    });
+    return group;
+  }
+
+  addBorrowerAsset(): void {
+    if (this.borrowerOtherAssetsArray.length >= 4) {
+      return;
+    }
+    this.borrowerOtherAssetsArray.push(this.generateAsset());
+  }
+
+  deleteBorrowerAsset(index: number): void {
+    this.borrowerOtherAssetsArray.removeAt(index);
+  }
+
+  addCoborrowerAsset(): void {
+    if (this.coborrowerOtherAssetsArray.length >= 4) {
+      return;
+    }
+    this.coborrowerOtherAssetsArray.push(this.generateAsset());
+  }
+
+  deleteCoborrowerAsset(index: number): void {
+    this.coborrowerOtherAssetsArray.removeAt(index);
+  }
+
+  generateLiability(): ControlGroup {
+    const group = new ControlGroup({
+      'description': new Control('', Validators.required),
+      'balance': new Control('', Validators.required)
+    });
+    return group;
+  }
+
+  addBorrowerLiability(): void {
+    this.borrowerOtherLiabilitiesArray.push(this.generateLiability());
+  }
+
+  deleteBorrowerLiability(index: number): void {
+    this.borrowerOtherLiabilitiesArray.removeAt(index);
+  }
+
+  addCoborrowerLiability(): void {
+    this.coborrowerOtherLiabilitiesArray.push(this.generateLiability());
+  }
+
+  deleteCoborrowerLiability(index: number): void {
+    this.coborrowerOtherLiabilitiesArray.removeAt(index);
+  }
+
+  generateAlimony(): ControlGroup {
+    const group = new ControlGroup({
+      'description': new Control('', Validators.required),
+      'payment': new Control('', Validators.required)
+    });
+    return group;
+  }
+
+  addBorrowerAlimony(): void {
+    if (this.borrowerAlimonyArray.length >= 3) {
+      return;
+    }
+    this.borrowerAlimonyArray.push(this.generateAlimony());
+  }
+
+  deleteBorrowerAlimony(index: number): void {
+    this.borrowerAlimonyArray.removeAt(index);
+  }
+
+  addCoborrowerAlimony(): void {
+    if (this.coborrowerAlimonyArray.length >= 3) {
+      return;
+    }
+    this.coborrowerAlimonyArray.push(this.generateAlimony());
+  }
+
+  deleteCoborrowerAlimony(index: number): void {
+    this.coborrowerAlimonyArray.removeAt(index);
+  }
+
+  explanationNeeded(group: Array<string>, selector: string): boolean {
+    return (group.indexOf(selector) !== -1);
   }
 
   get incomeTotal(): string {
@@ -428,6 +567,28 @@ export class Apply {
   get expensesTotal(): string {
     let total = this.borrowerRent + this.coborrowerRent;
     return total.toFixed(2);
+  }
+
+  /*get borrowerAssetsTotal(): string {
+    let total = 0;
+    const group = (this.applyForm.find('assetsGroup').find('borrower').find('assets') as ControlGroup);
+    for (const x in group.controls) {
+      const subgroup = (group.find(x) as ControlArray);
+      if (subgroup.length > 0) {
+        console.log(subgroup)
+        for (let i = 0; i < subgroup.length; i++) {
+          const value = parseFloat(parseFloat(subgroup[i].find('value').value).toFixed(2));
+          if (typeof value === 'number') {
+            total += value;
+          }
+        }
+      }
+    }
+    return total.toFixed(2);
+  }*/
+
+  get coborrowerAssetsTotal(): string {
+    return '7';
   }
 
   get afValue(): string {

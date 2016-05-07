@@ -381,7 +381,7 @@
                   <div class="col-xs-12 text-xs-center">
                     <h5>{{borrowerName}}'s Job History</h5>
                   </div>
-                  <div *ngFor="#job of borrowerEmploymentArray.controls; #i = index" class="card card-block col-xs-12">
+                  <div *ngFor="let job of borrowerEmploymentArray.controls; let i = index" class="card card-block col-xs-12">
                     <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="!job.validator" (click)="deleteBorrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12 text-xs-center">
@@ -466,7 +466,7 @@
                     <hr>
                     <h5>{{coborrowerName}}'s Job History</h5>
                   </div>
-                  <div *ngFor="#job of coborrowerEmploymentArray.controls; #i=index" class="card card-block col-xs-12">
+                  <div *ngFor="let job of coborrowerEmploymentArray.controls; let i=index" class="card card-block col-xs-12">
                     <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteCoborrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <fieldset class="col-xs-12">
@@ -830,7 +830,7 @@
                     </div>
                     <div class="radio">
                       <label class="c-input c-radio">
-                        <input type="radio" name="joined" (click)="setValue(applyForm.find('assetsGroup').find('joined'), false)">
+                        <input type="radio" name="joined" (click)="setValue(applyForm.find('assetsGroup').find('joined'), false)" [checked]="!applyForm.find('assetsGroup').find('joined').value">
                         <span class="c-indicator"></span>
                         No
                       </label>
@@ -841,17 +841,267 @@
                   <div class="col-xs-12 card card-block">
                     <h6 class="text-xs-center">{{borrowerName}}</h6>
                     <div class="card card-block">
-                      <label class="form-control-label">Automobile</label>
-                      <div class="col-xs-12">
-                        <label class="form-control-label">Make, model, year</label>
-                        <input type="text" class="form-control">
+                      <label class="form-control-label">Automobiles</label>
+                      <div *ngFor="let car of borrowerCarsArray.controls; let i = index" class="card card-block">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteBorrowerCar(i)"><i class="fa fa-close fa-fw"></i></button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <fieldset class="col-xs-12 col-sm-9" label="Make, Model, Year">
+                            <input type="text" [ngFormControl]="car.controls.make">
+                            <div *ngIf="car.controls.make.touched">
+                              <div *ngIf="car.controls.make.hasError('required')" class="text-help">Make, model, and year required</div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="col-xs-12 col-sm-3" label="Value">
+                            <input type="text" [ngFormControl]="car.controls.value" pattern="[0-9]*$">
+                            <div *ngIf="car.controls.value.touched">
+                              <div *ngIf="car.controls.value.hasError('required')" class="text-help">Value required</div>
+                              <div *ngIf="car.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-primary pull-xs-right" (click)="addBorrowerCar()" [disabled]="borrowerCarsArray.length >= 3">Add Car</button>
+                        </div>
                       </div>
                     </div>
+                    <div class="card card-block">
+                      <label class="form-control-label">Other Assets</label>
+                      <div *ngFor="let asset of borrowerOtherAssetsArray.controls; let i = index" class="card card-block">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteBorrowerAsset(i)"><i class="fa fa-close fa-fw"></i></button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <fieldset class="col-xs-12 col-sm-9" label="Description">
+                            <input type="text" [ngFormControl]="asset.controls.description">
+                            <div *ngIf="asset.controls.description.touched">
+                              <div *ngIf="asset.controls.description.hasError('required')" class="text-help">Description required</div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="col-xs-12 col-sm-3" label="Value">
+                            <input type="text" [ngFormControl]="asset.controls.value" pattern="[0-9]*$">
+                            <div *ngIf="asset.controls.value.touched">
+                              <div *ngIf="asset.controls.value.hasError('required')" class="text-help">Value required</div>
+                              <div *ngIf="asset.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-primary pull-xs-right" (click)="addBorrowerAsset()" [disabled]="borrowerOtherAssetsArray.length >= 4">Add Asset</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <b>{{borrowerName}}'s Total Assets: {{borrowerAssetsTotal}}</b>
                   </div>
                 </div>
                 <div class="row" *ngIf="applyForm.find('assetsGroup').contains('coborrower')">
                   <div class="col-xs-12 card card-block">
                     <h6 class="text-xs-center">{{coborrowerName}}</h6>
+                    <div class="card card-block">
+                      <label class="form-control-label">Automobiles</label>
+                      <div *ngFor="let car of coborrowerCarsArray.controls; let i = index" class="card card-block">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteCoborrowerCar(i)"><i class="fa fa-close fa-fw"></i></button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <fieldset class="col-xs-12 col-sm-9" label="Make, Model, Year">
+                            <input type="text" [ngFormControl]="car.controls.make">
+                            <div *ngIf="car.controls.make.touched">
+                              <div *ngIf="car.controls.make.hasError('required')" class="text-help">Make, model, and year required</div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="col-xs-12 col-sm-3" label="Value">
+                            <input type="text" [ngFormControl]="car.controls.value" pattern="[0-9]*$">
+                            <div *ngIf="car.controls.value.touched">
+                              <div *ngIf="car.controls.value.hasError('required')" class="text-help">Value required</div>
+                              <div *ngIf="car.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-primary pull-xs-right" (click)="addCoborrowerCar()" [disabled]="coborrowerCarsArray.length >= 3">Add Car</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card card-block">
+                      <label class="form-control-label">Other Assets</label>
+                      <div *ngFor="let asset of coborrowerOtherAssetsArray.controls; let i = index" class="card card-block">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteCoborrowerAsset(i)"><i class="fa fa-close fa-fw"></i></button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <fieldset class="col-xs-12 col-sm-9" label="Description">
+                            <input type="text" [ngFormControl]="asset.controls.description">
+                            <div *ngIf="asset.controls.description.touched">
+                              <div *ngIf="asset.controls.description.hasError('required')" class="text-help">Description required</div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="col-xs-12 col-sm-3" label="Value">
+                            <input type="text" [ngFormControl]="asset.controls.value" pattern="[0-9]*$">
+                            <div *ngIf="asset.controls.value.touched">
+                              <div *ngIf="asset.controls.value.hasError('required')" class="text-help">Value required</div>
+                              <div *ngIf="asset.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-primary pull-xs-right" (click)="addCoborrowerAsset()" [disabled]="coborrowerOtherAssetsArray.length >= 4">Add Asset</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <b>{{coborrowerName}}'s Total Assets:</b>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-block">
+                <div class="row">
+                  <div class="col-xs-12 text-xs-center">
+                    <h5>Liabilities</h5>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 card card-block">
+                    <h6 class="text-xs-center">{{borrowerName}}</h6>
+                    <div class="card card-block">
+                      <label class="form-control-label">Liabilities</label>
+                      <div class="card card-block" *ngFor="let liability of borrowerOtherLiabilitiesArray.controls; let i = index">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteBorrowerLiability(i)"><i class="fa fa-close fa-fw"></i></button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                            <input type="text" [ngFormControl]="liability.controls.description">
+                            <div *ngIf="liability.controls.description.touched">
+                              <div *ngIf="liability.controls.description.hasError('required')" class="text-help">Description required</div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                            <input type="text" [ngFormControl]="liability.controls.balance">
+                            <div *ngIf="liability.controls.balance.touched">
+                              <div *ngIf="liability.controls.balance.hasError('required')" class="text-help">Balance required</div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-primary pull-xs-right" (click)="addBorrowerLiability()" [disabled]="borrowerOtherLiabilitiesArray.length >= 8">Add Liability</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card card-block">
+                      <label class="form-control-label">Child Support/Alimony</label>
+                      <div class="card card-block" *ngFor="let alimony of borrowerAlimonyArray.controls; let i = index">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteBorrowerAlimony(i)"><i class="fa fa-close fa-fw"></i></button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                            <input type="text" [ngFormControl]="alimony.controls.description">
+                            <div *ngIf="alimony.controls.description.touched">
+                              <div *ngIf="alimony.controls.description.hasError('required')" class="text-help">Description required</div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="col-xs-12 col-sm-6" label="Monthly Payment">
+                            <input type="text" [ngFormControl]="alimony.controls.payment">
+                            <div *ngIf="alimony.controls.payment.touched">
+                              <div *ngIf="alimony.controls.payment.hasError('required')" class="text-help">Payment value required</div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-primary pull-xs-right" (click)="addBorrowerAlimony()" [disabled]="borrowerAlimonyArray.length >= 3">Add Child Support/Alimony</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 card card-block">
+                    <h6 class="text-xs-center">{{coborrowerName}}</h6>
+                    <div class="card card-block">
+                      <label class="form-control-label">Liabilities</label>
+                      <div class="card card-block" *ngFor="let liability of coborrowerOtherLiabilitiesArray.controls; let i = index">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteCoborrowerLiability(i)"><i class="fa fa-close fa-fw"></i></button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                            <input type="text" [ngFormControl]="liability.controls.description">
+                            <div *ngIf="liability.controls.description.touched">
+                              <div *ngIf="liability.controls.description.hasError('required')" class="text-help">Description required</div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                            <input type="text" [ngFormControl]="liability.controls.balance">
+                            <div *ngIf="liability.controls.balance.touched">
+                              <div *ngIf="liability.controls.balance.hasError('required')" class="text-help">Balance required</div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-primary pull-xs-right" (click)="addCoborrowerLiability()" [disabled]="coborrowerOtherLiabilitiesArray.length >= 8">Add Liability</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card card-block">
+                      <label class="form-control-label">Child Support/Alimony</label>
+                      <div class="card card-block" *ngFor="let alimony of coborrowerAlimonyArray.controls; let i = index">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteCoborrowerAlimony(i)"><i class="fa fa-close fa-fw"></i></button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                            <input type="text" [ngFormControl]="alimony.controls.description">
+                            <div *ngIf="alimony.controls.description.touched">
+                              <div *ngIf="alimony.controls.description.hasError('required')" class="text-help">Description required</div>
+                            </div>
+                          </fieldset>
+                          <fieldset class="col-xs-12 col-sm-6" label="Monthly Payment">
+                            <input type="text" [ngFormControl]="alimony.controls.payment">
+                            <div *ngIf="alimony.controls.payment.touched">
+                              <div *ngIf="alimony.controls.payment.hasError('required')" class="text-help">Payment value required</div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-primary pull-xs-right" (click)="addCoborrowerAlimony()" [disabled]="coborrowerAlimonyArray.length >= 3">Add Child Support/Alimony</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
