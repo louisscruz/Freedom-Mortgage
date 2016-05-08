@@ -54,6 +54,7 @@ export class Apply {
   private borrowerDobOpen: boolean = false;
   private coborrowerDobOpen: boolean = false;
   private states: Array<any> = States;
+  private loanForm: ControlGroup;
   private loanMin: number = 50000;
   private loanMax: number = 2500000;
   private borrowerRent: string = '0.00';
@@ -83,6 +84,11 @@ export class Apply {
       sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm.value));
       sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm));
     });*/
+    this.loanForm = new ControlGroup({
+      'loan': new Control('250000', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ]))
+    });
     this.explanationsForm = new ControlGroup({
       'borrower': this.generateExplanations(),
       'coborrower': this.generateExplanations()
@@ -295,6 +301,11 @@ export class Apply {
     return applyForm;
   }
 
+  generateErrors(): Array<any> {
+    const errors = ['test', 'testing'];
+    return errors;
+  }
+
   setMaritalStatus(value: string): void {
     (this.applyForm.controls['borrowerGroup'].find('maritalStatus') as Control).updateValue(value);
     if (value === 'married' && !this.applyForm.contains('coborrowerGroup')) {
@@ -476,7 +487,7 @@ export class Apply {
   generateCar(): ControlGroup {
     const group = new ControlGroup({
       'make': new Control('', Validators.required),
-      'value': new Control('', Validators.compose([
+      'value': new Control('0.00', Validators.compose([
         Validators.required, Validators.pattern(currencyRegex)
       ]))
     });
@@ -508,7 +519,9 @@ export class Apply {
   generateAsset(): ControlGroup {
     const group = new ControlGroup({
       'description': new Control('', Validators.required),
-      'value': new Control('', Validators.required)
+      'value': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ]))
     });
     return group;
   }
@@ -538,7 +551,9 @@ export class Apply {
   generateLiability(): ControlGroup {
     const group = new ControlGroup({
       'description': new Control('', Validators.required),
-      'balance': new Control('', Validators.required)
+      'balance': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ]))
     });
     return group;
   }
@@ -562,7 +577,9 @@ export class Apply {
   generateAlimony(): ControlGroup {
     const group = new ControlGroup({
       'description': new Control('', Validators.required),
-      'payment': new Control('', Validators.required)
+      'payment': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ]))
     });
     return group;
   }

@@ -12,93 +12,61 @@
             <div class="col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
               <div class="card card-block">
                 <div ngControlGroup="borrowerGroup" class="row">
-                  <fieldset class="col-xs-12 col-sm-4" label="First Name">
-                    <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.firstName">
-                    <div *ngIf="applyForm.find('borrowerGroup').find('firstName').touched">
-                      <div *ngIf="applyForm.find('borrowerGroup').find('firstName').hasError('required')" class="text-help">First name required</div>
-                    </div>
+                  <fieldset class="col-xs-12 col-sm-4" label="First Name" [errors]="[{type: 'required'}]">
+                    <input type="text" [ngFormControl]="applyForm.find('borrowerGroup').find('firstName')">
                   </fieldset>
                   <div class="col-xs-12 col-sm-4" [class.has-success]="!applyForm.find('borrowerGroup').contains('middleName') || (applyForm.find('borrowerGroup').find('middleName').valid && applyForm.find('borrowerGroup').find('middleName').touched)" [class.has-danger]="applyForm.find('borrowerGroup').contains('middleName') && (!applyForm.find('borrowerGroup').find('middleName').valid && applyForm.find('borrowerGroup').find('middleName').touched)">
                     <label class="form-control-label">Middle Name</label>
-                    <input type="text" ngControl="middleName" [disabled]="!applyForm.find('borrowerGroup').contains('middleName')" [class.form-control-success]="applyForm.find('borrowerGroup').find('middleName').valid && applyForm.find('borrowerGroup').find('middleName').touched" [class.form-control-danger]="!applyForm.find('borrowerGroup').find('middleName').valid && applyForm.find('borrowerGroup').find('middleName').touched">
+                    <input type="text" ngControl="middleName" [disabled]="!applyForm.find('borrowerGroup').contains('middleName')">
                     <label class="c-input c-checkbox">
                       <input type="checkbox" id="middleNameCheckbox" (click)="toggleBorrowerMiddleName()">
                       <span class="c-indicator"></span>
                       Check here if no middle name.
                     </label>
-                    <div *ngIf="applyForm.find('borrowerGroup').find('middleName').touched && applyForm.find('borrowerGroup').contains('middleName')">
-                      <div *ngIf="applyForm.find('borrowerGroup').find('middleName').hasError('required')" class="text-help">Middle name required</div>
+                    <div *ngIf="applyForm.find('borrowerGroup').find('middleName').touched && applyForm.find('borrowerGroup').contains('middleName')" class="text-help">
+                      <div *ngIf="applyForm.find('borrowerGroup').find('middleName').hasError('required')">Middle name required</div>
                     </div>
                   </div>
-                  <fieldset class="col-xs-12 col-sm-4" label="Last Name">
-                    <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.lastName">
-                    <div *ngIf="applyForm.find('borrowerGroup').find('lastName').touched">
-                      <div *ngIf="applyForm.find('borrowerGroup').find('lastName').hasError('required')" class="text-help">Last name required</div>
-                    </div>
+                  <fieldset class="col-xs-12 col-sm-4" label="Last Name" [errors]="[{type: 'required'}]">
+                    <input type="text" [ngFormControl]="applyForm.find('borrowerGroup').find('lastName')">
                   </fieldset>
-                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Phone">
-                    <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.phone">
-                    <div *ngIf="applyForm.find('borrowerGroup').find('phone').touched">
-                      <div *ngIf="applyForm.find('borrowerGroup').find('phone').hasError('required')" class="text-help">Phone required</div>
-                    </div>
+                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Phone" [errors]="[{type: 'required'}]">
+                    <input type="text" [ngFormControl]="applyForm.find('borrowerGroup').find('phone')">
                   </fieldset>
-                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Email">
+                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Email" [errors]="[{type: 'required'}, {type: 'invalidEmail', message: 'Invalid Email'}]">
                     <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.email">
-                    <div *ngIf="applyForm.find('borrowerGroup').find('email').touched">
-                      <div *ngIf="applyForm.find('borrowerGroup').find('email').hasError('required')" class="text-help">Email required</div>
-                      <div *ngIf="applyForm.find('borrowerGroup').find('email').hasError('invalidEmail')" class="text-help">Email invalid</div>
-                    </div>
                   </fieldset>
-                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Birthdate">
+                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Birthdate" [errors]="[{type: 'required'}]">
                     <input type="text" (click)="toggleBorrowerDob()" [ngFormControl]="applyForm.controls.borrowerGroup.controls.dob" [value]="borrowerDob" readonly>
                     <div style="min-height:290px; position: absolute; z-index: 2;" [hidden]="!borrowerDobOpen">
                       <datepicker [(ngModel)]="borrowerDob" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeBorrowerDob()"></datepicker>
                     </div>
-                    <div *ngIf="applyForm.find('borrowerGroup').find('dob').touched && !borrowerDobOpen">
-                      <div *ngIf="applyForm.find('borrowerGroup').find('dob').hasError('required')" class="text-help">Birthdate required</div>
-                    </div>
                   </fieldset>
-                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="SSN">
+                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="SSN" [errors]="[{type: 'required'}]">
                     <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.ssn">
-                    <div *ngIf="applyForm.find('borrowerGroup').find('ssn').touched">
-                      <div *ngIf="applyForm.find('borrowerGroup').find('ssn').hasError('required')" class="text-help">SSN required</div>
-                    </div>
                   </fieldset>
                   <div ngControlGroup="address" class="row">
                     <div class="col-xs-12">
-                      <fieldset class="col-xs-12" label="Address">
+                      <fieldset class="col-xs-12" label="Address" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.add">
-                        <div *ngIf="applyForm.find('borrowerGroup').find('address').find('add').touched">
-                          <div *ngIf="applyForm.find('borrowerGroup').find('address').find('add').hasError('required')" class="text-help">Address required</div>
-                        </div>
                       </fieldset>
                     </div>
                     <div class="col-xs-12 col-sm-4">
-                      <fieldset class="col-xs-12 col-sm-4" label="City">
+                      <fieldset class="col-xs-12 col-sm-4" label="City" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.city">
-                        <div *ngIf="applyForm.find('borrowerGroup').find('address').find('city').touched">
-                          <div *ngIf="applyForm.find('borrowerGroup').find('address').find('city').hasError('required')" class="text-help">City required</div>
-                        </div>
                       </fieldset>
                     </div>
                     <div class="col-xs-12 col-sm-4">
-                      <fieldset class="col-xs-12 col-sm-4" label="State">
+                      <fieldset class="col-xs-12 col-sm-4" label="State" [errors]="[{type: 'required'}]">
                         <select class="c-select form-control" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.state">
                           <option value="" disabled selected>State</option>
                           <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
                         </select>
-                        <div *ngIf="applyForm.find('borrowerGroup').find('address').find('state').touched">
-                          <div *ngIf="applyForm.find('borrowerGroup').find('address').find('state').hasError('required')" class="text-help">State required</div>
-                        </div>
                       </fieldset>
                     </div>
                     <div class="col-xs-12 col-sm-4">
-                      <fieldset class="col-xs-12 col-sm-4" label="Zip">
-                        <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.zip">
-                        <div *ngIf="applyForm.find('borrowerGroup').find('address').find('zip').touched">
-                          <div *ngIf="applyForm.find('borrowerGroup').find('address').find('zip').hasError('required')" class="text-help">Zip code required</div>
-                          <div *ngIf="applyForm.find('borrowerGroup').find('address').find('zip').hasError('invalidZip')" class="text-help">Zip code invalid</div>
-                        </div>
+                      <fieldset class="col-xs-12 col-sm-4" label="Zip" [errors]="[{type: 'required'}, {type: 'invalidZip', message: 'Zip Invalid'}]">
+                        <input type="text" [ngFormControl]="applyForm.find('borrowerGroup').find('address').find('zip')">
                       </fieldset>
                     </div>
                   </div>
@@ -151,11 +119,8 @@
                 <div *ngIf="applyForm.contains('coborrowerGroup')" ngControlGroup="coborrowerGroup" class="card card-block col-xs-12">
                   <h3 class="text-xs-center">Coborrower Info</h3>
                   <div class="row">
-                    <fieldset class="col-xs-12 col-sm-4" label="First Name">
+                    <fieldset class="col-xs-12 col-sm-4" label="First Name" [errors]="[{type: 'required'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.firstName">
-                      <div *ngIf="applyForm.find('coborrowerGroup').find('firstName').touched">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('firstName').hasError('required')" class="text-help">First name is required</div>
-                      </div>
                     </fieldset>
                     <div class="col-xs-12 col-sm-4" *ngIf="true" [class.has-success]="!applyForm.find('coborrowerGroup').contains('middleName') || (applyForm.find('coborrowerGroup').find('middleName').valid && applyForm.find('coborrowerGroup').find('middleName').touched)" [class.has-danger]="applyForm.find('coborrowerGroup').contains('middleName') && (!applyForm.find('coborrowerGroup').find('middleName').valid && applyForm.find('coborrowerGroup').find('middleName').touched)">
                       <label class="form-control-label">Middle Name</label>
@@ -165,45 +130,27 @@
                         <span class="c-indicator"></span>
                         Check here if no middle name.
                       </label>
-                      <div *ngIf="applyForm.find('coborrowerGroup').find('middleName').touched && applyForm.find('coborrowerGroup').contains('middleName')">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('middleName').hasError('required')" class="text-help">Middle name is required</div>
+                      <div *ngIf="applyForm.find('coborrowerGroup').find('middleName').touched && applyForm.find('coborrowerGroup').contains('middleName')" class="text-help">
+                        <div *ngIf="applyForm.find('coborrowerGroup').find('middleName').hasError('required')">Middle name is required</div>
                       </div>
                     </div>
-                    <fieldset class="col-xs-12 col-sm-4" label="Last Name">
+                    <fieldset class="col-xs-12 col-sm-4" label="Last Name" [errors]="[{type: 'required'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.lastName">
-                      <div *ngIf="applyForm.find('coborrowerGroup').find('lastName').touched">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('lastName').hasError('required')" class="text-help">Last name is required</div>
-                      </div>
                     </fieldset>
-                    <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Email">
+                    <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Email" [errors]="[{type: 'required'}, {type: 'invalidEmail', message: 'Email Invalid'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.email">
-                      <div *ngIf="applyForm.find('coborrowerGroup').find('email').touched">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('email').hasError('required')" class="text-help">Email required</div>
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('email').hasError('invalidEmail')" class="text-help">Email invalid</div>
-                      </div>
                     </fieldset>
-                    <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Phone">
+                    <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Phone" [errors]="[{type: 'required'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.phone">
-                      <div *ngIf="applyForm.find('coborrowerGroup').find('phone').touched">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('phone').hasError('required')" class="text-help">Phone required</div>
-                      </div>
                     </fieldset>
-                    <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Birthdate">
+                    <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Birthdate" [errors]="[{type: 'required'}]">
                       <input type="text" (click)="toggleCoborrowerDob()" [value]="coborrowerDob" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.dob" readonly [class.form-control-success]="applyForm.find('coborrowerGroup').find('dob').valid && applyForm.find('coborrowerGroup').find('dob').touched" [class.form-control-danger]="!applyForm.find('coborrowerGroup').find('dob').valid && applyForm.find('coborrowerGroup').find('dob').touched">
                       <div style="min-height:290px; position: absolute; z-index: 2;" [hidden]="!coborrowerDobOpen">
                         <datepicker [(ngModel)]="coborrowerDob" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeCoborrowerDob()"></datepicker>
                       </div>
-                      <div *ngIf="(applyForm.find('coborrowerGroup').find('dob').touched && !coborrowerDobOpen)">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('dob').hasError('required')" class="text-help">Birthdate required</div>
-                      </div>
                     </fieldset>
-                    <fieldset class="col-xs-12 col-sm-6 col-md-3" label="SSN">
+                    <fieldset class="col-xs-12 col-sm-6 col-md-3" label="SSN" [errors]="[{type: 'required'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.ssn">
-                      <div *ngIf="applyForm.find('coborrowerGroup').find('ssn').touched">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('ssn').touched">
-                          <div *ngIf="applyForm.find('coborrowerGroup').find('ssn').hasError('required')" class="text-help">SSN required</div>
-                        </div>
-                      </div>
                     </fieldset>
                     <div class="row">
                       <label class="form-control-label">Does your coborrower reside at the same address?</label>
@@ -226,33 +173,20 @@
                     </div>
                     <div *ngIf="applyForm.find('coborrowerGroup').contains('address')" ngControlGroup="address" class="card card-block col-xs-12">
                       <h5 class="text-xs-center">Coborrower Address</h5>
-                      <fieldset class="col-xs-12" label="Address">
+                      <fieldset class="col-xs-12" label="Address" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.address.controls.add">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('add').touched">
-                          <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('add').hasError('required')" class="text-help">Address required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="City">
+                      <fieldset class="col-xs-12 col-sm-4" label="City" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.address.controls.city">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('city').touched">
-                          <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('city').hasError('required')" class="text-help">City required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="State">
+                      <fieldset class="col-xs-12 col-sm-4" label="State" [errors]="[{type: 'required'}]">
                         <select class="c-select form-control" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.address.controls.state">
                           <option value="" disabled selected>State</option>
                           <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
                         </select>
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('state').touched">
-                          <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('state').hasError('required')" class="text-help">State required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Zip">
+                      <fieldset class="col-xs-12 col-sm-4" label="Zip" [errors]="[{type: 'required'}, {type: 'invalidZip', message: 'Zip Invalid'}]">
                         <input type="text" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.address.controls.zip">
-                        <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('zip').touched">
-                          <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('zip').hasError('required')" class="text-help">Zip code required</div>
-                          <div *ngIf="applyForm.find('coborrowerGroup').find('address').find('zip').hasError('invalidZip')" class="text-help">Zip code invalid</div>
-                        </div>
                       </fieldset>
                     </div>
                   </div>
@@ -285,20 +219,23 @@
                       </label>
                     </div>
                   </div>
-                  <div class="col-xs-12">
+                  <div class="col-xs-12" [class.has-danger]="loanForm.find('loan').touched && !loanForm.find('loan').valid">
                     <label class="form-control-label">Amount</label>
                     <input type="range" min="50000" max="2500000" step="1000" ngControl="amount">
                     <div class="input-group">
                       <span class="input-group-addon">$</span>
-                      <input type="text" value="{{applyForm.find('loanGroup').find('amount').value}}" (keyup)="setLoanAmount($event)">
-                      <span class="input-group-addon">.00</span>
+                      <input type="text" [ngFormControl]="loanForm.find('loan')" [value]="applyForm.find('loanGroup').find('amount').value" (keyup)="setLoanAmount($event)">
+                    </div>
+                    <div *ngIf="loanForm.find('loan').touched" class="text-help">
+                      <div *ngIf="loanForm.find('loan').hasError('required')">Loan amount required</div>
+                      <div *ngIf="loanForm.find('loan').hasError('pattern')">Invalid dollar amount</div>
                     </div>
                   </div>
                   <div class="col-xs-12" *ngIf="applyForm.find('loanGroup').find('type').value === 'purchase'">
                     <label class="form-control-label">Do you know the address of the purchase property?</label>
                     <div class="radio">
                       <label class="c-input c-radio">
-                        <input type="radio" name="loanProperty1" (click)="addProperty()">
+                        <input type="radio" name="loanProperty1" (click)="addProperty()" [checked]="applyForm.find('loanGroup').contains('address')">
                         <span class="c-indicator"></span>
                         Yes
                       </label>
@@ -330,33 +267,20 @@
                   </div>
                   <div class="card card-block col-xs-12" *ngIf="applyForm.find('loanGroup').contains('address')" ngControlGroup="address">
                     <h5 class="text-xs-center">Associated Address</h5>
-                    <fieldset class="col-xs-12" label="Address">
+                    <fieldset class="col-xs-12" label="Address" [errors]="[{type: 'required'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.loanGroup.controls.address.controls.add">
-                      <div *ngIf="applyForm.find('loanGroup').find('address').find('add').touched">
-                        <div *ngIf="applyForm.find('loanGroup').find('address').find('add').hasError('required')" class="text-help">Address required</div>
-                      </div>
                     </fieldset>
-                    <fieldset class="col-xs-12 col-sm-4" label="City">
+                    <fieldset class="col-xs-12 col-sm-4" label="City" [errors]="[{type: 'required'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.loanGroup.controls.address.controls.city">
-                      <div *ngIf="applyForm.find('loanGroup').find('address').find('city').touched">
-                        <div *ngIf="applyForm.find('loanGroup').find('address').find('city').hasError('required')" class="text-help">City required</div>
-                      </div>
                     </fieldset>
-                    <fieldset class="col-xs-12 col-sm-4" label="State">
+                    <fieldset class="col-xs-12 col-sm-4" label="State" [errors]="[{type: 'required'}]">
                       <select class="c-select form-control" [ngFormControl]="applyForm.controls.loanGroup.controls.address.controls.state">
                         <option value="" disabled selected>State</option>
                         <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
                       </select>
-                      <div *ngIf="applyForm.find('loanGroup').find('address').find('state').touched">
-                        <div *ngIf="applyForm.find('loanGroup').find('address').find('state').hasError('required')" class="text-help">State required</div>
-                      </div>
                     </fieldset>
-                    <fieldset class="col-xs-12 col-sm-4" label="Zip">
+                    <fieldset class="col-xs-12 col-sm-4" label="Zip" [errors]="[{type: 'required'}, {type: 'invalidZip', message: 'Zip Invalid'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.loanGroup.controls.address.controls.zip">
-                      <div *ngIf="applyForm.find('loanGroup').find('address').find('zip').touched">
-                        <div *ngIf="applyForm.find('loanGroup').find('address').find('zip').hasError('required')" class="text-help">Zip code required</div>
-                        <div *ngIf="applyForm.find('loanGroup').find('address').find('zip').hasError('invalidZip')" class="text-help">Zip code invalid</div>
-                      </div>
                     </fieldset>
                   </div>
                 </div>
@@ -391,69 +315,38 @@
                           Self-employed position
                         </label>
                       </div>
-                      <fieldset class="col-xs-12 col-sm-8" label="Company Name">
+                      <fieldset class="col-xs-12 col-sm-8" label="Company Name" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="job.controls.company">
-                        <div *ngIf="job.controls.company.touched">
-                          <div *ngIf="job.controls.company.hasError('required')" class="text-help">Company name required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Phone">
+                      <fieldset class="col-xs-12 col-sm-4" label="Phone" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="job.controls.phone">
-                        <div *ngIf="job.controls.phone.touched">
-                          <div *ngIf="job.controls.phone.hasError('required')" class="text-help">Phone required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12" label="Street Address">
+                      <fieldset class="col-xs-12" label="Street Address" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="job.controls.address.controls.add">
-                        <div *ngIf="job.controls.address.controls.add.touched">
-                          <div *ngIf="job.controls.address.controls.add.hasError('required')" class="text-help">Address required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="City">
+                      <fieldset class="col-xs-12 col-sm-4" label="City" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="job.controls.address.controls.city">
-                        <div *ngIf="job.controls.address.controls.city.touched">
-                          <div *ngIf="job.controls.address.controls.city.hasError('required')" class="text-help">Address required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="State">
+                      <fieldset class="col-xs-12 col-sm-4" label="State" [errors]="[{type: 'required'}]">
                         <select class="c-select form-control" [ngFormControl]="job.controls.address.controls.state">
                           <option value="" disabled selected>State</option>
                           <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
                         </select>
-                        <div *ngIf="job.controls.address.controls.city.touched">
-                          <div *ngIf="job.controls.address.controls.city.hasError('required')" class="text-help">Address required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Zip">
+                      <fieldset class="col-xs-12 col-sm-4" label="Zip" [errors]="[{type: 'required'}, {type: 'invalidZip', message: 'Zip Invalid'}]">
                         <input type="text" [ngFormControl]="job.controls.address.controls.zip">
-                        <div *ngIf="job.controls.address.controls.zip.touched">
-                          <div *ngIf="job.controls.address.controls.zip.hasError('required')" class="text-help">Zip code required</div>
-                          <div *ngIf="job.controls.address.controls.zip.hasError('invalidZip')" class="text-help">Zip code invalid</div>
-                        </div>
                       </fieldset>
                       <div class="col-xs-12" [class.has-success]="job.controls.years.valid && (job.controls.months.valid && job.controls.yearsInField.valid)">
                         <label class="form-control-label">Length of employment:</label>
                       </div>
-                      <fieldset class="col-xs-12 col-sm-4" label="Years">
+                      <fieldset class="col-xs-12 col-sm-4" label="Years" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Number'}]">
                         <input type="text" [ngFormControl]="job.controls.years" pattern="[0-9]*$">
-                        <div *ngIf="job.controls.years.touched">
-                          <div *ngIf="job.controls.years.hasError('required')" class="text-help">Years required</div>
-                          <div *ngIf="job.controls.years.hasError('pattern')" class="text-help">Invalid number</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Months">
+                      <fieldset class="col-xs-12 col-sm-4" label="Months" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Number'}]">
                         <input type="text" [ngFormControl]="job.controls.months" pattern="^[0]*[1-9]$|^[0]*1[0-2]$">
-                        <div *ngIf="job.controls.months.touched">
-                          <div *ngIf="job.controls.months.hasError('required')" class="text-help">Months required</div>
-                          <div *ngIf="job.controls.months.hasError('pattern')" class="text-help">Invalid number</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Years in Field">
+                      <fieldset class="col-xs-12 col-sm-4" label="Years in Field" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Number'}]">
                         <input type="text" [ngFormControl]="job.controls.yearsInField" pattern="[0-9]*$">
-                        <div *ngIf="job.controls.yearsInField.touched">
-                          <div *ngIf="job.controls.yearsInField.hasError('required')" class="text-help">Years in field required</div>
-                          <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Invalid number</div>
-                        </div>
                       </fieldset>
                     </div>
                   </div>
@@ -469,77 +362,45 @@
                   <div *ngFor="let job of coborrowerEmploymentArray.controls; let i=index" class="card card-block col-xs-12">
                     <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteCoborrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
-                      <fieldset class="col-xs-12">
+                      <div class="col-xs-12">
                         <label class="c-input c-checkbox">
                           <input type="checkbox" [ngFormControl]="job.controls.selfEmployed">
                           <span class="c-indicator"></span>
                           Self-employed position
                         </label>
-                      </fieldset>
-                      <fieldset class="col-xs-12 col-sm-8" label="Company Name">
+                      </div>
+                      <fieldset class="col-xs-12 col-sm-8" label="Company Name" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="job.controls.company">
-                        <div *ngIf="job.controls.company.touched">
-                          <div *ngIf="job.controls.company.hasError('required')" class="text-help">Company name required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Phone">
-                        <label class="form-control-label">Phone</label>
+                      <fieldset class="col-xs-12 col-sm-4" label="Phone" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="job.controls.phone">
-                        <div *ngIf="job.controls.phone.touched">
-                          <div *ngIf="job.controls.phone.hasError('required')" class="text-help">Phone required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12" label="Street Address">
+                      <fieldset class="col-xs-12" label="Street Address" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="job.controls.address.controls.add">
-                        <div *ngIf="job.controls.address.controls.add.touched">
-                          <div *ngIf="job.controls.address.controls.add.hasError('required')" class="text-help">Address required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="City">
+                      <fieldset class="col-xs-12 col-sm-4" label="City" [errors]="[{type: 'required'}]">
                         <input type="text" [ngFormControl]="job.controls.address.controls.city">
-                        <div *ngIf="job.controls.address.controls.city.touched">
-                          <div *ngIf="job.controls.address.controls.city.hasError('required')" class="text-help">City required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="State">
+                      <fieldset class="col-xs-12 col-sm-4" label="State" [errors]="[{type: 'required'}]">
                         <select class="c-select form-control" [ngFormControl]="job.controls.address.controls.state">
                           <option value="" disabled selected>State</option>
                           <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
                         </select>
-                        <div *ngIf="job.controls.address.controls.city.touched">
-                          <div *ngIf="job.controls.address.controls.city.hasError('required')" class="text-help">State required</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Zip">
+                      <fieldset class="col-xs-12 col-sm-4" label="Zip" [errors]="[{type: 'required'}, {type: 'invalidZip', message: 'Zip Invalid'}]">
                         <input type="text" [ngFormControl]="job.controls.address.controls.zip">
-                        <div *ngIf="job.controls.address.controls.zip.touched">
-                          <div *ngIf="job.controls.address.controls.zip.hasError('required')" class="text-help">Zip code required</div>
-                          <div *ngIf="job.controls.address.controls.zip.hasError('invalidZip')" class="text-help">Zip code invalid</div>
-                        </div>
                       </fieldset>
                       <div class="col-xs-12">
                         <label class="form-control-label">Length of employment:</label>
                       </div>
-                      <fieldset class="col-xs-12 col-sm-4" label="Years">
+                      <fieldset class="col-xs-12 col-sm-4" label="Years" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Number'}]">
                         <input type="text" [ngFormControl]="job.controls.years" pattern="[0-9]*$">
-                        <div *ngIf="job.controls.years.touched">
-                          <div *ngIf="job.controls.years.hasError('required')" class="text-help">Years required</div>
-                          <div *ngIf="job.controls.years.hasError('pattern')" class="text-help">Invalid number</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Months">
+                      <fieldset class="col-xs-12 col-sm-4" label="Months" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Number'}]">
                         <input type="text" [ngFormControl]="job.controls.months" pattern="^[0]*[1-9]$|^[0]*1[0-2]$">
-                        <div *ngIf="job.controls.months.touched">
-                          <div *ngIf="job.controls.months.hasError('required')" class="text-help">Months required</div>
-                          <div *ngIf="job.controls.months.hasError('pattern')" class="text-help">Invalid number</div>
-                        </div>
                       </fieldset>
-                      <fieldset class="col-xs-12 col-sm-4" label="Years in Field">
+                      <fieldset class="col-xs-12 col-sm-4" label="Years in Field" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Number'}]">
                         <input type="text" [ngFormControl]="job.controls.yearsInField" pattern="[0-9]*$">
-                        <div *ngIf="job.controls.yearsInField.touched">
-                          <div *ngIf="job.controls.yearsInField.hasError('required')" class="text-help">Years in field required</div>
-                          <div *ngIf="job.controls.yearsInField.hasError('pattern')" class="text-help">Invalid number</div>
-                        </div>
                       </fieldset>
                     </div>
                   </div>
@@ -577,24 +438,18 @@
                         <label class="form-control-label font-weight-bold">Monthly Income</label>
                       </div>
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <fieldset label="{{borrowerName}}:" no-success="true">
+                        <fieldset label="{{borrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('baseIncome')">
                           </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('baseIncome').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('baseIncome').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
                         </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                        <fieldset label="{{coborrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('baseIncome')">
-                          </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('baseIncome').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('baseIncome').hasError('pattern')" class="text-help">Invalid dollar amount</div>
                           </div>
                         </fieldset>
                       </div>
@@ -611,24 +466,18 @@
                     </div>
                     <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <fieldset label="{{borrowerName}}:" no-success="true">
+                        <fieldset label="{{borrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('overtime')">
                           </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('overtime').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('overtime').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
                         </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                        <fieldset label="{{coborrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('overtime')">
-                          </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('overtime').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('overtime').hasError('pattern')" class="text-help">Invalid dollar amount</div>
                           </div>
                         </fieldset>
                       </div>
@@ -645,24 +494,18 @@
                     </div>
                     <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <fieldset label="{{borrowerName}}:" no-success="true">
+                        <fieldset label="{{borrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('bonuses')">
                           </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('bonuses').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('bonuses').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
                         </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                        <fieldset label="{{coborrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('bonuses')">
-                          </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('bonuses').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('bonuses').hasError('pattern')" class="text-help">Invalid dollar amount</div>
                           </div>
                         </fieldset>
                       </div>
@@ -679,24 +522,18 @@
                     </div>
                     <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <fieldset label="{{borrowerName}}:" no-success="true">
+                        <fieldset label="{{borrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('commissions')">
                           </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('commissions').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('commissions').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
                         </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                        <fieldset label="{{coborrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('commissions')">
-                          </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('commissions').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('commissions').hasError('pattern')" class="text-help">Invalid dollar amount</div>
                           </div>
                         </fieldset>
                       </div>
@@ -713,24 +550,18 @@
                     </div>
                     <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <fieldset label="{{borrowerName}}:" no-success="true">
+                        <fieldset label="{{borrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('dividends')">
                           </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('dividends').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('dividends').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
                         </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                        <fieldset label="{{coborrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('dividends')">
-                          </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('dividends').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('dividends').hasError('pattern')" class="text-help">Invalid dollar amount</div>
                           </div>
                         </fieldset>
                       </div>
@@ -745,24 +576,18 @@
                         <label class="form-control-label font-weight-bold">Monthly Rental</label>
                       </div>
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <fieldset label="{{borrowerName}}:" no-success="true">
+                        <fieldset label="{{borrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('rental')">
                           </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('rental').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('rental').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
                         </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                        <fieldset label="{{coborrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('rental')">
-                          </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('rental').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('rental').hasError('pattern')" class="text-help">Invalid dollar amount</div>
                           </div>
                         </fieldset>
                       </div>
@@ -777,24 +602,18 @@
                         <label class="form-control-label font-weight-bold">Other Monthly Income</label>
                       </div>
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <fieldset label="{{borrowerName}}:" no-success="true">
+                        <fieldset label="{{borrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('other')">
                           </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('other').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('other').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
                         </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                        <fieldset label="{{coborrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('other')">
-                          </div>
-                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('other').touched">
-                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('other').hasError('pattern')" class="text-help">Invalid dollar amount</div>
                           </div>
                         </fieldset>
                       </div>
@@ -852,28 +671,20 @@
                         <label class="form-control-label font-weight-bold">Monthly Rental Payments</label>
                       </div>
                       <div class="col-xs-6">
-                        <div class="form-group" [class.has-danger]="incomeRentForm.find('borrower').find('rent').touched && !incomeRentForm.find('borrower').find('rent').valid">
-                          <label class="form-control-label">{{borrowerName}}:</label>
+                        <fieldset class="form-group" label="{{borrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="incomeRentForm.find('borrower').find('rent')">
                           </div>
-                          <div *ngIf="incomeRentForm.find('borrower').find('rent').touched">
-                            <div *ngIf="incomeRentForm.find('borrower').find('rent').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
-                        </div>
+                        </fieldset>
                       </div>
-                      <div class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')" [class.has-danger]="incomeRentForm.find('coborrower').find('rent').touched && !incomeRentForm.find('coborrower').find('rent').valid">
-                        <div class="form-group" [class.has-danger]="invalidCurrency(borrowerRent)">
-                          <label class="form-control-label">{{coborrowerName}}:</label>
+                      <div class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
+                        <fieldset class="form-group" label="{{coborrowerName}}:" noSuccess="true" [errors]="[{type: 'pattern', message: 'Invalid Dollar Amount'}]">
                           <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" [ngFormControl]="incomeRentForm.find('coborrower').find('rent')">
                           </div>
-                          <div *ngIf="incomeRentForm.find('coborrower').find('rent').touched">
-                            <div *ngIf="incomeRentForm.find('coborrower').find('rent').hasError('pattern')" class="text-help">Invalid dollar amount</div>
-                          </div>
-                        </div>
+                        </fieldset>
                       </div>
                     </div>
                   </div>
@@ -937,20 +748,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-8" label="Make, Model, Year">
+                          <fieldset class="col-xs-12 col-sm-8" label="Make, Model, Year" [errors]="[{type: 'required'}]">
                             <input type="text" [ngFormControl]="car.controls.make">
-                            <div *ngIf="car.controls.make.touched">
-                              <div *ngIf="car.controls.make.hasError('required')" class="text-help">Make, model, and year required</div>
-                            </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-4" label="Value">
+                          <fieldset class="col-xs-12 col-sm-4" label="Value" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Dollar Amount'}]">
                             <div class="input-group">
                               <span class="input-group-addon">$</span>
                               <input type="text" [ngFormControl]="car.controls.value">
-                            </div>
-                            <div *ngIf="car.controls.value.touched">
-                              <div *ngIf="car.controls.value.hasError('required')" class="text-help">Value required</div>
-                              <div *ngIf="car.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
                             </div>
                           </fieldset>
                         </div>
@@ -970,17 +774,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-9" label="Description">
+                          <fieldset class="col-xs-12 col-sm-8" label="Description" [errors]="[{type: 'required'}]">
                             <input type="text" [ngFormControl]="asset.controls.description">
-                            <div *ngIf="asset.controls.description.touched">
-                              <div *ngIf="asset.controls.description.hasError('required')" class="text-help">Description required</div>
-                            </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-3" label="Value">
-                            <input type="text" [ngFormControl]="asset.controls.value" pattern="[0-9]*$">
-                            <div *ngIf="asset.controls.value.touched">
-                              <div *ngIf="asset.controls.value.hasError('required')" class="text-help">Value required</div>
-                              <div *ngIf="asset.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          <fieldset class="col-xs-12 col-sm-4" label="Value" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Dollar Amount'}]">
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="text" [ngFormControl]="asset.controls.value">
                             </div>
                           </fieldset>
                         </div>
@@ -1008,20 +808,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-8" label="Make, Model, Year">
+                          <fieldset class="col-xs-12 col-sm-8" label="Make, Model, Year" [errors]="[{type: 'required'}]">
                             <input type="text" [ngFormControl]="car.controls.make">
-                            <div *ngIf="car.controls.make.touched">
-                              <div *ngIf="car.controls.make.hasError('required')" class="text-help">Make, model, and year required</div>
-                            </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-4" label="Value">
+                          <fieldset class="col-xs-12 col-sm-4" label="Value" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Dollar Amount'}]">
                             <div class="input-group">
                               <span class="input-group-addon">$</span>
                               <input type="text" [ngFormControl]="car.controls.value">
-                            </div>
-                            <div *ngIf="car.controls.value.touched">
-                              <div *ngIf="car.controls.value.hasError('required')" class="text-help">Value required</div>
-                              <div *ngIf="car.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
                             </div>
                           </fieldset>
                         </div>
@@ -1041,17 +834,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-9" label="Description">
+                          <fieldset class="col-xs-12 col-sm-8" label="Description" [errors]="[{type: 'required'}]">
                             <input type="text" [ngFormControl]="asset.controls.description">
-                            <div *ngIf="asset.controls.description.touched">
-                              <div *ngIf="asset.controls.description.hasError('required')" class="text-help">Description required</div>
-                            </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-3" label="Value">
-                            <input type="text" [ngFormControl]="asset.controls.value" pattern="[0-9]*$">
-                            <div *ngIf="asset.controls.value.touched">
-                              <div *ngIf="asset.controls.value.hasError('required')" class="text-help">Value required</div>
-                              <div *ngIf="asset.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          <fieldset class="col-xs-12 col-sm-4" label="Value" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Dollar Amount'}]">
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="text" [ngFormControl]="asset.controls.value">
                             </div>
                           </fieldset>
                         </div>
@@ -1086,16 +875,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                          <fieldset class="col-xs-12 col-sm-8" label="Description" [errors]="[{type: 'required'}]">
                             <input type="text" [ngFormControl]="liability.controls.description">
-                            <div *ngIf="liability.controls.description.touched">
-                              <div *ngIf="liability.controls.description.hasError('required')" class="text-help">Description required</div>
-                            </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-6" label="Remaining Balance">
-                            <input type="text" [ngFormControl]="liability.controls.balance">
-                            <div *ngIf="liability.controls.balance.touched">
-                              <div *ngIf="liability.controls.balance.hasError('required')" class="text-help">Balance required</div>
+                          <fieldset class="col-xs-12 col-sm-4" label="Remaining Balance" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Dollar Amount'}]">
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="text" [ngFormControl]="liability.controls.balance">
                             </div>
                           </fieldset>
                         </div>
@@ -1115,16 +901,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                          <fieldset class="col-xs-12 col-sm-8" label="Description" [errors]="[{type: 'required'}]">
                             <input type="text" [ngFormControl]="alimony.controls.description">
-                            <div *ngIf="alimony.controls.description.touched">
-                              <div *ngIf="alimony.controls.description.hasError('required')" class="text-help">Description required</div>
-                            </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-6" label="Monthly Payment">
-                            <input type="text" [ngFormControl]="alimony.controls.payment">
-                            <div *ngIf="alimony.controls.payment.touched">
-                              <div *ngIf="alimony.controls.payment.hasError('required')" class="text-help">Payment value required</div>
+                          <fieldset class="col-xs-12 col-sm-4" label="Monthly Payment" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Dollar Amount'}]">
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="text" [ngFormControl]="alimony.controls.payment">
                             </div>
                           </fieldset>
                         </div>
@@ -1147,16 +930,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                          <fieldset class="col-xs-12 col-sm-8" label="Description" [errors]="[{type: 'required'}]">
                             <input type="text" [ngFormControl]="liability.controls.description">
-                            <div *ngIf="liability.controls.description.touched">
-                              <div *ngIf="liability.controls.description.hasError('required')" class="text-help">Description required</div>
-                            </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-6" label="Remaining Balance">
-                            <input type="text" [ngFormControl]="liability.controls.balance">
-                            <div *ngIf="liability.controls.balance.touched">
-                              <div *ngIf="liability.controls.balance.hasError('required')" class="text-help">Balance required</div>
+                          <fieldset class="col-xs-12 col-sm-4" label="Remaining Balance" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Dollar Amount'}]">
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="text" [ngFormControl]="liability.controls.balance">
                             </div>
                           </fieldset>
                         </div>
@@ -1176,16 +956,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                          <fieldset class="col-xs-12 col-sm-8" label="Description" [errors]="[{type: 'required'}]">
                             <input type="text" [ngFormControl]="alimony.controls.description">
-                            <div *ngIf="alimony.controls.description.touched">
-                              <div *ngIf="alimony.controls.description.hasError('required')" class="text-help">Description required</div>
-                            </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-6" label="Monthly Payment">
-                            <input type="text" [ngFormControl]="alimony.controls.payment">
-                            <div *ngIf="alimony.controls.payment.touched">
-                              <div *ngIf="alimony.controls.payment.hasError('required')" class="text-help">Payment value required</div>
+                          <fieldset class="col-xs-12 col-sm-4" label="Monthly Payment" [errors]="[{type: 'required'}, {type: 'pattern', message: 'Invalid Dollar Amount'}]">
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="text" [ngFormControl]="alimony.controls.payment">
                             </div>
                           </fieldset>
                         </div>
@@ -1239,11 +1016,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('a')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('a')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.a"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('a').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('a').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1266,11 +1040,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('a')" class="col-xs-12" label="PLease provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('a')" class="col-xs-12" label="PLease provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.a"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('a').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('a').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1300,11 +1071,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('b')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('b')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.b"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('b').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('b').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1327,11 +1095,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('b')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('b')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.b"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('b').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('b').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1361,11 +1126,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('c')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('c')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.c"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('c').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('c').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1388,11 +1150,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('c')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('c')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.c"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('c').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('c').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1422,11 +1181,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('d')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('d')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.d"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('d').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('d').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1449,11 +1205,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('d')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('d')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.d"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('d').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('d').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1483,11 +1236,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('e')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('e')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.e"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('e').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('e').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1510,11 +1260,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('e')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('e')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.e"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('e').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('e').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1544,11 +1291,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('f')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('f')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.e"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('f').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('f').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1571,11 +1315,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('f')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('f')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.f"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('f').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('f').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1605,11 +1346,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('g')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('g')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.g"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('g').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('g').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1632,11 +1370,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('g')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('g')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.g"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('g').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('g').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1666,11 +1401,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('h')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('h')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.h"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('h').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('h').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1693,11 +1425,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('h')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('h')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.h"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('h').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('h').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1727,11 +1456,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('i')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('i')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.i"></textarea>
-                          <div *ngIf="explanationsForm.find('borrower').find('i').touched">
-                            <div *ngIf="explanationsForm.find('borrower').find('i').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
@@ -1754,11 +1480,8 @@
                         </div>
                       </div>
                       <div [ngFormModel]="explanationsForm">
-                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('i')" class="col-xs-12" label="Please provide an explanation">
+                        <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('i')" class="col-xs-12" label="Please provide an explanation" [errors]="[{type: 'required', message: 'Explanation Required'}]">
                           <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.i"></textarea>
-                          <div *ngIf="explanationsForm.find('coborrower').find('i').touched">
-                            <div *ngIf="explanationsForm.find('coborrower').find('i').hasError('required')" class="text-help">An explanation is required</div>
-                          </div>
                         </fieldset>
                       </div>
                     </div>
