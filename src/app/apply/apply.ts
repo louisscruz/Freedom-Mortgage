@@ -476,7 +476,9 @@ export class Apply {
   generateCar(): ControlGroup {
     const group = new ControlGroup({
       'make': new Control('', Validators.required),
-      'value': new Control('', Validators.required)
+      'value': new Control('', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ]))
     });
     return group;
   }

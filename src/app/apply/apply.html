@@ -937,14 +937,17 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-9" label="Make, Model, Year">
+                          <fieldset class="col-xs-12 col-sm-8" label="Make, Model, Year">
                             <input type="text" [ngFormControl]="car.controls.make">
                             <div *ngIf="car.controls.make.touched">
                               <div *ngIf="car.controls.make.hasError('required')" class="text-help">Make, model, and year required</div>
                             </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-3" label="Value">
-                            <input type="text" [ngFormControl]="car.controls.value" pattern="[0-9]*$">
+                          <fieldset class="col-xs-12 col-sm-4" label="Value">
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="text" [ngFormControl]="car.controls.value">
+                            </div>
                             <div *ngIf="car.controls.value.touched">
                               <div *ngIf="car.controls.value.hasError('required')" class="text-help">Value required</div>
                               <div *ngIf="car.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
@@ -1005,14 +1008,17 @@
                           </div>
                         </div>
                         <div class="row">
-                          <fieldset class="col-xs-12 col-sm-9" label="Make, Model, Year">
+                          <fieldset class="col-xs-12 col-sm-8" label="Make, Model, Year">
                             <input type="text" [ngFormControl]="car.controls.make">
                             <div *ngIf="car.controls.make.touched">
                               <div *ngIf="car.controls.make.hasError('required')" class="text-help">Make, model, and year required</div>
                             </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-3" label="Value">
-                            <input type="text" [ngFormControl]="car.controls.value" pattern="[0-9]*$">
+                          <fieldset class="col-xs-12 col-sm-4" label="Value">
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="text" [ngFormControl]="car.controls.value">
+                            </div>
                             <div *ngIf="car.controls.value.touched">
                               <div *ngIf="car.controls.value.hasError('required')" class="text-help">Value required</div>
                               <div *ngIf="car.controls.value.hasError('pattern')" class="text-help">Invalid dollar amount</div>
