@@ -16,13 +16,27 @@ import {DatePickerPopupDirective} from '../components/datepicker/datepicker-popu
 import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
 import {focusedTextarea} from '../directives/focusedTextarea';
+import {CurrencyInputDirective} from '../directives/currency-input.directive';
+import {CurrencyInputComponent} from '../components/currency-input.component';
 
 const declarationsKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'm1', 'm2', 'explanations'];
 const checkArray = declarationsKeys.slice(0, 9);
+const currencyRegex = '(^([0-9]*?)\.?([0-9]{1,2}?)$)';
+const regex = new RegExp(currencyRegex);
 
 @Component({
   selector: 'apply',
-  directives: [DatePickerComponent, DatePickerPopupDirective, ClickOutsideDirective, DROPDOWN_DIRECTIVES, focusedTextarea, FieldsetComponent, BootstrapInputDirective],
+  directives: [
+    DatePickerComponent,
+    DatePickerPopupDirective,
+    ClickOutsideDirective,
+    DROPDOWN_DIRECTIVES,
+    focusedTextarea,
+    FieldsetComponent,
+    BootstrapInputDirective,
+    CurrencyInputDirective,
+    CurrencyInputComponent
+  ],
   providers: [DatePickerService],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
@@ -42,8 +56,9 @@ export class Apply {
   private states: Array<any> = States;
   private loanMin: number = 50000;
   private loanMax: number = 2500000;
-  private borrowerRent: number = 0.00;
-  private coborrowerRent: number = 0.00;
+  private borrowerRent: string = '0.00';
+  private coborrowerRent: string = '0.00';
+  private incomeRentForm: ControlGroup;
   private borrowerCarsArray: ControlArray;
   private coborrowerCarsArray: ControlArray;
   private borrowerOtherAssetsArray: ControlArray;
@@ -71,7 +86,19 @@ export class Apply {
     this.explanationsForm = new ControlGroup({
       'borrower': this.generateExplanations(),
       'coborrower': this.generateExplanations()
-    })
+    });
+    this.incomeRentForm = new ControlGroup({
+      'borrower': new ControlGroup({
+        'rent': new Control('0.00', Validators.compose([
+          Validators.required, Validators.pattern(currencyRegex)
+        ]))
+      }),
+      'coborrower': new ControlGroup({
+        'rent': new Control('0.00', Validators.compose([
+          Validators.required, Validators.pattern(currencyRegex)
+        ]))
+      })
+    });
   }
 
   emailValidator(control: Control): { [s: string]: boolean} {
@@ -100,13 +127,27 @@ export class Apply {
 
   generateIncome(): ControlGroup {
     const group = new ControlGroup({
-      'baseIncome': new Control('0.00', Validators.required),
-      'overtime': new Control('0.00', Validators.required),
-      'bonuses': new Control('0.00', Validators.required),
-      'commissions': new Control('0.00', Validators.required),
-      'dividends': new Control('0.00', Validators.required),
-      'rental': new Control('0.00', Validators.required),
-      'other': new Control('0.00', Validators.required)
+      'baseIncome': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ])),
+      'overtime': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ])),
+      'bonuses': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ])),
+      'commissions': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ])),
+      'dividends': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ])),
+      'rental': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ])),
+      'other': new Control('0.00', Validators.compose([
+        Validators.required, Validators.pattern(currencyRegex)
+      ])),
     });
     group.exclude('overtime');
     group.exclude('bonuses');
@@ -426,7 +467,9 @@ export class Apply {
   }
 
   updateRent(): void {
-    let value = parseFloat((this.borrowerRent + this.coborrowerRent).toFixed(2));
+    const borrowerRent = this.incomeRentForm.find('borrower').find('rent').value;
+    const coborrowerRent = this.incomeRentForm.find('coborrower').find('rent').value;
+    let value = (parseFloat(borrowerRent) + parseFloat(coborrowerRent)).toFixed(2);
     (this.applyForm.find('incomeGroup').find('rent') as Control).updateValue(value);
   }
 
@@ -556,7 +599,9 @@ export class Apply {
         let subgroup = (group.find(x) as ControlGroup);
         for (const y in subgroup.controls) {
           if (subgroup.contains(y)) {
-            total += parseFloat(parseFloat(subgroup.find(y).value).toFixed(2));
+            if (subgroup.find(y).valid) {
+              total += parseFloat(parseFloat(subgroup.find(y).value).toFixed(2));
+            }
           }
         }
       }
@@ -564,9 +609,10 @@ export class Apply {
     return total.toFixed(2);
   }
 
-  get expensesTotal(): string {
-    let total = this.borrowerRent + this.coborrowerRent;
-    return total.toFixed(2);
+  invalidCurrency(value: string): boolean {
+    if (!regex.test(value)) {
+      return true;
+    }
   }
 
   /*get borrowerAssetsTotal(): string {
@@ -628,6 +674,7 @@ export class Apply {
         this.addBorrowerJob();
       }
     });
+
     (this.applyForm.find('assetsGroup').find('joined') as Control).valueChanges.subscribe(data => {
       if (this.applyForm.find('assetsGroup').find('joined').value === false) {
         (this.applyForm.find('assetsGroup') as ControlGroup).include('coborrower');
@@ -691,6 +738,21 @@ export class Apply {
           parentGroup.include('ethnicity');
           parentGroup.include('race');
           parentGroup.include('sex');
+        }
+      });
+    }
+    for (const x in this.incomeRentForm.controls) {
+      const group = (this.incomeRentForm.find(x) as ControlGroup);
+      group.find('rent').valueChanges.subscribe(data =>  {
+        if (group.find('rent').valid) {
+          let total = 0.00;
+          for (const y in this.incomeRentForm.controls) {
+            let value = this.incomeRentForm. find(y).find('rent');
+            if (value.valid) {
+              total += parseFloat(value.value);
+            }
+          }
+          (this.applyForm.find('incomeGroup').find('rent') as Control).updateValue(total.toFixed(2));
         }
       });
     }

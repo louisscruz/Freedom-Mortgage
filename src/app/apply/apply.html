@@ -577,104 +577,162 @@
                         <label class="form-control-label font-weight-bold">Monthly Income</label>
                       </div>
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <label class="form-control-label">{{borrowerName}}:</label>
-                        <input type="number" ngControl="baseIncome" min=0 step="0.01">
+                        <fieldset label="{{borrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('baseIncome')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('baseIncome').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('baseIncome').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <label class="form-control-label">{{coborrowerName}}:</label>
-                        <input type="number" ngControl="baseIncome" min="0" step="0.01">
+                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('baseIncome')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('baseIncome').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('baseIncome').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="applyForm.find('incomeGroup').find('borrower').contains('overtime')">
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
-                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'overtime')"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12">
+                        <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'overtime')"><i class="fa fa-close fa-fw"></i></button>
                         <label class="form-control-label font-weight-bold">Monthly Overtime</label>
                       </div>
                     </div>
                     <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <label class="form-control-label">{{borrowerName}}:</label>
-                        <input type="number" ngControl="overtime" min=0 step="0.01">
+                        <fieldset label="{{borrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('overtime')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('overtime').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('overtime').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <label class="form-control-label">{{coborrowerName}}:</label>
-                        <input type="number" ngControl="overtime" min="0" step="0.01">
+                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('overtime')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('overtime').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('overtime').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="applyForm.find('incomeGroup').find('borrower').contains('bonuses')">
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
-                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'bonuses')"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12">
+                        <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'bonuses')"><i class="fa fa-close fa-fw"></i></button>
                         <label class="form-control-label font-weight-bold">Monthly Bonuses</label>
                       </div>
                     </div>
                     <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <label class="form-control-label">{{borrowerName}}:</label>
-                        <input type="number" ngControl="bonuses" min=0 step="0.01">
+                        <fieldset label="{{borrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('bonuses')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('bonuses').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('bonuses').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                       <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <label class="form-control-label">{{coborrowerName}}:</label>
-                        <input type="number" ngControl="bonuses" min="0" step="0.01">
-                      </div>
-                      <div class="col-xs-4" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
-                        <label class="form-control-label">Total</label>
-                        <input [value]="bonuses" readonly>
+                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('bonuses')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('bonuses').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('bonuses').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="applyForm.find('incomeGroup').find('borrower').contains('commissions')">
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
-                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'commissions')"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12">
+                        <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'commissions')"><i class="fa fa-close fa-fw"></i></button>
                         <label class="form-control-label font-weight-bold">Monthly Commissions</label>
                       </div>
                     </div>
                     <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <label class="form-control-label">{{borrowerName}}:</label>
-                        <input type="number" ngControl="commissions" min=0 step="0.01">
+                        <fieldset label="{{borrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('commissions')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('commissions').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('commissions').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
-                      <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('commissions')">
-                        <label class="form-control-label">{{coborrowerName}}:</label>
-                        <input type="number" ngControl="commissions" min="0" step="0.01">
-                      </div>
-                      <div class="col-xs-4" *ngIf="applyForm.find('incomeGroup').contains('commissions')">
-                        <label class="form-control-label">Total</label>
-                        <input [value]="bonuses" readonly>
+                      <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
+                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('commissions')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('commissions').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('commissions').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="applyForm.find('incomeGroup').find('borrower').contains('dividends')">
                   <div class="card card-block col-xs-12 col-md-8 col-md-offset-2">
-                    <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'dividends')"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
                       <div class="col-xs-12">
+                        <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'dividends')"><i class="fa fa-close fa-fw"></i></button>
                         <label class="form-control-label font-weight-bold">Monthly Dividends/Interest</label>
                       </div>
                     </div>
                     <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <label class="form-control-label">{{borrowerName}}:</label>
-                        <input type="number" ngControl="dividends" min=0 step="0.01">
+                        <fieldset label="{{borrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('dividends')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('dividends').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('dividends').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
-                      <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('dividends')">
-                        <label class="form-control-label">{{coborrowerName}}:</label>
-                        <input type="number" ngControl="dividends" min="0" step="0.01">
-                      </div>
-                      <div class="col-xs-4" *ngIf="applyForm.find('incomeGroup').contains('dividends')">
-                        <label class="form-control-label">Total</label>
-                        <input [value]="bonuses" readonly>
+                      <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
+                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('dividends')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('dividends').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('dividends').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                     </div>
                   </div>
@@ -686,19 +744,27 @@
                         <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'rental')"><i class="fa fa-close fa-fw"></i></button>
                         <label class="form-control-label font-weight-bold">Monthly Rental</label>
                       </div>
-                    </div>
-                    <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <label class="form-control-label">{{borrowerName}}:</label>
-                        <input type="number" ngControl="rental" min=0 step="0.01">
+                        <fieldset label="{{borrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('rental')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('rental').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('rental').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
-                      <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('rental')">
-                        <label class="form-control-label">{{coborrowerName}}:</label>
-                        <input type="number" ngControl="rental" min="0" step="0.01">
-                      </div>
-                      <div class="col-xs-4" *ngIf="applyForm.find('incomeGroup').contains('rental')">
-                        <label class="form-control-label">Total</label>
-                        <input [value]="bonuses" readonly>
+                      <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
+                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('rental')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('rental').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('rental').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                     </div>
                   </div>
@@ -710,19 +776,27 @@
                         <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="removeGroup('incomeGroup', 'other')"><i class="fa fa-close fa-fw"></i></button>
                         <label class="form-control-label font-weight-bold">Other Monthly Income</label>
                       </div>
-                    </div>
-                    <div class="row">
                       <div ngControlGroup="borrower" class="col-xs-6">
-                        <label class="form-control-label">{{borrowerName}}:</label>
-                        <input type="number" ngControl="other" min=0 step="0.01">
+                        <fieldset label="{{borrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('borrower').find('other')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('other').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('borrower').find('other').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
-                      <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('other')">
-                        <label class="form-control-label">{{coborrowerName}}:</label>
-                        <input type="number" ngControl="other" min="0" step="0.01">
-                      </div>
-                      <div class="col-xs-4" *ngIf="applyForm.find('incomeGroup').contains('other')">
-                        <label class="form-control-label">Total</label>
-                        <input [value]="bonuses" readonly>
+                      <div ngControlGroup="coborrower" class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')">
+                        <fieldset label="{{coborrowerName}}:" no-success="true">
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="applyForm.find('incomeGroup').find('coborrower').find('other')">
+                          </div>
+                          <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('other').touched">
+                            <div *ngIf="applyForm.find('incomeGroup').find('coborrower').find('other').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </fieldset>
                       </div>
                     </div>
                   </div>
@@ -777,15 +851,29 @@
                       <div class="col-xs-12">
                         <label class="form-control-label font-weight-bold">Monthly Rental Payments</label>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-xs-6">
-                        <label class="form-control-label">{{borrowerName}}:</label>
-                        <input type="number" [(ngModel)]="borrowerRent" (change)="updateRent()" min=0 step="0.01">
+                        <div class="form-group" [class.has-danger]="incomeRentForm.find('borrower').find('rent').touched && !incomeRentForm.find('borrower').find('rent').valid">
+                          <label class="form-control-label">{{borrowerName}}:</label>
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="incomeRentForm.find('borrower').find('rent')">
+                          </div>
+                          <div *ngIf="incomeRentForm.find('borrower').find('rent').touched">
+                            <div *ngIf="incomeRentForm.find('borrower').find('rent').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-xs-6" *ngIf="applyForm.contains('coborrowerGroup')">
-                        <label class="form-control-label">{{coborrowerName}}:</label>
-                        <input type="number" [(ngModel)]="coborrowerRent" (change)="updateRent()" min=0 step="0.01">
+                      <div class="col-xs-6" *ngIf="applyForm.find('incomeGroup').contains('coborrower')" [class.has-danger]="incomeRentForm.find('coborrower').find('rent').touched && !incomeRentForm.find('coborrower').find('rent').valid">
+                        <div class="form-group" [class.has-danger]="invalidCurrency(borrowerRent)">
+                          <label class="form-control-label">{{coborrowerName}}:</label>
+                          <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" [ngFormControl]="incomeRentForm.find('coborrower').find('rent')">
+                          </div>
+                          <div *ngIf="incomeRentForm.find('coborrower').find('rent').touched">
+                            <div *ngIf="incomeRentForm.find('coborrower').find('rent').hasError('pattern')" class="text-help">Invalid dollar amount</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -793,7 +881,7 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <hr>
-                    <p class="pull-xs-right">Total Monthly Rent: ${{expensesTotal}}</p>
+                    <p class="pull-xs-right">Total Monthly Rent: ${{applyForm.find('incomeGroup').find('rent').value}}</p>
                   </div>
                 </div>
               </div>
@@ -998,7 +1086,7 @@
                               <div *ngIf="liability.controls.description.hasError('required')" class="text-help">Description required</div>
                             </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                          <fieldset class="col-xs-12 col-sm-6" label="Remaining Balance">
                             <input type="text" [ngFormControl]="liability.controls.balance">
                             <div *ngIf="liability.controls.balance.touched">
                               <div *ngIf="liability.controls.balance.hasError('required')" class="text-help">Balance required</div>
@@ -1059,7 +1147,7 @@
                               <div *ngIf="liability.controls.description.hasError('required')" class="text-help">Description required</div>
                             </div>
                           </fieldset>
-                          <fieldset class="col-xs-12 col-sm-6" label="Description">
+                          <fieldset class="col-xs-12 col-sm-6" label="Remaining Balance">
                             <input type="text" [ngFormControl]="liability.controls.balance">
                             <div *ngIf="liability.controls.balance.touched">
                               <div *ngIf="liability.controls.balance.hasError('required')" class="text-help">Balance required</div>
@@ -1173,7 +1261,7 @@
                       </div>
                       <div [ngFormModel]="explanationsForm">
                         <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('a')" class="col-xs-12" label="PLease provide an explanation">
-                          <textarea [ngFormControl]="explanationsGroup.controls.coborrower.controls.a"></textarea>
+                          <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.a"></textarea>
                           <div *ngIf="explanationsForm.find('coborrower').find('a').touched">
                             <div *ngIf="explanationsForm.find('coborrower').find('a').hasError('required')" class="text-help">An explanation is required</div>
                           </div>
@@ -1268,7 +1356,7 @@
                       </div>
                       <div [ngFormModel]="explanationsForm">
                         <fieldset ngControlGroup="borrower" *ngIf="explanationsForm.find('borrower').contains('c')" class="col-xs-12" label="Please provide an explanation">
-                          <textarea [ngFormControl]="explanationsGroup.controls.borrower.controls.c"></textarea>
+                          <textarea [ngFormControl]="explanationsForm.controls.borrower.controls.c"></textarea>
                           <div *ngIf="explanationsForm.find('borrower').find('c').touched">
                             <div *ngIf="explanationsForm.find('borrower').find('c').hasError('required')" class="text-help">An explanation is required</div>
                           </div>
@@ -1295,7 +1383,7 @@
                       </div>
                       <div [ngFormModel]="explanationsForm">
                         <fieldset ngControlGroup="coborrower" *ngIf="explanationsForm.find('coborrower').contains('c')" class="col-xs-12" label="Please provide an explanation">
-                          <textarea [ngFormControl]="explanationsGroup.controls.coborrower.controls.c"></textarea>
+                          <textarea [ngFormControl]="explanationsForm.controls.coborrower.controls.c"></textarea>
                           <div *ngIf="explanationsForm.find('coborrower').find('c').touched">
                             <div *ngIf="explanationsForm.find('coborrower').find('c').hasError('required')" class="text-help">An explanation is required</div>
                           </div>

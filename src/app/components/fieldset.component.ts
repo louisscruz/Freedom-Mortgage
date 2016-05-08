@@ -40,6 +40,9 @@ export class FieldsetComponent {
   @Input()
   label: string;
 
+  @Input()
+  noSuccess: boolean;
+
   @ContentChild(NgFormControl) state;
 
   @HostBinding('class.has-danger')
@@ -51,7 +54,7 @@ export class FieldsetComponent {
 
   @HostBinding('class.has-success')
   get throwSuccess(): boolean {
-    if (this.state) {
+    if (this.state && this.noSuccess) {
       return (this.state.valid && this.state.touched);
     }
   }
