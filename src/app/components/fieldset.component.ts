@@ -1,13 +1,21 @@
+import {isPresent} from '@angular/core/src/facade/lang';
 import {
   Component,
   ContentChild,
+  Attribute,
+  ElementRef,
+  Renderer,
+  Optional,
   Input,
+  TemplateRef,
   HostBinding
 } from '@angular/core';
 import {Control, NgFormControl} from '@angular/common';
+import {BootstrapInputDirective} from '../directives/input.directive';
 
 @Component({
   selector: 'fieldset',
+  directives: [BootstrapInputDirective],
   template: `
     <label class="form-control-label">{{label}}</label>
     <ng-content></ng-content>
@@ -25,8 +33,7 @@ export class FieldsetComponent {
   @Input()
   noSuccess: boolean;
 
-  @ContentChild(NgFormControl)
-  state: NgFormControl;
+  @ContentChild(NgFormControl) state;
 
   @Input() errors: Array<{type: string, message?: string}>;
 
