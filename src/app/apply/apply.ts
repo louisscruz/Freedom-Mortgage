@@ -68,6 +68,10 @@ export class Apply {
   private coborrowerOtherLiabilitiesArray: ControlArray;
   private borrowerAlimonyArray: ControlArray;
   private coborrowerAlimonyArray: ControlArray;
+  private borrowerAssetsValue: string = '0.00';
+  private borrowerLiabilitiesValue: string = '0.00';
+  private coborrowerAssetsValue: string = '0.00';
+  private coborrowerLiabilitiesValue: string = '0.00';
   private explanationsForm: ControlGroup;
   private borrowerExplanations: Array<string> = [];
   private coborrowerExplanations: Array<string> = [];
@@ -634,24 +638,6 @@ export class Apply {
     }
   }
 
-  /*get borrowerAssetsTotal(): string {
-    let total = 0;
-    const group = (this.applyForm.find('assetsGroup').find('borrower').find('assets') as ControlGroup);
-    for (const x in group.controls) {
-      const subgroup = (group.find(x) as ControlArray);
-      if (subgroup.length > 0) {
-        console.log(subgroup)
-        for (let i = 0; i < subgroup.length; i++) {
-          const value = parseFloat(parseFloat(subgroup[i].find('value').value).toFixed(2));
-          if (typeof value === 'number') {
-            total += value;
-          }
-        }
-      }
-    }
-    return total.toFixed(2);
-  }*/
-
   get coborrowerAssetsTotal(): string {
     return '7';
   }
@@ -671,12 +657,6 @@ export class Apply {
         this.coborrowerName = data;
       }
     });
-    /*for (const x in (this.applyForm.find('employmentGroup') as ControlGroup).controls) {
-      const parentGroup = (this.applyForm.find('employmentGroup').find(x) as ControlArray);
-      parentGroup.valueChanges.subscribe(data => {
-        console.log(data);
-      });
-    }*/
     (this.applyForm.find('employmentGroup').find('borrower') as ControlGroup).valueChanges.subscribe(data => {
       const parentGroup = (this.applyForm.find('employmentGroup').find('borrower') as ControlArray);
       let time = 0;
@@ -693,13 +673,88 @@ export class Apply {
         this.addBorrowerJob();
       }
     });
-
     (this.applyForm.find('assetsGroup').find('joined') as Control).valueChanges.subscribe(data => {
       if (this.applyForm.find('assetsGroup').find('joined').value === false) {
         (this.applyForm.find('assetsGroup') as ControlGroup).include('coborrower');
       } else {
         (this.applyForm.find('assetsGroup') as ControlGroup).exclude('coborrower');
       }
+    });
+    (this.applyForm.find('assetsGroup').find('borrower').find('assets') as ControlGroup).valueChanges.subscribe(data => {
+      let total = 0;
+      let group = this.applyForm.find('assetsGroup').find('borrower').find('assets');
+      let cars = (group.find('cars') as ControlArray);
+      for (let i = 0; i < cars.length; i++) {
+        let carValue = cars.controls[i].find('value');
+        if (carValue.valid) {
+          total += parseFloat(carValue.value);
+        }
+      }
+      let assets = (group.find('other') as ControlArray);
+      for (let i = 0; i < assets.length; i++) {
+        let assetValue = assets.controls[i].find('value');
+        if (assetValue.valid) {
+          total += parseFloat(assetValue.value);
+        }
+      }
+      this.borrowerAssetsValue = total.toFixed(2);
+    });
+    (this.applyForm.find('assetsGroup').find('borrower').find('liabilities') as ControlGroup).valueChanges.subscribe(data => {
+      let total = 0;
+      let group = this.applyForm.find('assetsGroup').find('borrower').find('liabilities');
+      let others = (group.find('other') as ControlArray);
+      for (let i = 0; i < others.length; i++) {
+        let otherValue = others.controls[i].find('balance');
+        if (otherValue.valid) {
+          total += parseFloat(otherValue.value);
+        }
+      }
+      let alimony = (group.find('alimony') as ControlArray);
+      for (let i = 0; i < alimony.length; i++) {
+        let alimonyValue = alimony.controls[i].find('payment');
+        if (alimonyValue.valid) {
+          total += parseFloat(alimonyValue.value);
+        }
+      }
+      this.borrowerLiabilitiesValue = total.toFixed(2);
+    });
+    (this.applyForm.find('assetsGroup').find('coborrower').find('assets') as ControlGroup).valueChanges.subscribe(data => {
+      let total = 0;
+      let group = this.applyForm.find('assetsGroup').find('coborrower').find('assets');
+      let cars = (group.find('cars') as ControlArray);
+      for (let i = 0; i < cars.length; i++) {
+        let carValue = cars.controls[i].find('value');
+        if (carValue.valid) {
+          total += parseFloat(carValue.value);
+        }
+      }
+      let assets = (group.find('other') as ControlArray);
+      for (let i = 0; i < assets.length; i++) {
+        let assetValue = assets.controls[i].find('value');
+        if (assetValue.valid) {
+          total += parseFloat(assetValue.value);
+        }
+      }
+      this.coborrowerAssetsValue = total.toFixed(2);
+    });
+    (this.applyForm.find('assetsGroup').find('coborrower').find('liabilities') as ControlGroup).valueChanges.subscribe(data => {
+      let total = 0;
+      let group = this.applyForm.find('assetsGroup').find('coborrower').find('liabilities');
+      let others = (group.find('other') as ControlArray);
+      for (let i = 0; i < others.length; i++) {
+        let carValue = others.controls[i].find('balance');
+        if (carValue.valid) {
+          total += parseFloat(carValue.value);
+        }
+      }
+      let alimony = (group.find('alimony') as ControlArray);
+      for (let i = 0; i < alimony.length; i++) {
+        let alimonyValue = alimony.controls[i].find('payment');
+        if (alimonyValue.valid) {
+          total += parseFloat(alimonyValue.value);
+        }
+      }
+      this.coborrowerLiabilitiesValue = total.toFixed(2);
     });
     for (const x in (this.applyForm.find('declarationsGroup') as ControlGroup).controls) {
       const parentGroup = (this.applyForm.find('declarationsGroup').find(x) as ControlGroup);

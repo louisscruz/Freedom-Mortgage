@@ -791,9 +791,9 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-xs-12">
-                    <b>{{borrowerName}}'s Total Assets: {{borrowerAssetsTotal}}</b>
+                    <div class="col-xs-12">
+                      <b class="pull-xs-right">{{borrowerName}}'s Total Assets: ${{borrowerAssetsValue}}</b>
+                    </div>
                   </div>
                 </div>
                 <div class="row" *ngIf="applyForm.find('assetsGroup').contains('coborrower')">
@@ -851,9 +851,9 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-xs-12">
-                    <b>{{coborrowerName}}'s Total Assets:</b>
+                    <div class="col-xs-12">
+                      <b class="pull-xs-right">{{coborrowerName}}'s Total Assets: ${{coborrowerAssetsValue}}</b>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -918,6 +918,9 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-xs-12">
+                      <b class="pull-xs-right">{{borrowerName}}'s Total Liabilities: ${{borrowerLiabilitiesValue}}</b>
+                    </div>
                   </div>
                   <div class="col-xs-12 card card-block" *ngIf="applyForm.find('assetsGroup').contains('coborrower')">
                     <h6 class="text-xs-center">{{coborrowerName}}</h6>
@@ -972,6 +975,9 @@
                           <button type="button" class="btn btn-primary pull-xs-right" (click)="addCoborrowerAlimony()" [disabled]="coborrowerAlimonyArray.length >= 3">Add Child Support/Alimony</button>
                         </div>
                       </div>
+                    </div>
+                    <div class="col-xs-12">
+                      <b class="pull-xs-right">{{coborrowerName}}'s Total Liabilities: ${{coborrowerLiabilitiesValue}}</b>
                     </div>
                   </div>
                 </div>
