@@ -37,9 +37,11 @@
                     <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.email">
                   </fieldset>
                   <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Birthdate" [errors]="[{type: 'required'}]">
-                    <input type="text" (click)="toggleBorrowerDob()" [ngFormControl]="applyForm.controls.borrowerGroup.controls.dob" [value]="borrowerDob" readonly>
-                    <div style="min-height:290px; position: absolute; z-index: 2;" [hidden]="!borrowerDobOpen">
-                      <datepicker [(ngModel)]="borrowerDob" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeBorrowerDob()"></datepicker>
+                    <div clickOutside (outside)="closeBorrowerDob()">
+                      <input type="text" (click)="toggleBorrowerDob()" [ngFormControl]="applyForm.controls.borrowerGroup.controls.dob" readonly>
+                      <div style="min-height:290px; position: absolute; z-index: 2;" [hidden]="!borrowerDobOpen">
+                        <datepicker [ngModel]="borrowerDob" (ngModelChange)="setDateField($event, applyForm.find('borrowerGroup').find('dob'))" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeBorrowerDob()"></datepicker>
+                      </div>
                     </div>
                   </fieldset>
                   <fieldset class="col-xs-12 col-sm-6 col-md-3" label="SSN" [errors]="[{type: 'required'}]">
@@ -144,30 +146,34 @@
                       <input type="text" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.phone">
                     </fieldset>
                     <fieldset class="col-xs-12 col-sm-6 col-md-3" label="Birthdate" [errors]="[{type: 'required'}]">
-                      <input type="text" (click)="toggleCoborrowerDob()" [value]="coborrowerDob" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.dob" readonly [class.form-control-success]="applyForm.find('coborrowerGroup').find('dob').valid && applyForm.find('coborrowerGroup').find('dob').touched" [class.form-control-danger]="!applyForm.find('coborrowerGroup').find('dob').valid && applyForm.find('coborrowerGroup').find('dob').touched">
-                      <div style="min-height:290px; position: absolute; z-index: 2;" [hidden]="!coborrowerDobOpen">
-                        <datepicker [(ngModel)]="coborrowerDob" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeCoborrowerDob()"></datepicker>
+                      <div clickOutside (outside)="closeCoborrowerDob()">
+                        <input type="text" (click)="toggleCoborrowerDob()" [ngFormControl]="applyForm.controls.coborrowerGroup.controls.dob" readonly>
+                        <div style="min-height:180px; position: absolute; z-index: 2;" [hidden]="!coborrowerDobOpen">
+                          <datepicker [ngModel]="coborrowerDob" (ngModelChange)="setDateField($event, applyForm.find('coborrowerGroup').find('dob'))" [showWeeks]="false" [datepickerMode]="'year'" (close)="closeCoborrowerDob()"></datepicker>
+                        </div>
                       </div>
                     </fieldset>
                     <fieldset class="col-xs-12 col-sm-6 col-md-3" label="SSN" [errors]="[{type: 'required'}]">
                       <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.ssn">
                     </fieldset>
-                    <div class="row">
-                      <label class="form-control-label">Does your coborrower reside at the same address?</label>
-                      <div class="col-xs-12">
-                        <div class="radio">
-                          <label class="c-input c-radio">
-                            <input type="radio" name="coborrowerAdd1" (click)="removeCoborrowerAddress()" [checked]="!applyForm.find('coborrowerGroup').contains('address')">
-                            <span class="c-indicator"></span>
-                            Yes
-                          </label>
-                        </div>
-                        <div class="radio">
-                          <label class="c-input c-radio">
-                            <input type="radio" name="coborrowerAdd1" (click)="addCoborrowerAddress()">
-                            <span class="c-indicator"></span>
-                            No
-                          </label>
+                    <div class="col-xs-12">
+                      <div class="row">
+                        <label class="form-control-label">Does your coborrower reside at the same address?</label>
+                        <div class="col-xs-12">
+                          <div class="radio">
+                            <label class="c-input c-radio">
+                              <input type="radio" name="coborrowerAdd1" (click)="removeCoborrowerAddress()" [checked]="!applyForm.find('coborrowerGroup').contains('address')">
+                              <span class="c-indicator"></span>
+                              Yes
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label class="c-input c-radio">
+                              <input type="radio" name="coborrowerAdd1" (click)="addCoborrowerAddress()">
+                              <span class="c-indicator"></span>
+                              No
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>

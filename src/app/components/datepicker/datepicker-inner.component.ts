@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Input} from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 import {
   CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgModel
 } from '@angular/common';
@@ -89,6 +89,7 @@ export class DatePickerInnerComponent implements OnInit {
   private refreshViewHandlerYear:Function;
   private compareHandlerYear:Function;
   private update:EventEmitter<Date> = new EventEmitter(false);
+  @Output() close: EventEmitter<any> = new EventEmitter();
 
   @Input()
   public get activeDate():Date {
@@ -245,8 +246,8 @@ export class DatePickerInnerComponent implements OnInit {
       if (!this.activeDate) {
         this.activeDate = new Date(0, 0, 0, 0, 0, 0, 0);
       }
-
       this.activeDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      this.close.emit(null);
     } else {
       this.activeDate = date;
       this.datepickerMode = this.modes[this.modes.indexOf(this.datepickerMode) - 1];

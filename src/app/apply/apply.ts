@@ -23,6 +23,9 @@ const declarationsKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
 const checkArray = declarationsKeys.slice(0, 9);
 const currencyRegex = '(^([0-9]*?)\.?([0-9]{1,2}?)$)';
 const regex = new RegExp(currencyRegex);
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+];
 
 @Component({
   selector: 'apply',
@@ -109,6 +112,17 @@ export class Apply {
         ]))
       })
     });
+    this.borrowerDob = this.thirtyYearsAgo();
+    this.coborrowerDob = this.thirtyYearsAgo();
+  }
+
+  thirtyYearsAgo(): Date {
+    const today = new Date();
+    const year = today.getFullYear() - 30;
+    const month = today.getMonth();
+    const day = today.getDay();
+
+    return new Date(year, month, day);
   }
 
   emailValidator(control: Control): { [s: string]: boolean} {
@@ -335,7 +349,15 @@ export class Apply {
 
   closeBorrowerDob(): void {
     this.borrowerDobOpen = false;
-    (this.applyForm.controls['borrowerGroup'].find('dob') as Control).updateValue(this.borrowerDob);
+    this._changeDetectorRef.detectChanges();
+  }
+
+  toggleCoborrowerDob(): void {
+    this.coborrowerDobOpen = !this.coborrowerDobOpen;
+  }
+
+  closeCoborrowerDob(): void {
+    this.coborrowerDobOpen = false;
     this._changeDetectorRef.detectChanges();
   }
 
@@ -372,16 +394,6 @@ export class Apply {
       (this.applyForm.controls['coborrowerGroup'].find('middleName') as Control).updateValue(this.coborrowerMiddleNameCache);
       this.borrowerMiddleNameCache = '';
     }
-  }
-
-  toggleCoborrowerDob(): void {
-    this.coborrowerDobOpen = !this.coborrowerDobOpen;
-  }
-
-  closeCoborrowerDob(): void {
-    this.coborrowerDobOpen = false;
-    (this.applyForm.controls['coborrowerGroup'].find('dob') as Control).updateValue(this.coborrowerDob);
-    this._changeDetectorRef.detectChanges();
   }
 
   addCoborrowerAddress(): void {
@@ -644,6 +656,13 @@ export class Apply {
 
   get afValue(): string {
     return JSON.stringify(this.applyForm.value, null, 2)
+  }
+
+  setDateField(date: Date, field: Control): void {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    field.updateValue((month + 1).toString() + '/' + day.toString() + '/' + year.toString());
   }
 
   ngOnInit() {

@@ -6,17 +6,19 @@ import {Directive,
         ElementRef} from '@angular/core';
 
 @Directive({
-  selector: 'clickOutside'
+  selector: '[clickOutside]'
 })
 
 export class ClickOutsideDirective {
   private localEvent: any = null;
   @Input('clickOutside') clickOutsideHandler;
-  @Output() clickOutside: EventEmitter<any> = new EventEmitter();
+  @Output() outside: EventEmitter<any> = new EventEmitter();
   @HostListener('document:click')
   compareEvent(event) {
+    console.log('working')
     if (event !== this.localEvent) {
-      this.clickOutside.emit(null);
+      console.log('clicked outside!')
+      this.outside.emit(null);
     }
     this.localEvent = null;
   }

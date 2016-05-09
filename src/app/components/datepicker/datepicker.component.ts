@@ -1,4 +1,4 @@
-import {Component, Self, Input} from '@angular/core';
+import {Component, Self, Input, Output, EventEmitter} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, ControlValueAccessor, NgModel} from '@angular/common';
 import {DatePickerInnerComponent} from './datepicker-inner.component';
 import {DayPickerComponent} from './daypicker.component';
@@ -12,6 +12,7 @@ import {YearPickerComponent} from './yearpicker.component';
   template: `
     <datepicker-inner [activeDate]="activeDate"
                       (update)="onUpdate($event)"
+                      (close)="sendClose()"
                       [datepickerMode]="datepickerMode"
                       [initDate]="initDate"
                       [minDate]="minDate"
@@ -62,6 +63,11 @@ export class DatePickerComponent implements ControlValueAccessor {
   @Input() public customClass:Array<{date:Date, mode:string, clazz:string}>;
 // todo: change type during implementation
   @Input() public dateDisabled:any;
+  @Output() close: EventEmitter<any> = new EventEmitter();
+
+  sendClose(): void {
+    this.close.emit(null);
+  }
 
   public onChange:any = Function.prototype;
   public onTouched:any = Function.prototype;
@@ -86,6 +92,7 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
 
   public onUpdate(event:any):void {
+    console.log(event)
     this.writeValue(event);
     this.cd.viewToModelUpdate(event);
   }
