@@ -4,21 +4,23 @@ import {DatePickerInnerComponent} from './datepicker-inner.component';
 import {Ng2BootstrapConfig} from '../ng2-bootstrap-config';
 
 // write an interface for template options
-const TEMPLATE_OPTIONS:any = {
+const TEMPLATE_OPTIONS: any = {
   bs4: {
+    /* tslint:disable:max-line-length */
     MONTH_BUTTON: `
         <button type="button" style="min-width:100%;" class="btn btn-default"
                 [ngClass]="{'btn-info': dtz.selected, 'btn-link': !dtz.selected && !datePicker.isActive(dtz), 'btn-info': !dtz.selected && datePicker.isActive(dtz), disabled: dtz.disabled}"
                 [disabled]="dtz.disabled"
                 (click)="datePicker.select(dtz.date)" tabindex="-1"><span [ngClass]="{'text-success': dtz.current}">{{dtz.label}}</span></button>
     `
+    /* tslint:enable:max-line-length */
   }
 };
 
-const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS.bs4;
-
+const CURRENT_THEME_TEMPLATE: any = TEMPLATE_OPTIONS.bs4;
 @Component({
   selector: 'monthpicker',
+  /* tslint:disable:max-line-length */
   template: `
 <table *ngIf="datePicker.datepickerMode==='month'" role="grid">
   <thead>
@@ -54,26 +56,27 @@ const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS.bs4;
   </tbody>
 </table>
   `,
+  /* tslint:enable:max-line-length */
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, NgClass]
 })
 export class MonthPickerComponent implements OnInit {
-  public title:string;
-  public rows:Array<any> = [];
-  public datePicker:DatePickerInnerComponent;
+  public title: string;
+  public rows: Array<any> = [];
+  public datePicker: DatePickerInnerComponent;
 
-  public constructor(datePicker:DatePickerInnerComponent) {
+  public constructor(datePicker: DatePickerInnerComponent) {
     this.datePicker = datePicker;
   }
 
-  public ngOnInit():void {
+  public ngOnInit(): void {
     let self = this;
 
-    this.datePicker.stepMonth = {years: 1};
+    this.datePicker.stepMonth = {years:  1};
 
-    this.datePicker.setRefreshViewHandler(function ():void {
-      let months:Array<any> = new Array(12);
-      let year:number = this.activeDate.getFullYear();
-      let date:Date;
+    this.datePicker.setRefreshViewHandler(function (): void {
+      let months: Array<any> = new Array(12);
+      let year: number = this.activeDate.getFullYear();
+      let date: Date;
 
       for (let i = 0; i < 12; i++) {
         date = new Date(year, i, 1);
@@ -86,7 +89,7 @@ export class MonthPickerComponent implements OnInit {
       self.rows = this.split(months, 3);
     }, 'month');
 
-    this.datePicker.setCompareHandler(function (date1:Date, date2:Date):number {
+    this.datePicker.setCompareHandler(function (date1: Date, date2: Date): number {
       let d1 = new Date(date1.getFullYear(), date1.getMonth());
       let d2 = new Date(date2.getFullYear(), date2.getMonth());
       return d1.getTime() - d2.getTime();
@@ -95,5 +98,5 @@ export class MonthPickerComponent implements OnInit {
     this.datePicker.refreshView();
   }
 
-  // todo: key events implementation
+  // todo:  key events implementation
 }

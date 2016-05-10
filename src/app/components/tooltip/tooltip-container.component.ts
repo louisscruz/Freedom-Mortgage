@@ -20,25 +20,25 @@ import {TooltipOptions} from './tooltip-options.class';
 })
 export class TooltipContainerComponent implements AfterViewInit {
   /* tslint:disable */
-  private classMap:any;
-  private top:string = '-1000px';
-  private left:string = '-1000px';
-  private display:string = 'block';
-  private content:string;
-  private placement:string;
-  private popupClass:string;
-  private animation:boolean;
-  private isOpen:boolean;
-  private appendToBody:boolean;
-  private hostEl:ElementRef;
+  private classMap: any;
+  private top: string = '-1000px';
+  private left: string = '-1000px';
+  private display: string = 'block';
+  private content: string;
+  private placement: string;
+  private popupClass: string;
+  private animation: boolean;
+  private isOpen: boolean;
+  private appendToBody: boolean;
+  private hostEl: ElementRef;
   /* tslint:enable */
 
-  private element:ElementRef;
-  private cdr:ChangeDetectorRef;
+  private element: ElementRef;
+  private cdr: ChangeDetectorRef;
 
-  public constructor(element:ElementRef,
-                     cdr:ChangeDetectorRef,
-                     @Inject(TooltipOptions) options:TooltipOptions) {
+  public constructor(element: ElementRef,
+                     cdr: ChangeDetectorRef,
+                     @Inject(TooltipOptions) options: TooltipOptions) {
     this.element = element;
     this.cdr = cdr;
     Object.assign(this, options);
@@ -46,7 +46,7 @@ export class TooltipContainerComponent implements AfterViewInit {
     this.classMap[options.placement] = true;
   }
 
-  public ngAfterViewInit():void {
+  public ngAfterViewInit(): void {
     let p = positionService
       .positionElements(
         this.hostEl.nativeElement,

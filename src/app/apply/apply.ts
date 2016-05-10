@@ -15,11 +15,14 @@ import {DatePickerService} from '../components/datepicker/datepicker.service';
 import {DatePickerPopupDirective} from '../components/datepicker/datepicker-popup.component';
 import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
-import {focusedTextarea} from '../directives/focusedTextarea';
+import {FocusedTextarea} from '../directives/focusedTextarea';
 import {CurrencyInputDirective} from '../directives/currency-input.directive';
 import {TOOLTIP_DIRECTIVES} from '../components/tooltip';
 
-const declarationsKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'm1', 'm2', 'explanations'];
+const declarationsKeys = [
+  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+  'k', 'l', 'm', 'm1', 'm2', 'explanations'
+];
 const checkArray = declarationsKeys.slice(0, 9);
 const currencyRegex = '(^([0-9]*?)\.?([0-9]{1,2}?)$)';
 const regex = new RegExp(currencyRegex);
@@ -31,7 +34,7 @@ const regex = new RegExp(currencyRegex);
     DatePickerPopupDirective,
     ClickOutsideDirective,
     DROPDOWN_DIRECTIVES,
-    focusedTextarea,
+    FocusedTextarea,
     FieldsetComponent,
     BootstrapInputDirective,
     CurrencyInputDirective,
@@ -130,7 +133,7 @@ export class Apply {
 
   zipValidator(control: Control): { [s: string]: boolean} {
     if (control.value && (!control.value.match(/^[0-9]*$/) || control.value.length !== 5)) {
-      return {invalidZip: true}
+      return {invalidZip: true};
     }
   }
 
@@ -329,13 +332,14 @@ export class Apply {
   }
 
   toggleBorrowerMiddleName(): void {
-    if ((this.applyForm.controls['borrowerGroup'] as ControlGroup).contains('middleName')) {
-      this.borrowerMiddleNameCache = this.applyForm.controls['borrowerGroup'].find('middleName').value;
-      (this.applyForm.controls['borrowerGroup'] as ControlGroup).exclude('middleName');
-      (this.applyForm.controls['borrowerGroup'].find('middleName') as Control).updateValue('');
+    let group = this.applyForm.controls['borrowerGroup'];
+    if ((group as ControlGroup).contains('middleName')) {
+      this.borrowerMiddleNameCache = group.find('middleName').value;
+      (group as ControlGroup).exclude('middleName');
+      (group.find('middleName') as Control).updateValue('');
     } else {
-      (this.applyForm.controls['borrowerGroup'] as ControlGroup).include('middleName');
-      (this.applyForm.controls['borrowerGroup'].find('middleName') as Control).updateValue(this.borrowerMiddleNameCache);
+      (group as ControlGroup).include('middleName');
+      (group.find('middleName') as Control).updateValue(this.borrowerMiddleNameCache);
       this.borrowerMiddleNameCache = '';
     }
   }
@@ -382,14 +386,15 @@ export class Apply {
   }
 
   toggleCoborrowerMiddleName(): void {
-    if ((this.applyForm.controls['coborrowerGroup'] as ControlGroup).contains('middleName')) {
-      this.coborrowerMiddleNameCache = this.applyForm.controls['coborrowerGroup'].find('middleName').value;
-      (this.applyForm.controls['coborrowerGroup'] as ControlGroup).exclude('middleName');
-      (this.applyForm.controls['coborrowerGroup'].find('middleName') as Control).updateValue('');
+    let group = this.applyForm.controls['coborrowerGroup'];
+    if ((group as ControlGroup).contains('middleName')) {
+      this.coborrowerMiddleNameCache = group.find('middleName').value;
+      (group as ControlGroup).exclude('middleName');
+      (group.find('middleName') as Control).updateValue('');
     } else {
-      (this.applyForm.controls['coborrowerGroup'] as ControlGroup).include('middleName');
-      (this.applyForm.controls['coborrowerGroup'].find('middleName') as Control).updateValue(this.coborrowerMiddleNameCache);
-      this.borrowerMiddleNameCache = '';
+      (group as ControlGroup).include('middleName');
+      (group.find('middleName') as Control).updateValue(this.coborrowerMiddleNameCache);
+      this.coborrowerMiddleNameCache = '';
     }
   }
 
@@ -403,8 +408,9 @@ export class Apply {
   }
 
   setLoanType(type: string): void {
-    (this.applyForm.controls['loanGroup'].find('type') as Control).updateValue(type);
-    if (type === 'refinance' && !(this.applyForm.controls['loanGroup'] as ControlGroup).contains('address')) {
+    let group = this.applyForm.controls['loanGroup'];
+    (group.find('type') as Control).updateValue(type);
+    if (type === 'refinance' && !(group as ControlGroup).contains('address')) {
       this.addProperty();
     }
   }
@@ -415,7 +421,8 @@ export class Apply {
     } else if (event.target.value < this.loanMin) {
       this.loanMin = event.target.value;
     }
-    (this.applyForm.controls['loanGroup'].find('amount') as Control).updateValue(event.target.value);
+    let control = (this.applyForm.controls['loanGroup'].find('amount') as Control);
+    control.updateValue(event.target.value);
   }
 
   addProperty(): void {
@@ -652,7 +659,7 @@ export class Apply {
   }
 
   get afValue(): string {
-    return JSON.stringify(this.applyForm.value, null, 2)
+    return JSON.stringify(this.applyForm.value, null, 2);
   }
 
   setDateField(date: Date, field: Control): void {
@@ -673,7 +680,8 @@ export class Apply {
         this.coborrowerName = data;
       }
     });
-    (this.applyForm.find('employmentGroup').find('borrower') as ControlGroup).valueChanges.subscribe(data => {
+    (this.applyForm.find('employmentGroup').find('borrower') as ControlGroup)
+    .valueChanges.subscribe(data => {
       const parentGroup = (this.applyForm.find('employmentGroup').find('borrower') as ControlArray);
       let time = 0;
       for (let i = 0; i < parentGroup.controls.length; i++) {
@@ -689,14 +697,16 @@ export class Apply {
         this.addBorrowerJob();
       }
     });
-    (this.applyForm.find('assetsGroup').find('joined') as Control).valueChanges.subscribe(data => {
+    (this.applyForm.find('assetsGroup').find('joined') as Control)
+    .valueChanges.subscribe(data => {
       if (this.applyForm.find('assetsGroup').find('joined').value === false) {
         (this.applyForm.find('assetsGroup') as ControlGroup).include('coborrower');
       } else {
         (this.applyForm.find('assetsGroup') as ControlGroup).exclude('coborrower');
       }
     });
-    (this.applyForm.find('assetsGroup').find('borrower').find('assets') as ControlGroup).valueChanges.subscribe(data => {
+    (this.applyForm.find('assetsGroup').find('borrower').find('assets') as ControlGroup)
+    .valueChanges.subscribe(data => {
       let total = 0;
       let group = this.applyForm.find('assetsGroup').find('borrower').find('assets');
       let cars = (group.find('cars') as ControlArray);
@@ -715,7 +725,8 @@ export class Apply {
       }
       this.borrowerAssetsValue = total.toFixed(2);
     });
-    (this.applyForm.find('assetsGroup').find('borrower').find('liabilities') as ControlGroup).valueChanges.subscribe(data => {
+    (this.applyForm.find('assetsGroup').find('borrower').find('liabilities') as ControlGroup)
+    .valueChanges.subscribe(data => {
       let total = 0;
       let group = this.applyForm.find('assetsGroup').find('borrower').find('liabilities');
       let others = (group.find('other') as ControlArray);
@@ -734,7 +745,8 @@ export class Apply {
       }
       this.borrowerLiabilitiesValue = total.toFixed(2);
     });
-    (this.applyForm.find('assetsGroup').find('coborrower').find('assets') as ControlGroup).valueChanges.subscribe(data => {
+    (this.applyForm.find('assetsGroup').find('coborrower').find('assets') as ControlGroup)
+    .valueChanges.subscribe(data => {
       let total = 0;
       let group = this.applyForm.find('assetsGroup').find('coborrower').find('assets');
       let cars = (group.find('cars') as ControlArray);
@@ -753,7 +765,8 @@ export class Apply {
       }
       this.coborrowerAssetsValue = total.toFixed(2);
     });
-    (this.applyForm.find('assetsGroup').find('coborrower').find('liabilities') as ControlGroup).valueChanges.subscribe(data => {
+    (this.applyForm.find('assetsGroup').find('coborrower').find('liabilities') as ControlGroup)
+    .valueChanges.subscribe(data => {
       let total = 0;
       let group = this.applyForm.find('assetsGroup').find('coborrower').find('liabilities');
       let others = (group.find('other') as ControlArray);
@@ -792,12 +805,13 @@ export class Apply {
       });
       for (let i = 0; i < checkArray.length; i++) {
         parentGroup.find(checkArray[i]).valueChanges.subscribe(data => {
+          let group = (this.applyForm.find('declarationsGroup').find(x) as ControlGroup);
           if (data === true) {
             (this.explanationsForm.find(x) as ControlGroup).include(checkArray[i]);
-            (this.applyForm.find('declarationsGroup').find(x) as ControlGroup).include('explanations');
+            group.include('explanations');
           } else {
             (this.explanationsForm.find(x) as ControlGroup).exclude(checkArray[i]);
-            (this.applyForm.find('declarationsGroup').find(x) as ControlGroup).exclude('explanations');
+            group.exclude('explanations');
           }
         });
       }
@@ -813,7 +827,8 @@ export class Apply {
             }
           }
           concat = concat.trim();
-          (this.applyForm.find('declarationsGroup').find(x).find('explanations') as Control).updateValue(concat);
+          (this.applyForm.find('declarationsGroup').find(x).find('explanations') as Control)
+          .updateValue(concat);
         });
       }
     }
@@ -842,7 +857,8 @@ export class Apply {
               total += parseFloat(value.value);
             }
           }
-          (this.applyForm.find('incomeGroup').find('rent') as Control).updateValue(total.toFixed(2));
+          (this.applyForm.find('incomeGroup').find('rent') as Control)
+          .updateValue(total.toFixed(2));
         }
       });
     }

@@ -16,6 +16,7 @@ import {BootstrapInputDirective} from '../directives/input.directive';
 @Component({
   selector: 'fieldset',
   directives: [BootstrapInputDirective],
+  /* tslint:disable:max-line-length */
   template: `
     <label class="form-control-label">{{label}}</label>
     <ng-content></ng-content>
@@ -25,6 +26,7 @@ import {BootstrapInputDirective} from '../directives/input.directive';
       </template>
     </div>
   `
+  /* tslint:enable:max-line-length */
 })
 export class FieldsetComponent {
   @Input()

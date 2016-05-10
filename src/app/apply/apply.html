@@ -373,7 +373,7 @@
                   <div *ngFor="let job of coborrowerEmploymentArray.controls; let i=index" class="card card-block col-xs-12">
                     <button type="button" class="btn btn-secondary btn-sm pull-xs-right" (click)="deleteCoborrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
                     <div class="row">
-                      <div class="col-xs-12">
+                      <div class="col-xs-12 text-xs-center">
                         <label class="c-input c-checkbox">
                           <input type="checkbox" [ngFormControl]="job.controls.selfEmployed">
                           <span class="c-indicator"></span>

@@ -8,21 +8,21 @@ import {TooltipContainerComponent} from './tooltip-container.component';
 @Directive({selector: '[tooltip]'})
 export class TooltipDirective {
   /* tslint:disable */
-  @Input('tooltip') public content:string;
-  @Input('tooltipPlacement') public placement:string = 'top';
-  @Input('tooltipIsOpen') public isOpen:boolean;
-  @Input('tooltipEnable') public enable:boolean;
-  @Input('tooltipAnimation') public animation:boolean = true;
-  @Input('tooltipAppendToBody') public appendToBody:boolean;
+  @Input('tooltip') public content: string;
+  @Input('tooltipPlacement') public placement: string = 'top';
+  @Input('tooltipIsOpen') public isOpen: boolean;
+  @Input('tooltipEnable') public enable: boolean;
+  @Input('tooltipAnimation') public animation: boolean = true;
+  @Input('tooltipAppendToBody') public appendToBody: boolean;
   /* tslint:enable */
 
-  public viewContainerRef:ViewContainerRef;
-  public loader:DynamicComponentLoader;
+  public viewContainerRef: ViewContainerRef;
+  public loader: DynamicComponentLoader;
 
-  private visible:boolean = false;
-  private tooltip:Promise<ComponentRef<any>>;
+  private visible: boolean = false;
+  private tooltip: Promise<ComponentRef<any>>;
 
-  public constructor(viewContainerRef:ViewContainerRef, loader:DynamicComponentLoader) {
+  public constructor(viewContainerRef: ViewContainerRef, loader: DynamicComponentLoader) {
     this.viewContainerRef = viewContainerRef;
     this.loader = loader;
   }
@@ -31,7 +31,7 @@ export class TooltipDirective {
   // params: event, target
   @HostListener('focusin', ['$event', '$target'])
   @HostListener('mouseenter', ['$event', '$target'])
-  public show():void {
+  public show(): void {
     if (this.visible) {
       return;
     }
@@ -49,7 +49,7 @@ export class TooltipDirective {
 
     this.tooltip = this.loader
       .loadNextToLocation(TooltipContainerComponent, this.viewContainerRef, binding)
-      .then((componentRef:ComponentRef<any>) => {
+      .then((componentRef: ComponentRef<any>) => {
         return componentRef;
       });
   }
@@ -57,12 +57,12 @@ export class TooltipDirective {
   // params event, target
   @HostListener('focusout', ['$event', '$target'])
   @HostListener('mouseleave', ['$event', '$target'])
-  public hide():void {
+  public hide(): void {
     if (!this.visible) {
       return;
     }
     this.visible = false;
-    this.tooltip.then((componentRef:ComponentRef<any>) => {
+    this.tooltip.then((componentRef: ComponentRef<any>) => {
       componentRef.destroy();
       return componentRef;
     });

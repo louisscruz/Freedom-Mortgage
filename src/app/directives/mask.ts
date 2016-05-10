@@ -13,7 +13,7 @@ export class MaskDirective {
   public modelValue: string;
   public viewValue: string;
   constructor(public model: NgFormControl, @Attribute('mask')maskPattern: string) {
-    this.dividers = maskPattern.replace(/\*/g,'').split('');
+    this.dividers = maskPattern.replace(/\*/g, '').split('');
     this.dividers.push(' ');
     this.generatePattern(maskPattern);
     console.log('pattern is:');

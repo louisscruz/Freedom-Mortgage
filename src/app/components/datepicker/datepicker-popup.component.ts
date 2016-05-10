@@ -10,71 +10,79 @@ import {positionService} from '../position';
 import {DatePickerComponent} from './datepicker.component';
 
 class PopupOptions {
-  public placement:string;
-  public animation:boolean;
-  public isOpen:boolean;
+  public placement: string;
+  public animation: boolean;
+  public isOpen: boolean;
 
-  public constructor(options:Object) {
+  public constructor(options: Object) {
     Object.assign(this, options);
   }
 }
 
-const datePickerPopupConfig:KeyAttribute = {
-  datepickerPopup: 'YYYY-MM-dd',
-  currentText: 'Today',
-  clearText: 'Clear',
-  closeText: 'Done',
-  closeOnDateSelection: true,
-  showButtonBar: true,
-  onOpenFocus: true
+const datePickerPopupConfig: KeyAttribute = {
+  datepickerPopup:  'YYYY-MM-dd',
+  currentText:  'Today',
+  clearText:  'Clear',
+  closeText:  'Done',
+  closeOnDateSelection:  true,
+  showButtonBar:  true,
+  onOpenFocus:  true
 };
 
 @Component({
-  selector: 'popup-container',
-  events: ['update1'],
-  template: `
+  selector:  'popup-container',
+  events:  ['update1'],
+  template:  `
     <ul class="dropdown-menu"
         style="display: block"
         [ngStyle]="{top: top, left: left, display: display}"
         [ngClass]="classMap">
         <li>
-             <datepicker (cupdate)="onUpdate($event)" *ngIf="popupComp" [(ngModel)]="popupComp.cd.model" [show-weeks]="true"></datepicker>
+        <datepicker (update)="onUpdate($event)" *ngIf="popupComp"
+        [(ngModel)]="popupComp.cd.model" [show-weeks]="true"></datepicker>
         </li>
-        <li *ngIf="showButtonBar" style="padding:10px 9px 2px">
+        <li *ngIf="showButtonBar" style="padding: 10px 9px 2px">
             <span class="btn-group pull-left">
-                 <button type="button" class="btn btn-sm btn-info" (click)="select('today')" ng-disabled="isDisabled('today')">{{ getText('current') }}</button>
-                 <button type="button" class="btn btn-sm btn-danger" (click)="select(null)">{{ getText('clear') }}</button>
+                 <button type="button" class="btn btn-sm btn-info"
+                 (click)="select('today')" ng-disabled="isDisabled('today')">
+                    {{getText('current')}}
+                 </button>
+                 <button type="button" class="btn btn-sm btn-danger" (click)="select(null)">
+                    {{getText('clear')}}
+                 </button>
             </span>
-            <button type="button" class="btn btn-sm btn-success pull-right" (click)="close()">{{ getText('close') }}</button>
+            <button type="button" class="btn btn-sm btn-success pull-right" (click)="close()">
+              {{getText('close')}}
+            </button>
         </li>
     </ul>`,
-  directives: [NgClass, NgStyle, DatePickerComponent, FORM_DIRECTIVES, CORE_DIRECTIVES],
-  encapsulation: ViewEncapsulation.None
+  directives:  [NgClass, NgStyle, DatePickerComponent, FORM_DIRECTIVES, CORE_DIRECTIVES],
+  encapsulation:  ViewEncapsulation.None
 })
 class PopupContainerComponent {
-  public popupComp:DatePickerPopupDirective;
+  public popupComp: DatePickerPopupDirective;
 
-  private classMap:any;
-  private top:string;
-  private left:string;
-  private display:string;
-  private placement:string;
+  private classMap: any;
+  private top: string;
+  private left: string;
+  private display: string;
+  private placement: string;
 
-  /* tslint:disable:no-unused-variable */
-  private showButtonBar:boolean = true;
-  private update1:EventEmitter<any> = new EventEmitter(false);
-  /* tslint:enable:no-unused-variable */
+  /* tslint: disable: no-unused-variable */
+  private showButtonBar: boolean = true;
+  private update1: EventEmitter<any> = new EventEmitter(false);
+  /* tslint: enable: no-unused-variable */
 
-  private element:ElementRef;
+  private element: ElementRef;
 
-  public constructor(element:ElementRef, options:PopupOptions) {
+  public constructor(element: ElementRef, options: PopupOptions) {
     this.element = element;
     Object.assign(this, options);
-    this.classMap = {'in': false};
+    this.classMap = {'in':  false};
     this.classMap[options.placement] = true;
   }
 
-  public onUpdate($event:any):void {
+  public onUpdate($event: any): void {
     console.log('update', $event);
     if ($event) {
       if ($event.toString() !== '[object Date]') {
@@ -84,7 +92,7 @@ class PopupContainerComponent {
     }
   }
 
-  public position(hostEl:ElementRef):void {
+  public position(hostEl: ElementRef): void {
     this.display = 'block';
     this.top = '0px';
     this.left = '0px';
@@ -95,32 +103,32 @@ class PopupContainerComponent {
     this.top = p.top + 'px';
   }
 
-  public getText(key:string):string {
+  public getText(key: string): string {
     return (this as KeyAttribute)[key + 'Text'] || datePickerPopupConfig[key + 'Text'];
   }
 
-  public isDisabled():boolean {
+  public isDisabled(): boolean {
     return false;
   }
 }
 
 @Directive({
-  selector: '[datepickerPopup][ngModel]',
-  properties: ['datepickerPopup', 'isOpen']
+  selector:  '[datepickerPopup][ngModel]',
+  properties:  ['datepickerPopup', 'isOpen']
 })
 export class DatePickerPopupDirective {
-  public cd:NgModel;
-  public viewContainerRef:ViewContainerRef;
-  public renderer:Renderer;
-  public loader:DynamicComponentLoader;
+  public cd: NgModel;
+  public viewContainerRef: ViewContainerRef;
+  public renderer: Renderer;
+  public loader: DynamicComponentLoader;
 
-  private _activeDate:Date;
-  private _isOpen:boolean = false;
-  private placement:string = 'bottom';
-  private popup:Promise<ComponentRef<any>>;
+  private _activeDate: Date;
+  private _isOpen: boolean = false;
+  private placement: string = 'bottom';
+  private popup: Promise<ComponentRef<any>>;
 
-  public constructor(@Self() cd:NgModel, viewContainerRef:ViewContainerRef,
-                     renderer:Renderer, loader:DynamicComponentLoader) {
+  public constructor(@Self() cd: NgModel, viewContainerRef: ViewContainerRef,
+                     renderer: Renderer, loader: DynamicComponentLoader) {
     this.cd = cd;
     this.viewContainerRef = viewContainerRef;
     this.renderer = renderer;
@@ -128,19 +136,19 @@ export class DatePickerPopupDirective {
     this.activeDate = cd.model;
   }
 
-  public get activeDate():Date {
+  public get activeDate(): Date {
     return this._activeDate;
   }
 
-  public set activeDate(value:Date) {
+  public set activeDate(value: Date) {
     this._activeDate = value;
   }
 
-  private get isOpen():boolean {
+  private get isOpen(): boolean {
     return this._isOpen;
   }
 
-  private set isOpen(value:boolean) {
+  private set isOpen(value: boolean) {
     let fn = () => {
       this._isOpen = value;
     };
@@ -154,9 +162,9 @@ export class DatePickerPopupDirective {
     }
   }
 
-  public hide(cb:Function):void {
+  public hide(cb: Function): void {
     if (this.popup) {
-      this.popup.then((componentRef:ComponentRef<any>) => {
+      this.popup.then((componentRef: ComponentRef<any>) => {
         componentRef.destroy();
         cb();
         return componentRef;
@@ -166,18 +174,18 @@ export class DatePickerPopupDirective {
     }
   }
 
-  private show(cb:Function):void {
+  private show(cb: Function): void {
     let options = new PopupOptions({
-      placement: this.placement
+      placement:  this.placement
     });
 
     let binding = ReflectiveInjector.resolve([
-      provide(PopupOptions, {useValue: options})
+      provide(PopupOptions, {useValue:  options})
     ]);
 
     this.popup = this.loader
       .loadNextToLocation(PopupContainerComponent, this.viewContainerRef, binding)
-      .then((componentRef:ComponentRef<any>) => {
+      .then((componentRef: ComponentRef<any>) => {
         componentRef.instance.position(this.viewContainerRef);
         componentRef.instance.popupComp = this;
         cb();

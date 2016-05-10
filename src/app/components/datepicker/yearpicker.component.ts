@@ -4,8 +4,9 @@ import {Ng2BootstrapConfig} from '../ng2-bootstrap-config';
 import {DatePickerInnerComponent} from './datepicker-inner.component';
 
 // write an interface for template options
-const TEMPLATE_OPTIONS:any = {
+const TEMPLATE_OPTIONS: any = {
   bs4: {
+    /* tslint:disable:max-line-length */
     YEAR_BUTTON: `
         <button type="button" style="min-width:100%;" class="btn btn-default"
                 [ngClass]="{'btn-info': dtz.selected, 'btn-link': !dtz.selected && !datePicker.isActive(dtz), 'btn-info': !dtz.selected && datePicker.isActive(dtz), disabled: dtz.disabled}"
@@ -14,13 +15,15 @@ const TEMPLATE_OPTIONS:any = {
           <span [ngClass]="{'text-success': dtz.current}">{{dtz.label}}</span>
         </button>
     `
+    /* tslint:enable:max-line-length */
   }
 };
 
-const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS.bs4;
+const CURRENT_THEME_TEMPLATE: any = TEMPLATE_OPTIONS.bs4;
 
 @Component({
   selector: 'yearpicker',
+  /* tslint:disable:max-line-length */
   template: `
 <table *ngIf="datePicker.datepickerMode==='year'" role="grid">
   <thead>
@@ -57,27 +60,29 @@ const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS.bs4;
   </tbody>
 </table>
   `,
+  /* tslint:enable:max-line-length */
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, NgClass]
 })
 export class YearPickerComponent implements OnInit {
-  public datePicker:DatePickerInnerComponent;
-  private title:string;
-  private rows:Array<any> = [];
+  public datePicker: DatePickerInnerComponent;
+  private title: string;
+  private rows: Array<any> = [];
 
-  public constructor(datePicker:DatePickerInnerComponent) {
+  public constructor(datePicker: DatePickerInnerComponent) {
     this.datePicker = datePicker;
   }
 
-  public ngOnInit():void {
+  public ngOnInit(): void {
     let self = this;
 
-    this.datePicker.stepYear = {years: this.datePicker.yearRange};
+    this.datePicker.stepYear = {years:  this.datePicker.yearRange};
 
-    this.datePicker.setRefreshViewHandler(function ():void {
-      let years:Array<any> = new Array(this.yearRange);
-      let date:Date;
+    this.datePicker.setRefreshViewHandler(function (): void {
+      let years: Array<any> = new Array(this.yearRange);
+      let date: Date;
+      let starter = self.getStartingYear(this.activeDate.getFullYear());
 
-      for (let i = 0, start = self.getStartingYear(this.activeDate.getFullYear()); i < this.yearRange; i++) {
+      for (let i = 0, start = starter; i < this.yearRange; i++) {
         date = new Date(start + i, 0, 1);
         date = this.fixTimeZone(date);
         years[i] = this.createDateObject(date, this.formatYear);
@@ -89,15 +94,15 @@ export class YearPickerComponent implements OnInit {
       self.rows = this.split(years, 5);
     }, 'year');
 
-    this.datePicker.setCompareHandler(function (date1:Date, date2:Date):number {
+    this.datePicker.setCompareHandler(function (date1: Date, date2: Date): number {
       return date1.getFullYear() - date2.getFullYear();
     }, 'year');
 
     this.datePicker.refreshView();
   }
 
-  private getStartingYear(year:number):number {
-    // todo: parseInt
+  private getStartingYear(year: number): number {
+    // todo:  parseInt
     return ((year - 1) / this.datePicker.yearRange) * this.datePicker.yearRange + 1;
   }
 }

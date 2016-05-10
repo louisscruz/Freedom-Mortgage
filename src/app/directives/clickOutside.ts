@@ -10,14 +10,12 @@ import {Directive,
 })
 
 export class ClickOutsideDirective {
-  private localEvent: any = null;
-  @Input('clickOutside') clickOutsideHandler;
+  @Input() clickOutside;
   @Output() outside: EventEmitter<any> = new EventEmitter();
+  private localEvent: any = null;
   @HostListener('document:click')
   compareEvent(event) {
-    console.log('working')
     if (event !== this.localEvent) {
-      console.log('clicked outside!')
       this.outside.emit(null);
     }
     this.localEvent = null;
@@ -27,19 +25,5 @@ export class ClickOutsideDirective {
   trackEvent(event): void {
     this.localEvent = event;
   }
-
   constructor(private _elementRef: ElementRef) {}
-
-  /*ngOnInit() {
-    setTimeout(() => {
-      document.addEventListener('click', this.clickOutsideHandler)
-    }, 0)
-  }*/
-  ngOnInit() {
-    console.log('inited')
-  }
-
-  ngOnDestroy() {
-    console.log('destroyed')
-  }
 }
