@@ -17,15 +17,12 @@ import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
 import {focusedTextarea} from '../directives/focusedTextarea';
 import {CurrencyInputDirective} from '../directives/currency-input.directive';
-import {CurrencyInputComponent} from '../components/currency-input.component';
+import {TOOLTIP_DIRECTIVES} from '../components/tooltip';
 
 const declarationsKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'm1', 'm2', 'explanations'];
 const checkArray = declarationsKeys.slice(0, 9);
 const currencyRegex = '(^([0-9]*?)\.?([0-9]{1,2}?)$)';
 const regex = new RegExp(currencyRegex);
-const months = [
-  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-];
 
 @Component({
   selector: 'apply',
@@ -38,7 +35,7 @@ const months = [
     FieldsetComponent,
     BootstrapInputDirective,
     CurrencyInputDirective,
-    CurrencyInputComponent
+    TOOLTIP_DIRECTIVES
   ],
   providers: [DatePickerService],
   styles: [require('./apply.scss')],

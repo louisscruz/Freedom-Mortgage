@@ -3,7 +3,6 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
 import {Ng2BootstrapConfig, Ng2BootstrapTheme} from '../ng2-bootstrap-config';
 import {DatePickerInnerComponent} from './datepicker-inner.component';
 
-// write an interface for template options
 const TEMPLATE_OPTIONS:any = {
   [Ng2BootstrapTheme.BS4]: {
     DAY_TITLE: `
@@ -23,33 +22,10 @@ const TEMPLATE_OPTIONS:any = {
     `,
     ARROW_LEFT: '<i class="fa fa-chevron-left fa-fw"></i>',
     ARROW_RIGHT: '<i class="fa fa-chevron-right fa-fw"></i>'
-  },
-  [Ng2BootstrapTheme.BS3]: {
-    DAY_TITLE: `
-        <th *ngFor="let labelz of labels" class="text-center"><small aria-label="labelz.full"><b>{{labelz.abbr}}</b></small></th>
-    `,
-    WEEK_ROW: `
-        <td *ngIf="datePicker.showWeeks" class="text-center h6"><em>{{ weekNumbers[index] }}</em></td>
-        <td *ngFor="let dtz of rowz" class="text-center" role="gridcell" [id]="dtz.uid">
-          <button type="button" style="min-width:100%;" class="btn btn-default btn-sm {{dtz.customClass}}"
-                  *ngIf="!(datePicker.onlyCurrentMonth && dtz.secondary)"
-                  [ngClass]="{'btn-info': dtz.selected, active: datePicker.isActive(dtz), disabled: dtz.disabled}"
-                  [disabled]="dtz.disabled"
-                  (click)="datePicker.select(dtz.date)" tabindex="-1">
-            <span [ngClass]="{'text-muted': dtz.secondary, 'text-info': dtz.current}">{{dtz.label}}</span>
-          </button>
-        </td>
-    `,
-    ARROW_LEFT: `
-    <i class="glyphicon glyphicon-chevron-left"></i>
-    `,
-    ARROW_RIGHT: `
-    <i class="glyphicon glyphicon-chevron-right"></i>
-    `
   }
 };
 
-const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapConfig.theme || Ng2BootstrapTheme.BS4];
+const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapTheme.BS4];
 
 @Component({
   selector: 'daypicker',
@@ -105,10 +81,6 @@ export class DayPickerComponent implements OnInit {
     this.datePicker = datePicker;
   }
 
-  /*private getDaysInMonth(year:number, month:number) {
-   return ((month === 1) && (year % 4 === 0) &&
-   ((year % 100 !== 0) || (year % 400 === 0))) ? 29 : DAYS_IN_MONTH[month];
-   }*/
   public ngOnInit():void {
     let self = this;
 
@@ -191,5 +163,4 @@ export class DayPickerComponent implements OnInit {
     checkDate.setDate(1);
     return Math.floor(Math.round((time - checkDate.getTime()) / 86400000) / 7) + 1;
   }
-  // todo: key events implementation
 }

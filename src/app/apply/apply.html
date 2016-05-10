@@ -44,38 +44,30 @@
                       </div>
                     </div>
                   </fieldset>
-                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="SSN" [errors]="[{type: 'required'}]">
+                  <fieldset class="col-xs-12 col-sm-6 col-md-3" label="SSN" [errors]="[{type: 'required'}]" tooltip="Your social security number is required to retrieve your credit report.">
                     <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.ssn">
                   </fieldset>
-                  <div ngControlGroup="address" class="row">
-                    <div class="col-xs-12">
-                      <fieldset class="col-xs-12" label="Address" [errors]="[{type: 'required'}]">
-                        <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.add">
-                      </fieldset>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                      <fieldset class="col-xs-12 col-sm-4" label="City" [errors]="[{type: 'required'}]">
-                        <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.city">
-                      </fieldset>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                      <fieldset class="col-xs-12 col-sm-4" label="State" [errors]="[{type: 'required'}]">
-                        <select class="c-select form-control" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.state">
-                          <option value="" disabled selected>State</option>
-                          <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
-                        </select>
-                      </fieldset>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                      <fieldset class="col-xs-12 col-sm-4" label="Zip" [errors]="[{type: 'required'}, {type: 'invalidZip', message: 'Zip Invalid'}]">
-                        <input type="text" [ngFormControl]="applyForm.find('borrowerGroup').find('address').find('zip')">
-                      </fieldset>
-                    </div>
-                  </div>
+                  <fieldset class="col-xs-12" label="Address" [errors]="[{type: 'required'}]">
+                    <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.add">
+                  </fieldset>
+                  <fieldset class="col-xs-12 col-sm-4" label="City" [errors]="[{type: 'required'}]">
+                    <input type="text" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.city">
+                  </fieldset>
+                  <fieldset class="col-xs-12 col-sm-4" label="State" [errors]="[{type: 'required'}]">
+                    <select class="c-select form-control" [ngFormControl]="applyForm.controls.borrowerGroup.controls.address.controls.state">
+                      <option value="" disabled selected>State</option>
+                      <option *ngFor="#state of states" [value]="state.name">{{state.abbreviation}}</option>
+                    </select>
+                  </fieldset>
+                  <fieldset class="col-xs-12 col-sm-4" label="Zip" [errors]="[{type: 'required'}, {type: 'invalidZip', message: 'Zip Invalid'}]">
+                    <input type="text" [ngFormControl]="applyForm.find('borrowerGroup').find('address').find('zip')">
+                  </fieldset>
                 </div>
                 <div class="row">
-                  <label class="form-control-label">Marital Status</label>
                   <div class="col-xs-12">
+                    <label class="form-control-label">Marital Status</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="marital1" (click)="setMaritalStatus('married')">
@@ -98,10 +90,18 @@
                       </label>
                     </div>
                   </div>
+                  <div class="col-xs-12 col-sm-8">
+                    <div class="card card-block">
+                      <small>Select <i>Married</i> if married or in a registered, domestic partnership.</small>
+                      <small>Select <i>Unmarried</i> if single, divorced, or widowed.</small>
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
-                  <label class="form-control-label">Apply with coborrower?</label>
                   <div class="col-xs-12">
+                    <label class="form-control-label">Apply with coborrower?</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
                     <div class="radio">
                       <label class="c-input c-radio">
                         <input type="radio" name="coborrower1" (click)="addCoborrower()" [checked]="applyForm.contains('coborrowerGroup')">
@@ -115,6 +115,11 @@
                         <span class="c-indicator"></span>
                         No
                       </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-8" *ngIf="applyForm.find('borrowerGroup').find('maritalStatus').value === 'married'">
+                    <div class="card card-block" [class.card-warning]="!applyForm.contains('coborrowerGroup')">
+                      <small>Applying with your spouse could be beneficial to your application. We highly recommend that you do so.</small>
                     </div>
                   </div>
                 </div>

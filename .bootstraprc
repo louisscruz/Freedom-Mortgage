@@ -63,7 +63,7 @@ styles:
   images: true
   code: true
   grid: true
-  tables: true
+  tables: false
   forms: true
   buttons: true
 
@@ -77,21 +77,21 @@ styles:
   navbar: true
   card: true
   breadcrumb: false
-  pagination: true
-  pager: true
+  pagination: false
+  pager: false
   labels: false
   jumbotron: true
   alert: true
   progress: false
   media: false
   list-group: true
-  responsive-embed: true
+  responsive-embed: false
   close: true
 
   # Components w/ JavaScript
   modal: true
-  tooltip: false
-  popover: true
+  tooltip: true
+  popover: false
   carousel: true
 
   # Utility classes

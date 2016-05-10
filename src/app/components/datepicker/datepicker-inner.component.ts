@@ -17,26 +17,7 @@ const SHOW_WEEKS = true;
 const ONLY_CURRENT_MONTH = false;
 const STARTING_DAY = 0;
 const YEAR_RANGE = 20;
-// const MIN_DATE:Date = void 0;
-// const MAX_DATE:Date = void 0;
 const SHORTCUT_PROPAGATION = false;
-
-// const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-/*
- const KEYS = {
- 13: 'enter',
- 32: 'space',
- 33: 'pageup',
- 34: 'pagedown',
- 35: 'end',
- 36: 'home',
- 37: 'left',
- 38: 'up',
- 39: 'right',
- 40: 'down'
- };
- */
 
 @Component({
   selector: 'datepicker-inner',
@@ -67,7 +48,6 @@ export class DatePickerInnerComponent implements OnInit {
   @Input() public onlyCurrentMonth:boolean;
   @Input() public shortcutPropagation:boolean;
   @Input() public customClass:Array<{date:Date, mode:string, clazz:string}>;
-  // todo: change type during implementation
   @Input() public dateDisabled:any;
   @Input() public initDate:Date;
 
@@ -101,7 +81,6 @@ export class DatePickerInnerComponent implements OnInit {
     this.refreshView();
   }
 
-  // todo: add formatter value to Date object
   public ngOnInit():void {
     this.formatDay = this.formatDay || FORMAT_DAY;
     this.formatMonth = this.formatMonth || FORMAT_MONTH;
@@ -122,7 +101,6 @@ export class DatePickerInnerComponent implements OnInit {
     this.minMode = this.minMode || MIN_MODE;
     this.maxMode = this.maxMode || MAX_MODE;
 
-    // todo: use date for unique value
     this.uniqueId = 'datepicker-' + '-' + Math.floor(Math.random() * 10000);
 
     if (this.initDate) {
@@ -230,12 +208,6 @@ export class DatePickerInnerComponent implements OnInit {
     return arrays;
   }
 
-  // Fix a hard-reproducible bug with timezones
-  // The bug depends on OS, browser, current timezone and current date
-  // i.e.
-  // var date = new Date(2014, 0, 1);
-  // console.log(date.getFullYear(), date.getMonth(), date.getDate(),
-  // date.getHours()); can result in "2013 11 31 23" because of the bug.
   public fixTimeZone(date:Date):Date {
     let hours = date.getHours();
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours === 23 ? hours + 2 : 0);
@@ -297,7 +269,6 @@ export class DatePickerInnerComponent implements OnInit {
     if (!this.customClass) {
       return '';
     }
-    // todo: build a hash of custom classes, it will work faster
     const customClassObject:{date:Date, mode:string, clazz:string} = this.customClass
       .find((customClass:any) => {
         return customClass.date.valueOf() === date.valueOf() &&
@@ -307,7 +278,6 @@ export class DatePickerInnerComponent implements OnInit {
   }
 
   private isDisabled(date:Date):boolean {
-    // todo: implement dateDisabled attribute
     return ((this.minDate && this.compare(date, this.minDate) < 0) ||
     (this.maxDate && this.compare(date, this.maxDate) > 0));
   }

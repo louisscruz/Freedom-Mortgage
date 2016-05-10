@@ -14,20 +14,10 @@ const TEMPLATE_OPTIONS:any = {
           <span [ngClass]="{'text-success': dtz.current}">{{dtz.label}}</span>
         </button>
     `
-  },
-  bs3: {
-    YEAR_BUTTON: `
-        <button type="button" style="min-width:100%;" class="btn btn-default"
-                [ngClass]="{'btn-info': dtz.selected, active: datePicker.isActive(dtz), disabled: dtz.disabled}"
-                [disabled]="dtz.disabled"
-                (click)="datePicker.select(dtz.date)" tabindex="-1">
-          <span [ngClass]="{'text-info': dtz.current}">{{dtz.label}}</span>
-        </button>
-    `
   }
 };
 
-const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS[Ng2BootstrapConfig.theme] || TEMPLATE_OPTIONS.bs3;
+const CURRENT_THEME_TEMPLATE:any = TEMPLATE_OPTIONS.bs4;
 
 @Component({
   selector: 'yearpicker',

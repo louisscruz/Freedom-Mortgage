@@ -4,7 +4,6 @@ import {DatePickerInnerComponent} from './datepicker-inner.component';
 import {DayPickerComponent} from './daypicker.component';
 import {MonthPickerComponent} from './monthpicker.component';
 import {YearPickerComponent} from './yearpicker.component';
-// import {DatePickerPopup} from './datepicker-popup';
 
 /* tslint:disable:component-selector-name component-selector-type */
 @Component({
@@ -61,7 +60,6 @@ export class DatePickerComponent implements ControlValueAccessor {
   @Input() public onlyCurrentMonth:boolean;
   @Input() public shortcutPropagation:boolean;
   @Input() public customClass:Array<{date:Date, mode:string, clazz:string}>;
-// todo: change type during implementation
   @Input() public dateDisabled:any;
   @Output() close: EventEmitter<any> = new EventEmitter();
 
@@ -83,7 +81,6 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   public constructor(@Self() cd:NgModel) {
     this.cd = cd;
-    // hack
     cd.valueAccessor = this;
   }
 
@@ -99,14 +96,6 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   // todo: support null value
   public writeValue(value:any):void {
-    // todo: fix something sends here new date all the time
-    // if (value) {
-    //  if (typeof value !== 'Date') {
-    //    value = new Date(value);
-    //  }
-    //
-    //  this.activeDate = value;
-    // }
     if (value === this._activeDate) {
       return;
     }

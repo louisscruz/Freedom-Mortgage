@@ -5,14 +5,9 @@ import {
 import {
   CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgModel, NgStyle
 } from '@angular/common';
-import {KeyAttribute} from './common';
-import {positionService} from './position';
+import {KeyAttribute} from '../common';
+import {positionService} from '../position';
 import {DatePickerComponent} from './datepicker.component';
-
-// import {DatePickerInner} from './datepicker-inner';
-// import {DayPicker} from './daypicker';
-// import {MonthPicker} from './monthpicker';
-// import {YearPicker} from './yearpicker';
 
 class PopupOptions {
   public placement:string;
@@ -65,7 +60,6 @@ class PopupContainerComponent {
   private display:string;
   private placement:string;
 
-  // false positive
   /* tslint:disable:no-unused-variable */
   private showButtonBar:boolean = true;
   private update1:EventEmitter<any> = new EventEmitter(false);
@@ -86,9 +80,7 @@ class PopupContainerComponent {
       if ($event.toString() !== '[object Date]') {
         $event = new Date($event);
       }
-
       this.popupComp.activeDate = $event;
-      // this.popupComp.cd.viewToModelUpdate($event);
     }
   }
 
@@ -107,16 +99,14 @@ class PopupContainerComponent {
     return (this as KeyAttribute)[key + 'Text'] || datePickerPopupConfig[key + 'Text'];
   }
 
-  public isDisabled(/*date:Date*/):boolean {
+  public isDisabled():boolean {
     return false;
   }
 }
 
 @Directive({
   selector: '[datepickerPopup][ngModel]',
-  // prop -> datepickerPopup - format
-  properties: ['datepickerPopup', 'isOpen']/*,
-   host: {'(cupdate)': 'onUpdate1($event)'}*/
+  properties: ['datepickerPopup', 'isOpen']
 })
 export class DatePickerPopupDirective {
   public cd:NgModel;
@@ -190,12 +180,6 @@ export class DatePickerPopupDirective {
       .then((componentRef:ComponentRef<any>) => {
         componentRef.instance.position(this.viewContainerRef);
         componentRef.instance.popupComp = this;
-        /*componentRef.instance.update1.observer({
-         next: (newVal) => {
-         setProperty(this.renderer, this.elementRef, 'value', newVal);
-         }
-         });*/
-
         cb();
         return componentRef;
       });
