@@ -72,8 +72,6 @@
     "./src/app/home/home.e2e.ts",
     "./src/app/home/home.spec.ts",
     "./src/app/home/home.ts",
-    "./src/app/home/services/title.spec.ts",
-    "./src/app/home/services/title.ts",
     "./src/app/index.ts",
     "./src/app/navbar/navbar.spec.ts",
     "./src/app/navbar/navbar.ts",

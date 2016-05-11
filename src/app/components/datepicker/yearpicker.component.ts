@@ -52,8 +52,8 @@ const CURRENT_THEME_TEMPLATE: any = TEMPLATE_OPTIONS.bs4;
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="#rowz of rows">
-      <td *ngFor="#dtz of rowz" class="text-center" role="gridcell">
+    <tr *ngFor="let rowz of rows">
+      <td *ngFor="let dtz of rowz" class="text-center" role="gridcell">
       ${CURRENT_THEME_TEMPLATE.YEAR_BUTTON}
       </td>
     </tr>

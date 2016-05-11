@@ -10,12 +10,12 @@ import {
   TemplateRef,
   HostBinding
 } from '@angular/core';
-import {Control, NgFormControl} from '@angular/common';
+import {FORM_DIRECTIVES, NgFormControl} from '@angular/common';
 import {BootstrapInputDirective} from '../directives/input.directive';
 
 @Component({
   selector: 'fieldset',
-  directives: [BootstrapInputDirective],
+  directives: [BootstrapInputDirective, FORM_DIRECTIVES, NgFormControl],
   /* tslint:disable:max-line-length */
   template: `
     <label class="form-control-label">{{label}}</label>

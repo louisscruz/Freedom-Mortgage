@@ -43,6 +43,11 @@ button:focus {
   border: 2px solid $brand-success;
 }
 
+.card.success {
+  border-color: $brand-success;
+  color: $brand-success
+}
+
 //.section-one {
   //background-color: $brand-primary;
 //}

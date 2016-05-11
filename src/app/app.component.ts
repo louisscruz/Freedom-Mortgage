@@ -55,6 +55,7 @@ import {RouterActive} from './directives/router-active';
   }
 ])
 export class App {
+  private reviews: Array<string> = ['test'];
   constructor() {}
 }
 

@@ -48,8 +48,8 @@ const CURRENT_THEME_TEMPLATE: any = TEMPLATE_OPTIONS.bs4;
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="#rowz of rows">
-      <td *ngFor="#dtz of rowz" class="text-center" role="gridcell" id="{{dtz.uid}}" [ngClass]="dtz.customClass">
+    <tr *ngFor="let rowz of rows">
+      <td *ngFor="let dtz of rowz" class="text-center" role="gridcell" id="{{dtz.uid}}" [ngClass]="dtz.customClass">
         ${CURRENT_THEME_TEMPLATE.MONTH_BUTTON}
       </td>
     </tr>

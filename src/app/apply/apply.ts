@@ -137,6 +137,19 @@ export class Apply {
     }
   }
 
+  jobHistoryValidator(jobs: ControlArray): { [s: string]: boolean} {
+    let total = 0;
+    for (let i = 0; i < jobs.controls.length; i++) {
+      const job = (jobs.controls[i] as ControlGroup);
+      const years = parseInt(job.find('years').value);
+      const months = parseInt(job.find('months').value);
+      total += ((years * 12) + months);
+    }
+    if (total < 24) {
+      return {invalidJobHistory: true};
+    }
+  }
+
   generateAddress(): ControlGroup {
     const address = new ControlGroup({
       'add': new Control('', Validators.required),
@@ -215,7 +228,7 @@ export class Apply {
 
   generateForm() {
     const applyForm = new ControlGroup({});
-    const borrowerGroup = new ControlGroup({});
+    const borrowerGroup = new ControlGroup({}, {}, Validators.required);
     borrowerGroup.addControl('firstName', new Control('', Validators.required));
     borrowerGroup.addControl('middleName', new Control('', Validators.required));
     borrowerGroup.addControl('lastName', new Control('', Validators.required));
@@ -252,7 +265,9 @@ export class Apply {
     loanGroup.exclude('address');
     applyForm.addControl('loanGroup', loanGroup);
     const employmentGroup = new ControlGroup({});
-    this.borrowerEmploymentArray = new ControlArray([]);
+    this.borrowerEmploymentArray = new ControlArray([], Validators.compose([
+      this.jobHistoryValidator
+    ]));
     this.coborrowerEmploymentArray = new ControlArray([]);
     employmentGroup.addControl('borrower', this.borrowerEmploymentArray);
     employmentGroup.addControl('coborrower', this.coborrowerEmploymentArray);
@@ -670,6 +685,7 @@ export class Apply {
   }
 
   ngOnInit() {
+    console.log(this.applyForm);
     this.applyForm.controls['borrowerGroup'].find('firstName').valueChanges.subscribe(data => {
       if (this.borrowerName !== data) {
         this.borrowerName = data;
@@ -686,16 +702,19 @@ export class Apply {
       let time = 0;
       for (let i = 0; i < parentGroup.controls.length; i++) {
         const group = parentGroup.controls[i];
-        if (!group.validator || !group.valid) {
+        if (parentGroup.hasError('invalidJobHistory')) {
+          this.addBorrowerJob();
+        }
+        /*if (!group.validator || !group.valid) {
           return;
         } else if (group.find('years').value && group.find('months').value) {
           time += (parseInt(group.find('years').value) * 12);
           time += parseInt(group.find('months').value);
-        }
+        }*/
       }
-      if (time < 24) {
+      /*if (time < 24) {
         this.addBorrowerJob();
-      }
+      }*/
     });
     (this.applyForm.find('assetsGroup').find('joined') as Control)
     .valueChanges.subscribe(data => {
