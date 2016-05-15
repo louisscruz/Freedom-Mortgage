@@ -119,5 +119,84 @@ describe('Apply', () => {
         expect(applyForm.find('coborrowerGroup').valid).toEqual(true);
       });
     }));
+
+    describe('loanGroup', () => {
+      it('should set default values', async(() => {
+        builder.createAsync(Apply).then((fixture) => {
+          fixture.detectChanges();
+          let applyForm = fixture.componentInstance.applyForm;
+          const loanGroup = applyForm.find('loanGroup');
+          expect(loanGroup.find('type').value).toEqual('purchase');
+          expect(loanGroup.find('amount').value).toEqual('250000');
+        });
+      }));
+
+      it('should successfully validate the loanGroup for purchase without address', async(() => {
+        builder.createAsync(Apply).then((fixture) => {
+          fixture.detectChanges();
+          let applyForm = fixture.componentInstance.applyForm;
+          const loanGroup = applyForm.find('loanGroup');
+          expect(loanGroup.valid).toEqual(true);
+        });
+      }));
+
+      it('should successfully validate the loanGroup for purchase with address', async(() => {
+        builder.createAsync(Apply).then((fixture) => {
+          fixture.detectChanges();
+          let applyForm = fixture.componentInstance.applyForm;
+          const loanGroup = applyForm.find('loanGroup');
+          fixture.componentInstance.addProperty();
+          expect(loanGroup.valid).toEqual(false);
+          setFieldAddress(loanGroup.find('address'));
+          expect(loanGroup.valid).toEqual(true);
+        });
+      }));
+
+      it('should successfully validate the loanGroup for refinance', async(() => {
+        builder.createAsync(Apply).then((fixture) => {
+          fixture.detectChanges();
+          let applyForm = fixture.componentInstance.applyForm;
+          const loanGroup = applyForm.find('loanGroup');
+          loanGroup.find('type').updateValue('refinance');
+          fixture.componentInstance.setLoanType('refinance');
+          expect(loanGroup.valid).toEqual(false);
+          fixture.componentInstance.removeProperty();
+          expect(loanGroup.valid).toEqual(true);
+          fixture.componentInstance.addProperty();
+          expect(loanGroup.valid).toEqual(false);
+          setFieldAddress(loanGroup.find('address'));
+          expect(loanGroup.valid).toEqual(true);
+        });
+      }));
+    });
+
+    describe('employmentGroup', () => {
+      function setEmployment(group: AbstractControl, years: number, months: number) {
+        (group.find('selfEmployed') as Control).updateValue(true);
+        (group.find('company') as Control).updateValue('Acme co.');
+        setFieldAddress((group.find('address') as ControlGroup));
+        (group.find('phone') as Control).updateValue('1231231234');
+        (group.find('years') as Control).updateValue(years.toString());
+        (group.find('months') as Control).updateValue(months.toString());
+        (group.find('yearsInField') as Control).updateValue('10');
+      }
+      it('should successfully validate borrower employment information', async(() => {
+        builder.createAsync(Apply).then((fixture) => {
+          fixture.detectChanges();
+          let applyForm = fixture.componentInstance.applyForm;
+          const employmentGroup = applyForm.find('employmentGroup');
+          const borrowerJobs = (employmentGroup.find('borrower') as ControlArray);
+          expect(borrowerJobs.length).toEqual(1);
+          setEmployment(borrowerJobs.controls[0], 1, 11);
+          expect(employmentGroup.valid).toEqual(false);
+          setEmployment(borrowerJobs.controls[0], 2, 0);
+          expect(employmentGroup.valid).toEqual(true);
+        });
+      }));
+    });
+
+    describe('incomeGroup', () => {
+
+    });
   });
 });
