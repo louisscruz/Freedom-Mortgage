@@ -18,6 +18,7 @@ import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
 import {FocusedTextarea} from '../directives/focusedTextarea';
 import {CurrencyInputDirective} from '../directives/currency-input.directive';
 import {TOOLTIP_DIRECTIVES} from '../components/tooltip';
+import {ApplicationService} from '../services/application.service';
 
 const declarationsKeys = [
   'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
@@ -40,7 +41,7 @@ const regex = new RegExp(currencyRegex);
     CurrencyInputDirective,
     TOOLTIP_DIRECTIVES
   ],
-  providers: [DatePickerService],
+  providers: [DatePickerService, ApplicationService],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
 })
@@ -80,7 +81,8 @@ export class Apply {
   private coborrowerExplanations: Array<string> = [];
 
   constructor(
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
+    private applicationService: ApplicationService
   ) {
     this.applyForm = this.generateForm();
     /*if (sessionStorage.getItem('cachedForm') !== null) {
@@ -114,6 +116,14 @@ export class Apply {
     });
     this.borrowerDob = this.thirtyYearsAgo();
     this.coborrowerDob = this.thirtyYearsAgo();
+  }
+
+  ngAfterViewInit() {
+    this.applicationService.postApplication(this.applyForm)
+    .subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
   }
 
   thirtyYearsAgo(): Date {
@@ -682,6 +692,10 @@ export class Apply {
     const month = date.getMonth();
     const day = date.getDate();
     field.updateValue((month + 1).toString() + '/' + day.toString() + '/' + year.toString());
+  }
+
+  submitApplication() {
+
   }
 
   ngOnInit() {

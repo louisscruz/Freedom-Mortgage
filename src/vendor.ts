@@ -14,6 +14,8 @@ import '@angular/router-deprecated';
 // RxJS
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+//import 'rxjs/add/operator/toPromise';
+//import 'rxjs/Rx';
 
 // Angular 2 Material 2
 // TODO(gdi2290): uncomment when material is fixed
