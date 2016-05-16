@@ -1,0 +1,8 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  street_address: 1045 Mission Street
+  city: San Francisco
+  state: CA
+  zip: 94103
+  addressable: louis (Applicant)

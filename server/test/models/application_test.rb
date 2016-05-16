@@ -15,6 +15,17 @@ class ApplicationTest < ActiveSupport::TestCase
     assert_not @app.save
   end
 
+  test "should copy address from borrower if no address" do
+    @app.loan_type = "refinance"
+    assert @app.save
+    assert_equal @app.borrower.address.street_address, @app.address.street_address
+  end
+
+  test "should copy address from borrower to coborrower if no address" do
+    assert @app.save
+    assert_equal @app.borrower.address.street_address, @app.coborrower.address.street_address
+  end
+
   test "should successfully save valid application" do
     assert @app.save
   end
