@@ -1,5 +1,4 @@
 class Api::ApplicationsController < ApplicationController
-  wrap_parameters format: [:json]
 
   def index
     @applications = Application.all
@@ -22,7 +21,7 @@ class Api::ApplicationsController < ApplicationController
 
   private
 
-    def application_params
-      params.permit(:borrowerGroup, :coborrowerGroup, :loanGroup, :employmentGroup, :assetsGroup, :declarationsGroup, :opportunityGroup)
-    end
+  def application_params
+    params.require(:application).permit(:loan_type, :loan_amount, borrower_attributes: [:first_name, :middle_name, :last_name, :birthdate, :phone, :email, :ssn, :marital_status, address_attributes: [:street_address, :city, :state, :zip]])
+  end
 end

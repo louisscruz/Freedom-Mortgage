@@ -1,20 +1,23 @@
 class Application < ApplicationRecord
   before_save :assign_addresses!
-  belongs_to :borrower, class_name: 'Applicant'
-  belongs_to :coborrower, class_name: 'Applicant', optional: true
+  belongs_to :borrower, class_name: "Applicant"
+  belongs_to :coborrower, class_name: "Applicant", optional: true
   has_one :address, as: :addressable
-  validate :require_borrower_marital_status
+  validate :require_borrower_marital_status, :require_borrower_address
 
-
-  accepts_nested_attributes_for :borrower
-  accepts_nested_attributes_for :coborrower
-  accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :borrower, :coborrower, :address
 
   private
 
   def require_borrower_marital_status
     if borrower.present? && borrower.marital_status == nil
       errors.add(:borrower, "must have a marital status")
+    end
+  end
+
+  def require_borrower_address
+    if borrower.present? && borrower.address == nil
+      errors.add(:borrower, "must have an address")
     end
   end
 

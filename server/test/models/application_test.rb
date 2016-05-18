@@ -15,6 +15,11 @@ class ApplicationTest < ActiveSupport::TestCase
     assert_not @app.save
   end
 
+  test "should require borrower address" do
+    @app.borrower.address = nil
+    assert_not @app.save
+  end
+
   test "should copy address from borrower if no address" do
     @app.loan_type = "refinance"
     assert @app.save
