@@ -45,6 +45,16 @@ class ApplicantTest < ActiveSupport::TestCase
     assert @applicant.save
   end
 
+  test "should require a declarations group" do
+    @applicant.declarations_group = nil
+    assert_not @applicant.save
+  end
+
+  test "should require an opportunity group" do
+    @applicant.opportunity_group = nil
+    assert_not @applicant.save
+  end
+
   test "should successfully save valid applicant" do
     assert @applicant.save
   end

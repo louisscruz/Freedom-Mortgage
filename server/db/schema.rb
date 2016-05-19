@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516173118) do
+ActiveRecord::Schema.define(version: 20160518134547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,40 @@ ActiveRecord::Schema.define(version: 20160516173118) do
     t.integer "coborrower_id"
     t.index ["borrower_id"], name: "index_applications_on_borrower_id", using: :btree
     t.index ["coborrower_id"], name: "index_applications_on_coborrower_id", using: :btree
+  end
+
+  create_table "declarations_groups", force: :cascade do |t|
+    t.boolean  "a",            null: false
+    t.boolean  "b",            null: false
+    t.boolean  "c",            null: false
+    t.boolean  "d",            null: false
+    t.boolean  "e",            null: false
+    t.boolean  "f",            null: false
+    t.boolean  "g",            null: false
+    t.boolean  "h",            null: false
+    t.boolean  "i",            null: false
+    t.boolean  "j",            null: false
+    t.boolean  "k",            null: false
+    t.boolean  "l",            null: false
+    t.boolean  "m",            null: false
+    t.boolean  "m1"
+    t.boolean  "m2"
+    t.text     "explanations"
+    t.integer  "applicant_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["applicant_id"], name: "index_declarations_groups_on_applicant_id", using: :btree
+  end
+
+  create_table "opportunity_groups", force: :cascade do |t|
+    t.boolean  "decline",      null: false
+    t.string   "ethnicity"
+    t.string   "race"
+    t.string   "sex"
+    t.integer  "applicant_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["applicant_id"], name: "index_opportunity_groups_on_applicant_id", using: :btree
   end
 
 end

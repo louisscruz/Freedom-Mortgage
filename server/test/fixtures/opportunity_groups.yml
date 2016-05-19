@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  decline: false
+  ethnicity: hispanic
+  race: white
+  sex: male
+  applicant: louis
+
+two:
+  decline: false
+  ethnicity: notHispanic
+  race: asian
+  sex: female
+  applicant: sandy
