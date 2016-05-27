@@ -3,7 +3,7 @@ class Application < ApplicationRecord
   belongs_to :borrower, class_name: "Applicant"
   belongs_to :coborrower, class_name: "Applicant", optional: true
   has_one :address, as: :addressable
-  validate :require_borrower_marital_status, :require_borrower_address
+  validate :require_borrower_marital_status, :require_borrower_address, :require_borrower_jobs
 
   accepts_nested_attributes_for :borrower, :coborrower, :address
 
@@ -44,6 +44,12 @@ class Application < ApplicationRecord
     state = address.state
     zip = address.zip
     parent.address = Address.new(street_address: street_address, city: city, state: state, zip: zip, addressable: parent)
+  end
+
+  def require_borrower_jobs
+    if borrower && borrower.jobs == []
+      errors.add(:borrower, "must have jobs")
+    end
   end
 
 end

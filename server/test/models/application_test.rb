@@ -31,6 +31,11 @@ class ApplicationTest < ActiveSupport::TestCase
     assert_equal @app.borrower.address.street_address, @app.coborrower.address.street_address
   end
 
+  test "should require borrower jobs" do
+    @app.borrower.jobs = []
+    assert_not @app.save
+  end
+
   test "should successfully save valid application" do
     assert @app.save
   end

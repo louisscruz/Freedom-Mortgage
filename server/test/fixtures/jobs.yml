@@ -1,0 +1,10 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+freedom_mortgage:
+  self_employed: false
+  company: Freedom Mortgage
+  phone: 12312312345
+  years: 8
+  months: 1
+  years_in_field: 8
+  applicant: louis
