@@ -6,3 +6,10 @@ one:
   state: CA
   zip: 94103
   addressable: louis (Applicant)
+
+two:
+  street_address: 1234 street street
+  city: New York
+  state: New York
+  zip: 12345
+  addressable: freedom_mortgage (Job)

@@ -8,3 +8,12 @@ freedom_mortgage:
   months: 1
   years_in_field: 8
   applicant: louis
+
+allied:
+  self_employed: false
+  company: allied
+  phone: 11231231234
+  years: 0
+  months: 1
+  years_in_field: 8
+  applicant: louis

@@ -36,6 +36,23 @@ class ApplicationTest < ActiveSupport::TestCase
     assert_not @app.save
   end
 
+  test "should not require coborrower jobs" do
+    @app.coborrower.jobs = []
+    assert @app.save
+  end
+
+  test "should require borrower jobs to have more than two years experience total" do
+    @app.borrower.jobs[0].years = 1
+    @app.borrower.jobs[0].months = 10
+    @app.borrower.jobs[1].years = 0
+    @app.borrower.jobs[1].months = 1
+    assert_not @app.save
+    @app.borrower.jobs[1].years = 0
+    @app.borrower.jobs[1].months = 2
+    @app.reload
+    assert @app.save
+  end
+
   test "should successfully save valid application" do
     assert @app.save
   end

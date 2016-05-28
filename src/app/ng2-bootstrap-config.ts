@@ -9,7 +9,7 @@ export class Ng2BootstrapConfig {
     if (w && w.__theme === 'bs4') {
       return Ng2BootstrapTheme.BS4;
     }
-    return (this._theme || Ng2BootstrapTheme.BS4);
+    return (Ng2BootstrapTheme.BS4);
   }
 
   public static set theme(v: Ng2BootstrapTheme) {

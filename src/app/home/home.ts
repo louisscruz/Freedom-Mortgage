@@ -10,8 +10,13 @@ import {FORM_DIRECTIVES} from '@angular/common';
 })
 export class Home {
   data = { value: '' };
+  private testimonials: Array<any>;
   constructor() {
-
+    this.testimonials = [
+      {
+        title: "test"
+      }
+    ]
   }
 
   ngOnInit() {
