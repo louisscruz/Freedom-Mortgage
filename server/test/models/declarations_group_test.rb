@@ -5,10 +5,7 @@ class DeclarationsGroupTest < ActiveSupport::TestCase
     @declarations_group = declarations_groups(:one)
   end
 
-  ('a'..'l').to_a.each do |x|
-    test "should required #{x}" do
-      @declarations_group[x] = nil
-      assert_not @declarations_group.save
-    end
+  test "should save valid declarations_group" do
+    assert @declarations_group.save
   end
 end

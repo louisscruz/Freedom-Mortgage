@@ -2,12 +2,7 @@ require 'test_helper'
 
 class JobTest < ActiveSupport::TestCase
   def setup
-    @job = jobs(:freedom_mortgage)
-  end
-
-  test "should require self_employed" do
-    @job.self_employed = nil
-    assert_not @job.save
+    @job = jobs(:one)
   end
 
   test "should require company" do
@@ -36,6 +31,9 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "should require history to be greater than zero" do
+    @job.years = 0
+    @job.months = 0
+    assert_not @job.save
   end
 
   test "should require years_in_field" do
@@ -44,7 +42,6 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "should save when valid" do
-    p @job
-    assert @job.save
+    assert @job.save!
   end
 end
