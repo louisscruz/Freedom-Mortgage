@@ -688,7 +688,6 @@ export class Apply {
   }
 
   ngOnInit() {
-    console.log(this.applyForm);
     this.applyForm.controls['borrowerGroup'].find('firstName').valueChanges.subscribe(data => {
       if (this.borrowerName !== data) {
         this.borrowerName = data;

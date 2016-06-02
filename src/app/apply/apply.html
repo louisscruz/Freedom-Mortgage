@@ -324,7 +324,7 @@
                 <div class="row">
                   <div class="col-xs-12 text-xs-center">
                     <h5>{{borrowerName}}'s Job History</h5>
-                    {{borrowerEmploymentArray.hasError('invalidJobHistory')}}
+                    <p class="text-xs-left">{{borrowerName}} should supply at least two years of employment history. The more information you provide here, the better.</p>
                   </div>
                   <div *ngFor="let job of borrowerEmploymentArray.controls; let i = index" class="card card-block col-xs-12">
                     <button type="button" class="btn btn-secondary btn-sm pull-xs-right" *ngIf="!job.validator" (click)="deleteBorrowerJob(i)"><i class="fa fa-close fa-fw"></i></button>
