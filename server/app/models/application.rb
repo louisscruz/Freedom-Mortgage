@@ -1,5 +1,6 @@
 class Application < ApplicationRecord
   before_save :assign_addresses!
+  after_save :send_email!
   belongs_to :borrower, class_name: "Applicant"
   belongs_to :coborrower, class_name: "Applicant", optional: true
   has_one :address, as: :addressable
@@ -62,6 +63,10 @@ class Application < ApplicationRecord
         errors.add(:borrower, "must have two years of job history")
       end
     end
+  end
+
+  def send_email!
+    p "WHOA"
   end
 
 end

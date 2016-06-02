@@ -8,6 +8,7 @@ import {CORE_DIRECTIVES,
         AbstractControl,
         Control} from '@angular/common';
 import {States} from './states';
+import {Officers} from './officers';
 import {FieldsetComponent} from '../components/fieldset.component';
 import {BootstrapInputDirective} from '../directives/input.directive';
 import {DatePickerComponent} from '../components/datepicker/datepicker.component';
@@ -79,6 +80,8 @@ export class Apply {
   private explanationsForm: ControlGroup;
   private borrowerExplanations: Array<string> = [];
   private coborrowerExplanations: Array<string> = [];
+  private officers: Array<any> = Officers;
+  private officerPicture: String = 'assets/img/officers/unknown_officer.svg';
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -144,19 +147,6 @@ export class Apply {
   zipValidator(control: Control): { [s: string]: boolean} {
     if (control.value && (!control.value.match(/^[0-9]*$/) || control.value.length !== 5)) {
       return {invalidZip: true};
-    }
-  }
-
-  jobHistoryValidator(jobs: ControlArray): { [s: string]: boolean} {
-    let total = 0;
-    for (let i = 0; i < jobs.controls.length; i++) {
-      const job = (jobs.controls[i] as ControlGroup);
-      const years = parseInt(job.find('years').value);
-      const months = parseInt(job.find('months').value);
-      total += ((years * 12) + months);
-    }
-    if (total < 24) {
-      return {invalidJobHistory: true};
     }
   }
 
@@ -275,9 +265,7 @@ export class Apply {
     loanGroup.exclude('address');
     applyForm.addControl('loanGroup', loanGroup);
     const employmentGroup = new ControlGroup({});
-    this.borrowerEmploymentArray = new ControlArray([], Validators.compose([
-      this.jobHistoryValidator
-    ]));
+    this.borrowerEmploymentArray = new ControlArray([]);
     this.coborrowerEmploymentArray = new ControlArray([]);
     employmentGroup.addControl('borrower', this.borrowerEmploymentArray);
     employmentGroup.addControl('coborrower', this.coborrowerEmploymentArray);
@@ -341,6 +329,7 @@ export class Apply {
     opportunityGroup.addControl('coborrower', coborrowerOpportunityGroup);
     opportunityGroup.exclude('coborrower');
     applyForm.addControl('opportunityGroup', opportunityGroup);
+    applyForm.addControl('officer', new Control('unknown'));
     return applyForm;
   }
 
@@ -710,26 +699,6 @@ export class Apply {
         this.coborrowerName = data;
       }
     });
-    (this.applyForm.find('employmentGroup').find('borrower') as ControlGroup)
-    .valueChanges.subscribe(data => {
-      const parentGroup = (this.applyForm.find('employmentGroup').find('borrower') as ControlArray);
-      let time = 0;
-      for (let i = 0; i < parentGroup.controls.length; i++) {
-        const group = parentGroup.controls[i];
-        if (parentGroup.hasError('invalidJobHistory')) {
-          this.addBorrowerJob();
-        }
-        /*if (!group.validator || !group.valid) {
-          return;
-        } else if (group.find('years').value && group.find('months').value) {
-          time += (parseInt(group.find('years').value) * 12);
-          time += parseInt(group.find('months').value);
-        }*/
-      }
-      /*if (time < 24) {
-        this.addBorrowerJob();
-      }*/
-    });
     (this.applyForm.find('assetsGroup').find('joined') as Control)
     .valueChanges.subscribe(data => {
       if (this.applyForm.find('assetsGroup').find('joined').value === false) {
@@ -895,5 +864,13 @@ export class Apply {
         }
       });
     }
+    this.applyForm.find('officer').valueChanges.subscribe(data => {
+      console.log(data);
+      if (data === 'unknown') {
+        this.officerPicture = 'assets/img/officers/unknown_officer.svg';
+      } else {
+        this.officerPicture = 'assets/img/officers/' + data.replace(/ /g, '_').toLowerCase() + '.svg';
+      }
+    });
   }
 }

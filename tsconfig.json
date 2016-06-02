@@ -36,6 +36,7 @@
     "./src/app/app.spec.ts",
     "./src/app/apply/apply.spec.ts",
     "./src/app/apply/apply.ts",
+    "./src/app/apply/officers.ts",
     "./src/app/apply/states.ts",
     "./src/app/components/common.ts",
     "./src/app/components/datepicker/date-formatter.ts",

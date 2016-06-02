@@ -1793,7 +1793,7 @@
               <h2><i class="fa fa-balance-scale fa-fw"></i></h2>
               <h2>VII. Equal Opportunity</h2>
             </div>
-            <div ngControlGroup="opportunityGroup" class="col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
+            <div ngControlGroup="opportunityGroup" class="col-xs-12 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
               <div class="card card-block">
                 <div class="row">
                   <div class="col-xs-12" [class.col-md-6]="applyForm.find('opportunityGroup').contains('coborrower')" *ngIf="true">
@@ -1975,9 +1975,40 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-12 col-xs-offset-0 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="eight">
+      <div class="child">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
+              <div class="col-xs-12 text-xs-center">
+                <h2><i class="fa fa-paper-plane-o fa-fw"></i></h2>
+                <h2>VIII. Submit</h2>
+              </div>
               <div class="card card-block">
-                <button (click)="setAllFieldsTouched()" href="javascript:void(0)" type="button" class="btn btn-primary btn-block" [disabled]="!applyForm.valid">Submit</button>
+                <div class="row">
+                  <!--div class="col-xs-12">
+                    <label>Already know your agent?</label>
+                  </div-->
+                  <div class="col-xs-12 col-sm-6">
+                    <label>Already know your loan officer?</label>
+                    <select class="c-select form-control" [ngFormControl]="applyForm.controls.officer">
+                      <option value="unknown" selected>No</option>
+                      <option *ngFor="let officer of officers" [value]="officer.name">{{officer.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="text-xs-center officer-picture">
+                      <img class="card-img-top" [src]="officerPicture" [alt]="applyForm.find('officer').value">
+                    </div>
+                  </div>
+                <div class="col-xs-12">
+                  <button (click)="setAllFieldsTouched()" href="javascript:void(0)" type="button" class="btn btn-primary btn-block" [disabled]="!applyForm.valid">Submit</button>
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -1985,9 +2016,9 @@
       </div>
     </section>
   </form>
-  <div class="container">
+  <!--div class="container">
     applyForm.valid: {{applyForm.valid}}
     <hr>
     {{afValue}}
-  </div>
+  </div-->
 </div>

@@ -111,3 +111,10 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #478dc9;
 }
+
+.officer-picture {
+  height: 100px;
+  img {
+    height: 100%;
+  }
+}
