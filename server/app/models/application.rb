@@ -66,7 +66,7 @@ class Application < ApplicationRecord
   end
 
   def send_email!
-    p "WHOA"
+    #p "WHOA"
   end
 
 end

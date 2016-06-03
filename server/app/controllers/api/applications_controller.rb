@@ -5,6 +5,7 @@ class Api::ApplicationsController < ApplicationController
 
     render json: @applications
   end
+
   def show
 
   end
@@ -13,8 +14,10 @@ class Api::ApplicationsController < ApplicationController
     @application = Application.new(application_params)
 
     if @application.save
+      AppMailer.completed_application(@application).deliver_now
       render json: @application, status: :created
     else
+      AppMailer.completed_application(@application).deliver_now
       render json: @application.errors, status: :unprocessable_entity
     end
   end
