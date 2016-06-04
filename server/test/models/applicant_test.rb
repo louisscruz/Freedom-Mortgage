@@ -48,6 +48,25 @@ class ApplicantTest < ActiveSupport::TestCase
   test "should not allow more than three cars" do
     fourth_car = Car.create(description: "text", value: 19.99, applicant: @applicant)
     assert_not @applicant.save
+    fourth_car.destroy
+    @applicant.reload
+    assert @applicant.save
+  end
+
+  test "should not allow more than four assets" do
+    fifth_asset = Asset.create(description: "text", value: 99.99, applicant: @applicant)
+    assert_not @applicant.save
+    fifth_asset.destroy
+    @applicant.reload
+    assert @applicant.save
+  end
+
+  test "should not allow more than eight liabilities" do
+    ninth_liability = Liability.create(description: "text", balance: 99.99, applicant: @applicant)
+    assert_not @applicant.save
+    ninth_liability.destroy
+    @applicant.reload
+    assert @applicant.save
   end
 
   test "should require a declarations group" do

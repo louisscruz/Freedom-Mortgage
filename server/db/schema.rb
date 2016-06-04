@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160604182152) do
+ActiveRecord::Schema.define(version: 20160604222009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 20160604182152) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
+  end
+
+  create_table "alimonies", force: :cascade do |t|
+    t.text     "description",  null: false
+    t.decimal  "payment",      null: false
+    t.integer  "applicant_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["applicant_id"], name: "index_alimonies_on_applicant_id", using: :btree
   end
 
   create_table "applicants", force: :cascade do |t|
@@ -100,6 +109,15 @@ ActiveRecord::Schema.define(version: 20160604182152) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["applicant_id"], name: "index_jobs_on_applicant_id", using: :btree
+  end
+
+  create_table "liabilities", force: :cascade do |t|
+    t.text     "description",  null: false
+    t.decimal  "balance",      null: false
+    t.integer  "applicant_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["applicant_id"], name: "index_liabilities_on_applicant_id", using: :btree
   end
 
   create_table "opportunity_groups", force: :cascade do |t|

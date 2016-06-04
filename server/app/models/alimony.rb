@@ -1,0 +1,2 @@
+class Alimony < ApplicationRecord
+end
