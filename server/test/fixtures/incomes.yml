@@ -2,36 +2,35 @@
 
 one:
   amount: 9.99
-  kind: "income"
+  kind: income
   applicant: louis
 
 two:
   amount: 9.99
-  kind: "overtime"
+  kind: overtime
   applicant: louis
-
 
 three:
   amount: 9.99
-  kind: "bonuses"
+  kind: bonuses
   applicant: louis
 
 four:
   amount: 9.99
-  kind: "commissions"
+  kind: commissions
   applicant: louis
 
 five:
   amount: 9.99
-  kind: "interest"
+  kind: interest
   applicant: louis
 
 six:
   amount: 9.99
-  kind: "rental"
+  kind: rental
   applicant: louis
 
 seven:
   amount: 9.99
-  kind: "other"
+  kind: other
   applicant: louis

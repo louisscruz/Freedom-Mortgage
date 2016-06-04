@@ -6,13 +6,13 @@ class Applicant < ApplicationRecord
   has_many :assets
   has_many :cars
   has_many :liabilities
-  has_many :alimonies
+  has_one :alimony
   has_one :declarations_group, required: true, dependent: :destroy
   has_one :opportunity_group, required: true, dependent: :destroy
   validates_presence_of :first_name, :last_name, :phone, :email, :birthdate, :ssn
-  validate :income_duplicates, :three_car_max, :four_asset_max, :eight_liability_max, :three_alimony_max
+  validate :income_duplicates, :three_car_max, :four_asset_max, :eight_liability_max
 
-  accepts_nested_attributes_for :address, :jobs, :incomes, :assets, :cars, :liabilities, :alimonies
+  accepts_nested_attributes_for :address, :jobs, :incomes, :assets, :cars, :liabilities, :alimony
 
   private
 
@@ -41,12 +41,6 @@ class Applicant < ApplicationRecord
   def eight_liability_max
     unless liabilities.blank?
       errors.add(:liabilities, "more than eight liabilities entered") if liabilities.size > 8
-    end
-  end
-
-  def three_alimony_max
-    unless alimonies.blank?
-      errors.add(:alimonies, "more than three alimonies entered") if alimonies.size > 3
     end
   end
 end

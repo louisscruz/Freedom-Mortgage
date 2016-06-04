@@ -77,14 +77,6 @@ class ApplicantTest < ActiveSupport::TestCase
     assert @applicant.save
   end
 
-  test "should not allow more than three alimonies" do
-    fourth_alimony = Alimony.create(description: "text", payment: 9.99, applicant: @applicant)
-    assert_not @applicant.save
-    fourth_alimony.destroy
-    @applicant.reload
-    assert @applicant.save
-  end
-
   test "should require a declarations group" do
     @applicant.declarations_group = nil
     assert_not @applicant.save
