@@ -4,7 +4,7 @@ class Application < ApplicationRecord
   belongs_to :borrower, class_name: "Applicant"
   belongs_to :coborrower, class_name: "Applicant", optional: true
   has_one :address, as: :addressable
-  validate :require_borrower_marital_status, :require_borrower_address, :require_borrower_jobs, :require_borrower_jobs_two_years
+  validate :require_borrower_marital_status, :require_borrower_address, :require_borrower_jobs
 
   accepts_nested_attributes_for :borrower, :coborrower, :address
 
@@ -50,18 +50,6 @@ class Application < ApplicationRecord
   def require_borrower_jobs
     if borrower.present? && borrower.jobs == []
       errors.add(:borrower, "must have jobs")
-    end
-  end
-
-  def require_borrower_jobs_two_years
-    if borrower.present?
-      time = 0
-      borrower.jobs.each do |x|
-        time += ((x.years * 12) + x.months)
-      end
-      if time < 24
-        errors.add(:borrower, "must have two years of job history")
-      end
     end
   end
 

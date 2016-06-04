@@ -45,6 +45,11 @@ class ApplicantTest < ActiveSupport::TestCase
     assert @applicant.save
   end
 
+  test "should not allow more than three cars" do
+    fourth_car = Car.create(description: "text", value: 19.99, applicant: @applicant)
+    assert_not @applicant.save
+  end
+
   test "should require a declarations group" do
     @applicant.declarations_group = nil
     assert_not @applicant.save

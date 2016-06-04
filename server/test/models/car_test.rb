@@ -5,7 +5,7 @@ class CarTest < ActiveSupport::TestCase
     @car = cars(:one)
   end
 
-  test "should require description" do
+  test "should require a description" do
     @car.description = nil
     assert_not @car.save
   end
@@ -15,7 +15,7 @@ class CarTest < ActiveSupport::TestCase
     assert_not @car.save
   end
 
-  test "should successfully save a valid car" do
+  test "should successfully save when valid" do
     assert @car.save
   end
 end

@@ -1,8 +1,9 @@
-class CreateCars < ActiveRecord::Migration[5.0]
+class CreateAssets < ActiveRecord::Migration[5.0]
   def change
-    create_table :cars do |t|
+    create_table :assets do |t|
       t.text :description, null: false
       t.decimal :value, null: false
+      t.belongs_to :applicant, index: true
 
       t.timestamps
     end

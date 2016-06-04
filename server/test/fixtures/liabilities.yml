@@ -2,8 +2,8 @@
 
 one:
   description: MyText
-  value: 9.99
+  balance: 9.99
 
 two:
   description: MyText
-  value: 9.99
+  balance: 9.99
