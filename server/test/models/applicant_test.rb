@@ -45,6 +45,14 @@ class ApplicantTest < ActiveSupport::TestCase
     assert @applicant.save
   end
 
+  test "should only allow one of each kind of income" do
+    kinds = ["income", "overtime", "bonuses", "commissions", "interest", "rental", "other"]
+    kinds.each do |x|
+      duplicate_income = Income.create(amount: 9.99, kind: x, applicant: @applicant)
+      assert_not @applicant.save
+    end
+  end
+
   test "should not allow more than three cars" do
     fourth_car = Car.create(description: "text", value: 19.99, applicant: @applicant)
     assert_not @applicant.save

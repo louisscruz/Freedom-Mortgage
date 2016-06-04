@@ -2,6 +2,7 @@ class Applicant < ApplicationRecord
   has_many :applications
   has_one :address, as: :addressable
   has_many :jobs
+  has_many :incomes
   has_many :assets
   has_many :cars
   has_many :liabilities
@@ -9,11 +10,21 @@ class Applicant < ApplicationRecord
   has_one :declarations_group, required: true, dependent: :destroy
   has_one :opportunity_group, required: true, dependent: :destroy
   validates_presence_of :first_name, :last_name, :phone, :email, :birthdate, :ssn
-  validate :three_car_max, :four_asset_max, :eight_liability_max, :three_alimony_max
+  validate :income_duplicates, :three_car_max, :four_asset_max, :eight_liability_max, :three_alimony_max
 
-  accepts_nested_attributes_for :address, :jobs, :assets, :cars
+  accepts_nested_attributes_for :address, :jobs, :incomes, :assets, :cars, :liabilities, :alimonies
 
   private
+
+  def income_duplicates
+    unless incomes.blank? || incomes.size == 1
+      (0...(incomes.length - 1)).each do |i|
+        ((i + 1)...incomes.length).each do |y|
+          errors.add(:incomes, "duplicate #{incomes[y].kind} kind of income") if incomes[i].kind == incomes[y].kind
+        end
+      end
+    end
+  end
 
   def three_car_max
     unless cars.blank?
