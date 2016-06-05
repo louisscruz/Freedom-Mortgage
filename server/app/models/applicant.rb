@@ -3,6 +3,7 @@ class Applicant < ApplicationRecord
   has_one :address, as: :addressable
   has_many :jobs
   has_many :incomes
+  has_one :expense
   has_many :assets
   has_many :cars
   has_many :liabilities
