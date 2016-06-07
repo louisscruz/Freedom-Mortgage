@@ -8,7 +8,6 @@ import {CORE_DIRECTIVES,
         AbstractControl,
         Control} from '@angular/common';
 import {States} from './states';
-import {Officers} from './officers';
 import {FieldsetComponent} from '../components/fieldset.component';
 import {BootstrapInputDirective} from '../directives/input.directive';
 import {DatePickerComponent} from '../components/datepicker/datepicker.component';
@@ -20,6 +19,7 @@ import {FocusedTextarea} from '../directives/focusedTextarea';
 import {CurrencyInputDirective} from '../directives/currency-input.directive';
 import {TOOLTIP_DIRECTIVES} from '../components/tooltip';
 import {ApplicationService} from '../services/application.service';
+import {OfficersService} from '../services/officers.service/officers.service';
 
 const declarationsKeys = [
   'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
@@ -42,7 +42,11 @@ const regex = new RegExp(currencyRegex);
     CurrencyInputDirective,
     TOOLTIP_DIRECTIVES
   ],
-  providers: [DatePickerService, ApplicationService],
+  providers: [
+    DatePickerService,
+    ApplicationService,
+    OfficersService
+  ],
   styles: [require('./apply.scss')],
   template: require('./apply.html')
 })
@@ -80,12 +84,12 @@ export class Apply {
   private explanationsForm: ControlGroup;
   private borrowerExplanations: Array<string> = [];
   private coborrowerExplanations: Array<string> = [];
-  private officers: Array<any> = Officers;
-  private officerPicture: String = 'assets/img/officers/unknown_officer.svg';
+  private officerPicture: String;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private officersService: OfficersService
   ) {
     this.applyForm = this.generateForm();
     /*if (sessionStorage.getItem('cachedForm') !== null) {
@@ -119,6 +123,7 @@ export class Apply {
     });
     this.borrowerDob = this.thirtyYearsAgo();
     this.coborrowerDob = this.thirtyYearsAgo();
+    this.officerPicture = officersService.defaultPhoto;
   }
 
   ngAfterViewInit() {
@@ -864,11 +869,11 @@ export class Apply {
       });
     }
     this.applyForm.find('officer').valueChanges.subscribe(data => {
-      console.log(data);
       if (data === 'unknown') {
-        this.officerPicture = 'assets/img/officers/unknown_officer.svg';
+        this.officerPicture = this.officersService.defaultPhoto;
       } else {
-        this.officerPicture = 'assets/img/officers/' + data.replace(/ /g, '_').toLowerCase() + '.svg';
+        let name = data.replace(/ /g, '_').toLowerCase();
+        this.officerPicture = 'assets/img/officers/' + name + '.svg';
       }
     });
   }

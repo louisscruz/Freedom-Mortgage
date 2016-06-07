@@ -1,3 +1,19 @@
 <div class="container">
-  <h1 class="text-xs-center">About</h1>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="text-xs-center">About</h1>
+    </div>
+    <div *ngFor="let officer of officers" class="col-xs-12 col-sm-6 col-lg-4">
+      <div class="card">
+        <div class="card-block text-xs-center">
+          <h4>{{officer.name}}</h4>
+          <h6>{{officer.role}}</h6>
+        </div>
+        <img class="text-xs-center" [src]="officer.photo">
+        <div class="card-block">
+          <div class="card-text">{{officer.bio}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

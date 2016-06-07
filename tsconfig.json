@@ -79,6 +79,8 @@
     "./src/app/ng2-bootstrap-config.ts",
     "./src/app/pipes/ssnPipe.ts",
     "./src/app/services/application.service.ts",
+    "./src/app/services/officers.service/officers.service.ts",
+    "./src/app/services/officers.service/officers.ts",
     "./src/custom-typings.d.ts",
     "./src/main.browser.ts",
     "./src/platform/browser/directives.ts",

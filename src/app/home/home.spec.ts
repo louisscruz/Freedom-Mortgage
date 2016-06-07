@@ -35,12 +35,4 @@ describe('Home', () => {
     expect(home.data).toEqual({ value: '' });
   }));
 
-  it('should log ngOnInit', inject([ Home ], (home) => {
-    spyOn(console, 'log');
-    expect(console.log).not.toHaveBeenCalled();
-
-    home.ngOnInit();
-    expect(console.log).toHaveBeenCalled();
-  }));
-
 });

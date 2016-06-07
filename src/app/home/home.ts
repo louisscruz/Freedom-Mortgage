@@ -14,14 +14,12 @@ export class Home {
   constructor() {
     this.testimonials = [
       {
-        title: "test"
+        title: 'test'
       }
-    ]
+    ];
   }
 
   ngOnInit() {
-    console.log('hello `Home` component');
-    // this.title.getData().subscribe(data => this.data = data);
   }
 
 }

@@ -6,6 +6,7 @@
           <div class="row">
             <div class="col-xs-12 text-xs-center">
               <h1>Apply</h1>
+              <p>This application should take about fifteen to twenty minutes to complete. <b>All fields are required.</b></p>
               <h2><i class="fa fa-user fa-fw"></i></h2>
               <h2>I. General Info</h2>
             </div>
@@ -1997,12 +1998,12 @@
                     <label>Already know your loan officer?</label>
                     <select class="c-select form-control" [ngFormControl]="applyForm.controls.officer">
                       <option value="unknown" selected>No</option>
-                      <option *ngFor="let officer of officers" [value]="officer.name">{{officer.name}}</option>
+                      <option *ngFor="let officer of officersService.officers" [value]="officer.name">{{officer.name}}</option>
                     </select>
                   </div>
                   <div class="col-xs-12 col-sm-6">
                     <div class="text-xs-center officer-picture">
-                      <img class="card-img-top" [src]="officerPicture" [alt]="applyForm.find('officer').value">
+                      <img class="card-img-top" [src]="officerPicture">
                     </div>
                   </div>
                 <div class="col-xs-12">

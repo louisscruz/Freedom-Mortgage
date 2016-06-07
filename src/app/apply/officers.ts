@@ -6,4 +6,4 @@ export const Officers = [
   }, {
     name: 'Tom Crivello'
   }
-]
+];

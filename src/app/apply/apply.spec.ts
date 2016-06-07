@@ -23,11 +23,16 @@ import {
 } from '@angular/common';
 
 import {
+  HTTP_PROVIDERS
+} from '@angular/http';
+
+import {
   TestComponentBuilder
 } from '@angular/compiler/testing';
 
 // Load the implementations that should be tested
 import {Apply} from './apply';
+import {ApplicationService} from '../services/application.service';
 
 describe('Apply', () => {
   // provide our implementations or mocks to the dependency injector
@@ -36,6 +41,8 @@ describe('Apply', () => {
     Apply,
     ChangeDetectorRef,
     FORM_DIRECTIVES,
+    ApplicationService,
+    HTTP_PROVIDERS,
     provide(ControlGroup, {useValue: ControlGroup}),
     provide(Control, {useValue: Control}),
     provide(ControlArray, {useValue: ControlArray}),
@@ -54,8 +61,8 @@ describe('Apply', () => {
   });
 
   describe('applyForm', () => {
-    function setFieldString(control: AbstractControl) {
-      (control as Control).updateValue('a');
+    function setFieldString(control: AbstractControl, value: String = 'a') {
+      (control as Control).updateValue(value);
     }
 
     function setFieldEmail(control: AbstractControl) {
@@ -67,7 +74,7 @@ describe('Apply', () => {
       (control as Control).updateValue(value);
     }
 
-    function setFieldAddress(controlGroup: ControlGroup) {
+    function setFieldAddress(controlGroup: AbstractControl) {
       setFieldString(controlGroup.find('add'));
       setFieldString(controlGroup.find('city'));
       setFieldString(controlGroup.find('state'));
@@ -82,10 +89,41 @@ describe('Apply', () => {
       setFieldNumber(controlGroup.find('phone'), 10);
       setFieldEmail(controlGroup.find('email'));
       setFieldString(controlGroup.find('ssn'));
-      setFieldAddress((controlGroup.find('address') as ControlGroup));
+      setFieldAddress(controlGroup.find('address'));
       if (controlGroup.contains('maritalStatus')) {
         setFieldString(controlGroup.find('maritalStatus'));
       }
+    }
+
+    function setLoanGroup(controlGroup: ControlGroup) {
+      setFieldString(controlGroup.find('type'), 'purchase');
+      setFieldNumber(controlGroup.find('amount'), 5);
+      setFieldAddress(controlGroup.find('address'));
+    }
+
+    function setEmployment(group: AbstractControl) {
+      (group.find('selfEmployed') as Control).updateValue(true);
+      (group.find('company') as Control).updateValue('Acme co.');
+      setFieldAddress(group.find('address'));
+      (group.find('phone') as Control).updateValue('1231231234');
+      (group.find('years') as Control).updateValue(2);
+      (group.find('months') as Control).updateValue(2);
+      (group.find('yearsInField') as Control).updateValue('10');
+    }
+
+    function setIncomeGroup(controlGroup: ControlGroup) {
+      setFieldNumber(controlGroup.find('baseIncome'), 3);
+      setFieldNumber(controlGroup.find('rent'), 3);
+    }
+
+    function setAssetsGroup(controlGroup: ControlGroup) {
+      const car = (controlGroup.find('assets').find('cars') as ControlArray).controls[0];
+      setFieldString(car.find('make'), 'Ford Excursion');
+      setFieldNumber(car.find('value'), 4);
+      const alimonyGroup = controlGroup.find('liabilities').find('alimony');
+      const alimony = (alimonyGroup as ControlArray).controls[0];
+      setFieldString(alimony.find('description'), 'test');
+      setFieldNumber(alimony.find('payment'), 4);
     }
 
     beforeEach(async(inject([TestComponentBuilder], (tcb) => {
@@ -95,15 +133,37 @@ describe('Apply', () => {
     it('should initially create an invalid applyForm', async(() => {
       builder.createAsync(Apply).then((fixture) => {
         fixture.detectChanges();
-        let applyForm = fixture.componentInstance.applyForm;
+        const applyForm = fixture.componentInstance.applyForm;
+        const borrowerGroup = applyForm.find('borrowerGroup');
+        setInfoGroup(borrowerGroup);
+        const loanGroup = applyForm.find('loanGroup');
+        setLoanGroup(loanGroup);
         expect(applyForm.valid).toEqual(false);
+      });
+    }));
+
+    it('should show form as valid when filled out', async(() => {
+      builder.createAsync(Apply).then((fixture) => {
+        fixture.detectChanges();
+        const applyForm = fixture.componentInstance.applyForm;
+        const borrowerGroup = applyForm.find('borrowerGroup');
+        setInfoGroup(borrowerGroup);
+        const loanGroup = applyForm.find('loanGroup');
+        setLoanGroup(loanGroup);
+        const employmentGroup = applyForm.find('employmentGroup');
+        setEmployment(employmentGroup);
+        const incomeGroup = applyForm.find('incomeGroup');
+        setIncomeGroup(incomeGroup.find('borrower'));
+        const assetsGroup = applyForm.find('incomeGroup');
+        setAssetsGroup(assetsGroup);
+        expect(applyForm.valid).toEqual(true);
       });
     }));
 
     it('should successfully create valid borrowerGroup', async(() => {
       builder.createAsync(Apply).then((fixture) => {
         fixture.detectChanges();
-        let applyForm = fixture.componentInstance.applyForm;
+        const applyForm = fixture.componentInstance.applyForm;
         const borrowerGroup = applyForm.find('borrowerGroup');
         setInfoGroup(borrowerGroup);
         expect(applyForm.find('borrowerGroup').valid).toEqual(true);
@@ -113,7 +173,7 @@ describe('Apply', () => {
     it('should successfully create valid coborrowerGroup', async(() => {
       builder.createAsync(Apply).then((fixture) => {
         fixture.detectChanges();
-        let applyForm = fixture.componentInstance.applyForm;
+        const applyForm = fixture.componentInstance.applyForm;
         const coborrowerGroup = applyForm.find('coborrowerGroup');
         setInfoGroup(coborrowerGroup);
         expect(applyForm.find('coborrowerGroup').valid).toEqual(true);
@@ -124,7 +184,7 @@ describe('Apply', () => {
       it('should set default values', async(() => {
         builder.createAsync(Apply).then((fixture) => {
           fixture.detectChanges();
-          let applyForm = fixture.componentInstance.applyForm;
+          const applyForm = fixture.componentInstance.applyForm;
           const loanGroup = applyForm.find('loanGroup');
           expect(loanGroup.find('type').value).toEqual('purchase');
           expect(loanGroup.find('amount').value).toEqual('250000');
@@ -134,7 +194,7 @@ describe('Apply', () => {
       it('should successfully validate the loanGroup for purchase without address', async(() => {
         builder.createAsync(Apply).then((fixture) => {
           fixture.detectChanges();
-          let applyForm = fixture.componentInstance.applyForm;
+          const applyForm = fixture.componentInstance.applyForm;
           const loanGroup = applyForm.find('loanGroup');
           expect(loanGroup.valid).toEqual(true);
         });
@@ -143,7 +203,7 @@ describe('Apply', () => {
       it('should successfully validate the loanGroup for purchase with address', async(() => {
         builder.createAsync(Apply).then((fixture) => {
           fixture.detectChanges();
-          let applyForm = fixture.componentInstance.applyForm;
+          const applyForm = fixture.componentInstance.applyForm;
           const loanGroup = applyForm.find('loanGroup');
           fixture.componentInstance.addProperty();
           expect(loanGroup.valid).toEqual(false);
@@ -155,7 +215,7 @@ describe('Apply', () => {
       it('should successfully validate the loanGroup for refinance', async(() => {
         builder.createAsync(Apply).then((fixture) => {
           fixture.detectChanges();
-          let applyForm = fixture.componentInstance.applyForm;
+          const applyForm = fixture.componentInstance.applyForm;
           const loanGroup = applyForm.find('loanGroup');
           loanGroup.find('type').updateValue('refinance');
           fixture.componentInstance.setLoanType('refinance');
@@ -171,28 +231,78 @@ describe('Apply', () => {
     });
 
     describe('employmentGroup', () => {
-      function setEmployment(group: AbstractControl, years: number, months: number) {
-        (group.find('selfEmployed') as Control).updateValue(true);
-        (group.find('company') as Control).updateValue('Acme co.');
-        setFieldAddress((group.find('address') as ControlGroup));
-        (group.find('phone') as Control).updateValue('1231231234');
-        (group.find('years') as Control).updateValue(years.toString());
-        (group.find('months') as Control).updateValue(months.toString());
-        (group.find('yearsInField') as Control).updateValue('10');
-      }
-      it('should successfully validate borrower employment information', async(() => {
+      it('should successfully show valid values as valid', async(() => {
         builder.createAsync(Apply).then((fixture) => {
           fixture.detectChanges();
-          let applyForm = fixture.componentInstance.applyForm;
+          const applyForm = fixture.componentInstance.applyForm;
           const employmentGroup = applyForm.find('employmentGroup');
-          const borrowerJobs = (employmentGroup.find('borrower') as ControlArray);
-          expect(borrowerJobs.length).toEqual(1);
-          setEmployment(borrowerJobs.controls[0], 1, 11);
-          expect(employmentGroup.valid).toEqual(false);
-          setEmployment(borrowerJobs.controls[0], 2, 0);
+          const group = employmentGroup.find('borrower').controls[0];
+          setEmployment(group);
           expect(employmentGroup.valid).toEqual(true);
         });
       }));
+
+      describe('invalid test cases', () => {
+        it('should require company', async(() => {
+          builder.createAsync(Apply).then((fixture) => {
+            fixture.detectChanges();
+            const applyForm = fixture.componentInstance.applyForm;
+            const employmentGroup = applyForm.find('employmentGroup');
+            const group = (employmentGroup.find('borrower').controls[0] as ControlGroup);
+            setEmployment(group);
+            (group.find('company') as Control).updateValue('');
+            expect(employmentGroup.valid).toEqual(false);
+          });
+        }));
+
+        it('should require phone', async(() => {
+          builder.createAsync(Apply).then((fixture) => {
+            fixture.detectChanges();
+            const applyForm = fixture.componentInstance.applyForm;
+            const employmentGroup = applyForm.find('employmentGroup');
+            const group = (employmentGroup.find('borrower').controls[0] as ControlGroup);
+            setEmployment(group);
+            (group.find('phone') as Control).updateValue('');
+            expect(employmentGroup.valid).toEqual(false);
+          });
+        }));
+
+        it('should require years', async(() => {
+          builder.createAsync(Apply).then((fixture) => {
+            fixture.detectChanges();
+            const applyForm = fixture.componentInstance.applyForm;
+            const employmentGroup = applyForm.find('employmentGroup');
+            const group = (employmentGroup.find('borrower').controls[0] as ControlGroup);
+            setEmployment(group);
+            (group.find('years') as Control).updateValue(null);
+            expect(employmentGroup.valid).toEqual(false);
+          });
+        }));
+
+        it('should require months', async(() => {
+          builder.createAsync(Apply).then((fixture) => {
+            fixture.detectChanges();
+            const applyForm = fixture.componentInstance.applyForm;
+            const employmentGroup = applyForm.find('employmentGroup');
+            const group = (employmentGroup.find('borrower').controls[0] as ControlGroup);
+            setEmployment(group);
+            (group.find('months') as Control).updateValue(null);
+            expect(employmentGroup.valid).toEqual(false);
+          });
+        }));
+
+        it('should require years in field', async(() => {
+          builder.createAsync(Apply).then((fixture) => {
+            fixture.detectChanges();
+            const applyForm = fixture.componentInstance.applyForm;
+            const employmentGroup = applyForm.find('employmentGroup');
+            const group = (employmentGroup.find('borrower').controls[0] as ControlGroup);
+            setEmployment(group);
+            (group.find('yearsInField') as Control).updateValue(null);
+            expect(employmentGroup.valid).toEqual(false);
+          });
+        }));
+      });
     });
 
     describe('incomeGroup', () => {
