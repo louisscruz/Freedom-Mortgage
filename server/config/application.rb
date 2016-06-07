@@ -28,5 +28,17 @@ module FreedomMortgage
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.smtp_settings = {
+         :authentication => :plain,
+         :address => "smtp.mailgun.org",
+         :port => 587,
+         :domain => "mg.freedommortgagelending.com",
+         :user_name => Rails.application.secrets.mailgun_user_name,
+         :password => Rails.application.secrets.mailgun_password
+    }
   end
 end

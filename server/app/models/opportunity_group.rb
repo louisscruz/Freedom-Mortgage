@@ -1,5 +1,5 @@
 class OpportunityGroup < ApplicationRecord
-  belongs_to :applicant
+  belongs_to :applicant, optional: true
   validate :info_presence
 
   private

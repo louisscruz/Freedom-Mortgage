@@ -8,6 +8,12 @@ class Application < ApplicationRecord
 
   accepts_nested_attributes_for :borrower, :coborrower, :address
 
+  def to_csv
+    CSV.generate do |csv|
+      csv << [self.loan_type]
+    end
+  end
+
   private
 
   def require_borrower_marital_status
