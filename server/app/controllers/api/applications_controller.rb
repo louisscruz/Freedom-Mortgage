@@ -14,11 +14,10 @@ class Api::ApplicationsController < ApplicationController
     @application = Application.new(application_params)
 
     if @application.save
-      AppMailer.new_application(@application).deliver_now
+      AppMailer.new_application(@application).deliver_later
       render json: @application, status: :created
     else
       p @application.errors
-      AppMailer.new_application(@application).deliver_now
       render json: @application.errors, status: :unprocessable_entity
     end
   end
@@ -100,7 +99,6 @@ class Api::ApplicationsController < ApplicationController
         :phone,
         :email,
         :ssn,
-        :marital_status,
         address_attributes: [
           :street_address,
           :city,

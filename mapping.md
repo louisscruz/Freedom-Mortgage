@@ -1,13 +1,144 @@
-Borrower
-  First Name: 100
-  Middle Name: 117
-  Last Name: 101
-  SSN: 108
-  DOB: 118
-  Phone: 106
-  Email: 112
-  Address: 102
-  City: 103
-  State: 104
-  Zip: 105
-  Country: 115 (USA)
+borrower_first_name 100
+borrower_middle_name 117
+borrower_last_name 101
+borrower_ssn 108
+borrower_birthdate 118
+borrower_phone 106
+borrower_email 112
+borrower_address 102
+borrower_city 103
+borrower_state 104
+borrower_zip 105
+borrower_country 115 (USA)
+
+#For loan_type, have two fields, purchase (1190) and refinance (1193)
+
+:loan_type,
+:loan_amount, 11
+borrower_attributes: [
+  :first_name, 100
+  :middle_name, 117
+  :last_name, 101
+  :birthdate, 118
+  :phone,106
+  :email, 112
+  :ssn, 108
+  :marital_status,
+  address_attributes: [
+    :street_address, 102
+    :city, 103
+    :state, 104
+    :zip 105
+    (:country 115)
+  ],
+  jobs_attributes: [
+    :self_employed,
+    :company,
+    :phone,
+    :years,
+    :months,
+    :years_in_field,
+    address_attributes: [
+      :street_address,
+      :city,
+      :state,
+      :zip
+    ]
+  ],
+  # For incomes, loop through each income and map it according to the appropriate kind: []
+  incomes_attributes: [
+    :amount,
+    :kind
+  ],
+  expenses_attributes: [
+    :amount,
+    :kind
+  ],
+  assets_attributes: [
+    :description,
+    :value
+  ],
+  cars_attributes: [
+    :description,
+    :value
+  ],
+  liabilities_attributes: [
+    :description,
+    :balance
+  ],
+  alimonies_attributes: [
+    :description,
+    :payment
+  ],
+  declarations_group_attributes: [
+    :a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :m1, :m2, :explanations
+  ],
+  opportunity_group_attributes: [
+    :decline,
+    :ethnicity,
+    :race,
+    :sex
+  ]
+],
+coborrower_attributes: [
+  :first_name,
+  :middle_name,
+  :last_name,
+  :birthdate,
+  :phone,
+  :email,
+  :ssn,
+  address_attributes: [
+    :street_address,
+    :city,
+    :state,
+    :zip
+  ],
+  jobs_attributes: [
+    :self_employed,
+    :company,
+    :phone,
+    :years,
+    :months,
+    :years_in_field,
+    address_attributes: [
+      :street_address,
+      :city,
+      :state,
+      :zip
+    ]
+  ],
+  incomes_attributes: [
+    :amount,
+    :kind
+  ],
+  expenses_attributes: [
+    :amount,
+    :kind
+  ],
+  assets_attributes: [
+    :description,
+    :value
+  ],
+  cars_attributes: [
+    :description,
+    :value
+  ],
+  liabilities_attributes: [
+    :description,
+    :balance
+  ],
+  alimonies_attributes: [
+    :description,
+    :payment
+  ],
+  declarations_group_attributes: [
+    :a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :m1, :m2, :explanations
+  ],
+  opportunity_group_attributes: [
+    :decline,
+    :ethnicity,
+    :race,
+    :sex
+  ]
+]

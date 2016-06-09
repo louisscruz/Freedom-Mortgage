@@ -1,3 +1,18 @@
 $primary: #3880BF;
 $secondary: #44B894;
 button:focus {outline:0;}
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-height {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}

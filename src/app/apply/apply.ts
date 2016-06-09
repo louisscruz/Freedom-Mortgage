@@ -127,6 +127,10 @@ export class Apply {
   }
 
   ngAfterViewInit() {
+    this.submit();
+  }
+
+  submit() {
     this.applicationService.postApplication(this.applyForm)
     .subscribe(
       res => console.log(res),
@@ -686,10 +690,6 @@ export class Apply {
     const month = date.getMonth();
     const day = date.getDate();
     field.updateValue((month + 1).toString() + '/' + day.toString() + '/' + year.toString());
-  }
-
-  submitApplication() {
-
   }
 
   ngOnInit() {

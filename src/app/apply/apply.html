@@ -1,5 +1,5 @@
 <div class="apply">
-  <form [ngFormModel]="applyForm" (submit)="submit()">
+  <form [ngFormModel]="applyForm" (ngSubmit)="submit()">
     <section class="one inverse">
       <div class="child">
         <div class="container">
@@ -1991,9 +1991,6 @@
               </div>
               <div class="card card-block">
                 <div class="row">
-                  <!--div class="col-xs-12">
-                    <label>Already know your agent?</label>
-                  </div-->
                   <div class="col-xs-12 col-sm-6">
                     <label>Already know your loan officer?</label>
                     <select class="c-select form-control" [ngFormControl]="applyForm.controls.officer">
@@ -2007,7 +2004,7 @@
                     </div>
                   </div>
                 <div class="col-xs-12">
-                  <button (click)="setAllFieldsTouched()" href="javascript:void(0)" type="button" class="btn btn-primary btn-block" [disabled]="!applyForm.valid">Submit</button>
+                  <button type="submit" class="btn btn-primary btn-block" [disabled]="!applyForm.valid">Submit</button>
                 </div>
               </div>
               </div>
