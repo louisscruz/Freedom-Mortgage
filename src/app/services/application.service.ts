@@ -10,7 +10,7 @@ export class ApplicationService {
   constructor(private http: Http) {}
 
   postApplication(application: ControlGroup) {
-    let formattedApplication = this.mapFormToParams(application);
+    let formattedApplication = this.testMapFormToParams(application);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     const url = this.apiUrl + '/api/applications/';

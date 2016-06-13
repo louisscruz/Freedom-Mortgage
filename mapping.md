@@ -1,16 +1,3 @@
-borrower_first_name 100
-borrower_middle_name 117
-borrower_last_name 101
-borrower_ssn 108
-borrower_birthdate 118
-borrower_phone 106
-borrower_email 112
-borrower_address 102
-borrower_city 103
-borrower_state 104
-borrower_zip 105
-borrower_country 115 (USA)
-
 #For loan_type, have two fields, purchase (1190) and refinance (1193)
 
 :loan_type,

@@ -13,7 +13,7 @@ class Applicant < ApplicationRecord
   validates_presence_of :first_name, :last_name, :phone, :email, :birthdate, :ssn
   validate :income_duplicates, :three_car_max, :four_asset_max, :eight_liability_max
 
-  accepts_nested_attributes_for :address, :jobs, :incomes, :assets, :cars, :liabilities, :alimony, :declarations_group, :opportunity_group
+  accepts_nested_attributes_for :address, :jobs, :incomes, :expense, :assets, :cars, :liabilities, :alimony, :declarations_group, :opportunity_group
 
   private
 

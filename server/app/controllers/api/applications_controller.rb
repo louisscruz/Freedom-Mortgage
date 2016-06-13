@@ -61,7 +61,7 @@ class Api::ApplicationsController < ApplicationController
           :amount,
           :kind
         ],
-        expenses_attributes: [
+        expense_attributes: [
           :amount,
           :kind
         ],
@@ -123,7 +123,7 @@ class Api::ApplicationsController < ApplicationController
           :amount,
           :kind
         ],
-        expenses_attributes: [
+        expense_attributes: [
           :amount,
           :kind
         ],

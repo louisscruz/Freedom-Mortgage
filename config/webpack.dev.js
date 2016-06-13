@@ -20,7 +20,8 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   host: 'localhost',
   port: 8000,
   ENV: ENV,
-  HMR: HMR
+  HMR: HMR,
+  apiUrl: 'http://localhost:3000'
 });
 
 /**
@@ -83,6 +84,7 @@ module.exports = webpackMerge(commonConfig, {
     new DefinePlugin({
       'ENV': JSON.stringify(METADATA.ENV),
       'HMR': METADATA.HMR,
+      'API_URL': JSON.stringify(METADATA.apiUrl),
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
         'NODE_ENV': JSON.stringify(METADATA.ENV),
