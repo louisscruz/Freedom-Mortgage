@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: freedom-mortgage_production
-  username: freedom-mortgage
+  database: freedom_mortgage_production
+  username: freedom_mortgage
   password: <%= ENV['FREEDOM_MORTGAGE_DATABASE_PASSWORD'] %>
