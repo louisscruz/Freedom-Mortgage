@@ -87,6 +87,11 @@ export class ApplicationService {
               }
             }
           ],
+          'incomes': [
+            {
+              
+            }
+          ],
           'declarations_group_attributes': {
             'a': false,
             'b': false,

@@ -44,4 +44,8 @@ class ApplicationTest < ActiveSupport::TestCase
   test "should successfully save valid application" do
     assert @app.save
   end
+
+  test "should output valid csv on save" do
+    
+  end
 end

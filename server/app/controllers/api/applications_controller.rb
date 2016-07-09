@@ -14,7 +14,7 @@ class Api::ApplicationsController < ApplicationController
     @application = Application.new(application_params)
 
     if @application.save
-      AppMailer.new_application(@application).deliver_later
+      AppMailer.new_application(@application).deliver_now
       render json: @application, status: :created
     else
       p @application.errors
