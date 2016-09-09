@@ -1,11 +1,8 @@
-import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-
-import {RouterActive} from '../directives/router-active';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'navbar',
-  directives: [RouterActive, ROUTER_DIRECTIVES],
+  //directives: [RouterActive, ROUTER_DIRECTIVES],
   styles: [ require('./navbar.scss') ],
   template: require('./navbar.html')
 })

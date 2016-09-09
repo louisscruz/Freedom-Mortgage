@@ -1,18 +1,17 @@
-import {Component, ChangeDetectorRef} from '@angular/core';
-import {CORE_DIRECTIVES,
-        FORM_DIRECTIVES,
-        FormBuilder,
-        ControlGroup,
-        ControlArray,
-        Validators,
-        AbstractControl,
-        Control} from '@angular/common';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { //REACTIVE_FORM_DIRECTIVES,
+         FormBuilder,
+         FormGroup,
+         FormArray,
+         Validators,
+         AbstractControl
+       } from '@angular/forms';
 import {States} from './states';
 import {FieldsetComponent} from '../components/fieldset.component';
 import {BootstrapInputDirective} from '../directives/input.directive';
-import {DatePickerComponent} from '../components/datepicker/datepicker.component';
-import {DatePickerService} from '../components/datepicker/datepicker.service';
-import {DatePickerPopupDirective} from '../components/datepicker/datepicker-popup.component';
+//import {DatePickerComponent} from '../components/datepicker/datepicker.component';
+//import {DatePickerService} from '../components/datepicker/datepicker.service';
+//import {DatePickerPopupDirective} from '../components/datepicker/datepicker-popup.component';
 import {ClickOutsideDirective} from '../directives/clickOutside';
 import {DROPDOWN_DIRECTIVES} from '../directives/dropdown';
 import {FocusedTextarea} from '../directives/focusedTextarea';
@@ -31,19 +30,8 @@ const regex = new RegExp(currencyRegex);
 
 @Component({
   selector: 'apply',
-  directives: [
-    DatePickerComponent,
-    DatePickerPopupDirective,
-    ClickOutsideDirective,
-    DROPDOWN_DIRECTIVES,
-    FocusedTextarea,
-    FieldsetComponent,
-    BootstrapInputDirective,
-    CurrencyInputDirective,
-    TOOLTIP_DIRECTIVES
-  ],
   providers: [
-    DatePickerService,
+    //DatePickerService,
     ApplicationService,
     OfficersService
   ],
@@ -51,9 +39,9 @@ const regex = new RegExp(currencyRegex);
   template: require('./apply.html')
 })
 export class Apply {
-  private applyForm: ControlGroup;
-  private borrowerEmploymentArray: ControlArray;
-  private coborrowerEmploymentArray: ControlArray;
+  /*private applyForm: FormGroup;
+  private borrowerEmploymentArray: FormArray;
+  private coborrowerEmploymentArray: FormArray;
   private borrowerName: string = 'Borrower';
   private coborrowerName: string = 'Coborrower';
   private borrowerMiddleNameCache: string;
@@ -63,25 +51,25 @@ export class Apply {
   private borrowerDobOpen: boolean = false;
   private coborrowerDobOpen: boolean = false;
   private states: Array<any> = States;
-  private loanForm: ControlGroup;
+  private loanForm: FormGroup;
   private loanMin: number = 50000;
   private loanMax: number = 2500000;
   private borrowerRent: string = '0.00';
   private coborrowerRent: string = '0.00';
-  private incomeRentForm: ControlGroup;
-  private borrowerCarsArray: ControlArray;
-  private coborrowerCarsArray: ControlArray;
-  private borrowerOtherAssetsArray: ControlArray;
-  private coborrowerOtherAssetsArray: ControlArray;
-  private borrowerOtherLiabilitiesArray: ControlArray;
-  private coborrowerOtherLiabilitiesArray: ControlArray;
-  private borrowerAlimonyArray: ControlArray;
-  private coborrowerAlimonyArray: ControlArray;
+  private incomeRentForm: FormGroup;
+  private borrowerCarsArray: FormArray;
+  private coborrowerCarsArray: FormArray;
+  private borrowerOtherAssetsArray: FormArray;
+  private coborrowerOtherAssetsArray: FormArray;
+  private borrowerOtherLiabilitiesArray: FormArray;
+  private coborrowerOtherLiabilitiesArray: FormArray;
+  private borrowerAlimonyArray: FormArray;
+  private coborrowerAlimonyArray: FormArray;
   private borrowerAssetsValue: string = '0.00';
   private borrowerLiabilitiesValue: string = '0.00';
   private coborrowerAssetsValue: string = '0.00';
   private coborrowerLiabilitiesValue: string = '0.00';
-  private explanationsForm: ControlGroup;
+  private explanationsForm: FormGroup;
   private borrowerExplanations: Array<string> = [];
   private coborrowerExplanations: Array<string> = [];
   private officerPicture: String;
@@ -99,7 +87,7 @@ export class Apply {
       console.log(sessionStorage.getItem('cachedForm'));
       sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm.value));
       sessionStorage.setItem('cachedForm', JSON.stringify(this.applyForm));
-    });*/
+    });
     this.loanForm = new ControlGroup({
       'loan': new Control('250000', Validators.compose([
         Validators.required, Validators.pattern(currencyRegex)
@@ -876,5 +864,5 @@ export class Apply {
         this.officerPicture = 'assets/img/officers/' + name + '.svg';
       }
     });
-  }
+  }*/
 }

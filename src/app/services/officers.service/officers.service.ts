@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {ControlGroup} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
 
 import {Officers} from './officers';

@@ -2,95 +2,40 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noEmitHelpers": true,
+    "strictNullChecks": false,
+    "baseUrl": "./src",
+    "paths": [
+    ],
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "types": [
+      "hammerjs",
+      "jasmine",
+      "node",
+      "protractor",
+      "selenium-webdriver",
+      "source-map",
+      "uglify-js",
+      "webpack"
+    ]
   },
   "exclude": [
     "node_modules",
-    "typings/main.d.ts",
-    "typings/main"
-  ],
-  "filesGlob": [
-    "./src/**/*.ts",
-    "./test/**/*.ts",
-    "!./node_modules/**/*.ts",
-    "src/custom-typings.d.ts",
-    "typings/browser.d.ts"
+    "dist"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "resolveGlobs": true,
-    "forkChecker": true
+    "forkChecker": true,
+    "useWebpackText": true
   },
   "compileOnSave": false,
   "buildOnSave": false,
-  "atom": {
-    "rewriteTsconfig": false
-  },
-  "files": [
-    "./src/app/about/about.spec.ts",
-    "./src/app/about/about.ts",
-    "./src/app/app.component.ts",
-    "./src/app/app.e2e.ts",
-    "./src/app/app.service.ts",
-    "./src/app/app.spec.ts",
-    "./src/app/apply/apply.spec.ts",
-    "./src/app/apply/apply.ts",
-    "./src/app/apply/officers.ts",
-    "./src/app/apply/states.ts",
-    "./src/app/components/common.ts",
-    "./src/app/components/datepicker/date-formatter.ts",
-    "./src/app/components/datepicker/datepicker-inner.component.ts",
-    "./src/app/components/datepicker/datepicker-popup.component.ts",
-    "./src/app/components/datepicker/datepicker.component.ts",
-    "./src/app/components/datepicker/datepicker.service.ts",
-    "./src/app/components/datepicker/daypicker.component.ts",
-    "./src/app/components/datepicker/monthpicker.component.ts",
-    "./src/app/components/datepicker/yearpicker.component.ts",
-    "./src/app/components/fieldset.component.ts",
-    "./src/app/components/ng2-bootstrap-config.ts",
-    "./src/app/components/position.ts",
-    "./src/app/components/tooltip.ts",
-    "./src/app/components/tooltip/tooltip-container.component.ts",
-    "./src/app/components/tooltip/tooltip-options.class.ts",
-    "./src/app/components/tooltip/tooltip.directive.ts",
-    "./src/app/contact/contact.ts",
-    "./src/app/directives/clickOutside.ts",
-    "./src/app/directives/currency-input.directive.ts",
-    "./src/app/directives/dropdown.ts",
-    "./src/app/directives/dropdown/dropdown-keyboard-nav.ts",
-    "./src/app/directives/dropdown/dropdown-menu.directive.ts",
-    "./src/app/directives/dropdown/dropdown-toggle.directive.ts",
-    "./src/app/directives/dropdown/dropdown.directive.ts",
-    "./src/app/directives/dropdown/dropdown.interfaces.ts",
-    "./src/app/directives/dropdown/dropdown.service.ts",
-    "./src/app/directives/focusedTextarea.ts",
-    "./src/app/directives/input.directive.ts",
-    "./src/app/directives/mask.ts",
-    "./src/app/directives/router-active.ts",
-    "./src/app/footer/footer.component.ts",
-    "./src/app/footer/footer.spec.ts",
-    "./src/app/home/home.e2e.ts",
-    "./src/app/home/home.spec.ts",
-    "./src/app/home/home.ts",
-    "./src/app/index.ts",
-    "./src/app/navbar/navbar.spec.ts",
-    "./src/app/navbar/navbar.ts",
-    "./src/app/ng2-bootstrap-config.ts",
-    "./src/app/pipes/ssnPipe.ts",
-    "./src/app/services/application.service.ts",
-    "./src/app/services/officers.service/officers.service.ts",
-    "./src/app/services/officers.service/officers.ts",
-    "./src/custom-typings.d.ts",
-    "./src/main.browser.ts",
-    "./src/platform/browser/directives.ts",
-    "./src/platform/browser/index.ts",
-    "./src/platform/browser/pipes.ts",
-    "./src/platform/browser/providers.ts",
-    "./src/platform/environment.ts",
-    "./src/polyfills.ts",
-    "./src/vendor.ts",
-    "src/custom-typings.d.ts",
-    "typings/browser.d.ts"
-  ]
+  "atom": { "rewriteTsconfig": false }
 }

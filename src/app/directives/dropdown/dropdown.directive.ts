@@ -2,7 +2,7 @@ import {
   Directive,
   OnInit, OnDestroy, Input, Output, HostBinding,
   EventEmitter, ElementRef, ContentChildren,
-  Query, QueryList
+  QueryList
 } from '@angular/core';
 
 import {dropdownService, NONINPUT} from './dropdown.service';
@@ -34,7 +34,7 @@ export class Dropdown implements OnInit, OnDestroy {
 
   constructor(
     public el: ElementRef,
-    @Query('dropdownMenu', {descendants: false}) dropdownMenuList: QueryList<ElementRef>
+    //@Query('dropdownMenu', {descendants: false}) dropdownMenuList: QueryList<ElementRef>
   ) {
     // todo: bind to route change event
   }

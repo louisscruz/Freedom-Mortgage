@@ -1,6 +1,6 @@
 import {Http, Headers} from '@angular/http';
 import {Injectable} from '@angular/core';
-import {ControlGroup} from '@angular/common';
+import {FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class ApplicationService {
 
   constructor(private http: Http) {}
 
-  postApplication(application: ControlGroup) {
+  postApplication(application: FormGroup) {
     let formattedApplication = this.testMapFormToParams(application);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -89,7 +89,7 @@ export class ApplicationService {
           ],
           'incomes': [
             {
-              
+
             }
           ],
           'declarations_group_attributes': {

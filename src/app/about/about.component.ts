@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
-import {OfficersService} from '../services/officers.service/officers.service';
+import { OfficersService } from '../services/officers.service/officers.service';
 
 @Component({
   selector: 'about',
-  providers: [OfficersService],
+  providers: [ OfficersService ],
   template: require('./about.html'),
   styles: [require('./apply.scss')]
 })
